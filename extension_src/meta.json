@@ -1,6 +1,6 @@
 {
     "package_version": "1.0",
-    "id": "0fcdefcc-814b-4b97-a4f0-1eb084d44980",
+    "id": "ac8d5efb-db29-4122-abce-ee4ecf0dae37",
     "type": "client-app",
     "name": "Add-on containing apps(s)",
     "description": "Apps: [SKE_Simple App Skeleton]",
@@ -11,6 +11,6 @@
     "released_on": "2013-03-08T19:11:11.234Z",
     "register_url": "%serviceURL%/jive/oauth/register",
     "unregister_url": "%serviceURL%/jive/oauth/unregister",
-    "service_url": "http://localhost:8090",
+    "service_url": "https://powerful-dawn-5466.herokuapp.com",
     "redirect_url": "%serviceURL%"
 }

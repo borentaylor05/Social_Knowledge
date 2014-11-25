@@ -81,11 +81,10 @@
   -->
 
   <!-- To begin development, remove the hello view and uncomment the home and canvas views below -->
-  <Content type="html" view="home,canvas" href="hello.html" preferred_height="400" />
 
-  <!--
+
   <Content type="html" view="home" href="home.html" preferred_height="400" />
   <Content type="html" view="canvas" href="canvas.html" />
-  -->
+
 
 </Module>
