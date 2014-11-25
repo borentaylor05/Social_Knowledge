@@ -9,7 +9,6 @@
     <!-- Commonly used features -->
     <Require feature="dynamic-height" />
     <Require feature="jive-core-v2" />
-    <Require feature="jquery-1.6" />
     <Require feature="osapi"/>
     <Require feature="settitle"/>
     <Require feature="views" />
@@ -18,12 +17,7 @@
 	<Require feature="actions">  
 		<Param name="action-contributions">  
 			<![CDATA[ 
-				<action id="com.jivesoftware.profile.rtc" 
-						path="jive/actions/profile" 
-						label="Example Profile Pop-Up" 
-						url="https://developer.jivesoftware.com" 
-						icon="images/icon16.png"
-						windowSpec="left=40,top=40,width=500,height=500,toolbar=1,resizable=0"/> 
+				
 			]]>  
 		</Param>  
 	</Require>  
@@ -83,8 +77,8 @@
   <!-- To begin development, remove the hello view and uncomment the home and canvas views below -->
 
 
-  <Content type="html" view="home" href="home.html" preferred_height="400" />
   <Content type="html" view="canvas" href="canvas.html" />
+  <Content type="html" view="ff-home" href="fairfax/home.html" />
 
 
 </Module>

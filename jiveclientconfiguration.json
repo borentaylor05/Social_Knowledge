@@ -1,4 +1,5 @@
 {
-    "clientUrl": "https://powerful-dawn-5466.herokuapp.com",
+    "clientUrl": "http://localhost",
+    "port": "8090",
     "development" : true
 }
