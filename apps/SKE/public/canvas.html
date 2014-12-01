@@ -10,6 +10,17 @@
 
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(function() {
-		gadgets.views.requestNavigateTo('ff-home', {alert: "WooHoo!"});
+		osapi.people.getViewer().execute(function(viewerData){
+			osapi.jive.corev3.people.get({  
+			    id: viewerData.id.toString()
+			}).execute(function(currentUser){
+				currentUser.getExtProps().execute(function(resp){
+					if(resp.content.client === "all"){
+						gadgets.views.requestNavigateTo('ff-home', {alert: "WooHoo!"});
+					}
+				});
+			});
+		});
+		
 	});
 </script>
