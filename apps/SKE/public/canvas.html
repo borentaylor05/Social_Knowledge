@@ -11,13 +11,14 @@
 
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(function() {
+		users.getAll(0);
 		osapi.people.getViewer().execute(function(viewerData){
 			osapi.jive.corev3.people.get({  
 			    id: viewerData.id.toString()
 			}).execute(function(currentUser){
 				currentUser.getExtProps().execute(function(resp){
 					if(resp.content.client === "all"){
-						users.getAll(0);
+
 					//	gadgets.views.requestNavigateTo('manager-home', {alert: "WooHoo!"});
 					}
 				});
