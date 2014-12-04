@@ -6,7 +6,7 @@ var users = {
 	        "href": "/people?count=100&startIndex="+i.toString(),
 	        "v": "v3"
 	    }).execute(function(response){
-	    	console.log(response);
+	    	console.log(typeof response);
 	        if(!response.error && response.content.list.length > 0){
 	        	users.getAll(i + 100);
 	        	console.log(response);  
