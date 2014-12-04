@@ -6,10 +6,15 @@ var users = {
 	        "href": "/people?count=25&startIndex="+i.toString(),
 	        "v": "v3"
 	    }).execute(function(response){
-	    	console.log(response);
-	        if(response.content.list.length > 0 || response.list.length){
-	        	users.getAll(i + 25);
+	    	if(response.content.list !== 'undefined')
+	    		var list = response.content.list;
+	    	else if(response.list !== 'undefined')
+	    		var list = response.list;
+	    	else
+	    		users.getAll(-1);
+	        if(list.length > 0){
 	        	console.log(response);  
+	        	users.getAll(i + 25);
 	        }
 	        else{
 	        	users.getAll(-1);
