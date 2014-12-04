@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module specificationVersion="1">
-  <ModulePrefs title="SKE_simpleapp"
-               description="Description of SKE_simpleapp"
-               author="Aron Racho"
-               author_affiliation="Jive"
-               author_email="aron.racho@jivesoftware.com">
+  <ModulePrefs title="SKE"
+               description="Apps for the Social Knowledge Engine"
+               author="Taylor Boren"
+               author_affiliation="TeleTech"
+               author_email="taylorboren@teletech.com">
 
     <!-- Commonly used features -->
     <Require feature="dynamic-height" />
@@ -78,6 +78,9 @@
 
 
   <Content type="html" view="canvas" href="canvas.html" />
+  <!--  MANAGER PAGES  -->
+  <Content type="html" view="manager-home" href="managers/home.html" />
+  <!--  FAIRFAX PAGES  -->
   <Content type="html" view="ff-home" href="fairfax/home.html" />
 
 

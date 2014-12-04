@@ -1,47 +1,63 @@
 <!--<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css" media="screen" /> -->
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/managers/main.css" type="text/css" media="screen" />
 
-<div id="managerHome" class="container">
-	<div class="row">
+<div id="managerHome" class="container text-center">
+	<div class="row row-centered">
 		<h1>Choose a Space</h1>
-		<div class="col-md-3 client">
-			<h2>American Red Cross</h2>
-			<i class="fa-github fa-5x"></i>
+		<div class="col-xs-2 client text-center col-centered">
+			<a href="#">
+			<h2>ARC</h2>
+			<i class="fa fa-github fa-5x"></i>
+			</a>
 		</div>
-		<div class="col-md-3 client">
+		<div class="col-xs-2 client text-center col-centered">
+			<a href="#">
 			<h2>CDC</h2>
-			<i class="fa-github fa-5x"></i>
+			<i class="fa fa-github fa-5x"></i>
+			</a>
 		</div>
-		<div class="col-md-3 client">
+		<div class="col-xs-2 client text-center col-centered">
+			<a href="#">
 			<h2>Fairfax</h2>
-			<i class="fa-github fa-5x"></i>
+			<i class="fa fa-github fa-5x"></i>
+			</a>
 		</div>
-		<div class="col-md-3 client">
+		<div class="col-xs-2 client text-center col-centered">
+			<a href="#">
 			<h2>HRSA</h2>
-			<i class="fa-github fa-5x"></i>
+			<i class="fa fa-github fa-5x"></i>
+			</a>
 		</div>
 	</div>
-	<div class="row">	
-		<div class="col-md-3 client">
+	<div class="row row-centered">	
+		<div class="col-xs-2 client text-center col-centered">
+			<a href="#">
 			<h2>Hyundai</h2>
-			<i class="fa-github fa-5x"></i>
+			<i class="fa fa-github fa-5x"></i>
+			</a>
 		</div>
-		<div class="col-md-3 client">
+		<div class="col-xs-2 client text-center col-centered">
+			<a href="#">
 			<h2>Spark</h2>
-			<i class="fa-github fa-5x"></i>
+			<i class="fa fa-github fa-5x"></i>
+			</a>
 		</div>
-		<div class="col-md-3 client">
-			<h2>Weight Watchers</h2>
-			<i class="fa-github fa-5x"></i>
+		<div class="col-xs-2 client text-center col-centered">
+			<a href="#">
+			<h2>WW</h2>
+			<i class="fa fa-github fa-5x"></i>
+			</a>
 		</div>
 	</div>
 </div>
 
 
-
+<script type="text/javascript" src="javascripts/users.js"></script>
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(function() {
-		
+		gadgets.window.adjustHeight();
+		users.getAll(0);
 	});
 </script>
