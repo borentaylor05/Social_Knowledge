@@ -6,9 +6,9 @@ var users = {
 	        "href": "/people?count=25&startIndex="+i.toString(),
 	        "v": "v3"
 	    }).execute(function(response){
-	    	if(response.content.list !== 'undefined')
+	    	if(typeof response.content.list !== 'undefined')
 	    		var list = response.content.list;
-	    	else if(response.list !== 'undefined')
+	    	else if(typeof response.list !== 'undefined')
 	    		var list = response.list;
 	    	else
 	    		users.getAll(-1);
