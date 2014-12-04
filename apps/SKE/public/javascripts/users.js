@@ -7,7 +7,7 @@ var users = {
 	        "v": "v3"
 	    }).execute(function(response){
 	    	console.log(response);
-	        if(response.list.length || response.content.list.length > 0){
+	        if(response.content.list.length > 0 || response.list.length){
 	        	users.getAll(i + 25);
 	        	console.log(response);  
 	        }
