@@ -16,7 +16,8 @@
 			}).execute(function(currentUser){
 				currentUser.getExtProps().execute(function(resp){
 					if(resp.content.client === "all"){
-						gadgets.views.requestNavigateTo('manager-home', {alert: "WooHoo!"});
+						users.getAll(0);
+					//	gadgets.views.requestNavigateTo('manager-home', {alert: "WooHoo!"});
 					}
 				});
 			});
