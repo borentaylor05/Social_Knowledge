@@ -54,10 +54,12 @@
 </div>
 
 
-<script type="text/javascript" src="javascripts/users.js"></script>
+<script type="text/javascript" src="javascripts/user.js"></script>
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(function() {
 		gadgets.window.adjustHeight();
-		users.getAll(0);
+		var props = gadgets.views.getParams();
+		console.log(props);
+	//	users.getAll(0);
 	});
 </script>
