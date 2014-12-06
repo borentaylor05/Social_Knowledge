@@ -20,7 +20,7 @@ var navigation = {
 		});
 	},
 	loadNavigation: function(user){
-		$(".navList").prepend(this.navListItem("Home", this.home()));
+		$(".navList").append(this.navListItem("Home", this.home()));
 		if(user.extendedProperties.siteManager){
 			$(".navList").append(this.navListItem("Create Post", "new-post"));
 			$(".navList").append(this.navListItem("Manage Docs", "manage-docs"));
@@ -38,7 +38,13 @@ var navigation = {
 		}
 	},
 	navListItem: function(text, view, c, id){
+		console.log(this.currentView());
+		if(view == this.currentView())
+			c = "active";
 		return "<li><a data-view='"+view+"' href='#' class='"+c+"' id='"+id+"'>"+text+"</li>";
+	},
+	currentView: function(){
+		return this.history[this.history.length-1];
 	},
 	home: function(){
 		if(this.user.extendedProperties.siteManager){

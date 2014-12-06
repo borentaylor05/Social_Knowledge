@@ -1,24 +1,69 @@
 <!--<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css" media="screen" /> -->
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/simple-sidebar.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="stylesheets/managers/main.css" type="text/css" media="screen" />
 
 
 <div class="container clearfix navContainer">
-	<div class="navbar-header pull-left ">
-	  <a class="navbar-brand" href="#">Bootstrap theme</a>
+	<div class="navbar-header ">
+	  <a class="navbar-brand" href="#">SKE Management</a>
 	</div>
-	<ul class="navList">
-		
-	</ul>   
 </div>
-<ul class="breadcrumb">
-</ul> 
 
-<div id="manageDocs" class="container main text-center">
-	<h1>Users</h1>
+<div class="container main" id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    Actions
+                </a>
+            </li>
+            <ul class="navList">
+			</ul>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+	<div id="page-content-wrapper" class="container main text-center">
+		<ul class="breadcrumb text-left">
+		</ul> 
+		<div class="row view-header">
+			<div class="col-xs-2">
+				<h3>All Users</h3>
+			</div>
+			<div class="col-xs-2">
+				<div id="select-menu" class="btn-group btn-input clearfix">
+				  	<button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+				    <span data-bind="label">Filter By Client</span> <span class="caret"></span>
+				  	</button>
+				  	<ul class="dropdown-menu text-left" role="menu">
+				    	<li><a class="primary" data-client="all" href="#">All (managers)</a></li>
+				    	<li><a class="primary" data-client="arc" href="#">ARC</a></li>
+				    	<li><a class="primary" data-client="cdc" href="#">CDC</a></li>
+				    	<li><a class="primary" data-client="fairfax" href="#">Fairfax</a></li>
+				    	<li><a class="primary" data-client="hrsa" href="#">HRSA</a></li>
+				    	<li><a class="primary" data-client="hyundai" href="#">Hyundai</a></li>
+				    	<li><a class="primary" data-client="spark" href="#">Spark</a></li>
+				    	<li><a class="primary" data-client="ww" href="#">WW</a></li>
+				  	</ul>
+				  </div>
+			</div>
+			<div class="col-xs-3">
+				<button id="peopleSearch" class="btn btn-success btn-sm">Search for People</button>
+			</div>
+		</div>
+		
+	</div>
+	    <!-- /#page-content-wrapper -->
 </div>
+
+
+
+
 
 <script type="text/javascript" src="javascripts/jquery.min.js"></script>
 <script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
@@ -29,6 +74,13 @@
 		gadgets.window.adjustHeight();
 		navigation.init(gadgets.views.getParams(), function(){
 			navigation.makeLinks();
+			user = gadgets.views.getParams().my;
+			console.log(user);
+			$("#peopleSearch").on("click touch", function(e){
+				e.preventDefault();
+				user.launchSearch();
+			});
+			user.listActive();
 		});
 	//	users.getAll(0);
 	});

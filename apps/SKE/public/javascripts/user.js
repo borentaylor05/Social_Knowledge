@@ -72,5 +72,21 @@ var user = {
 	            callback(resp.content);
 	        });
 		});
+	},
+	launchSearch: function(){
+		osapi.jive.corev3.search.requestPicker({   
+	         success: function(data) { console.log('success: '+JSON.parse(data)); },  
+	         error: function(data) { console.log('error: '+JSON.parse(data)); },  
+	         multiple: true  
+		}); 
+	},
+	listActive: function(){
+		osapi.jive.corev3.search.byExtProp({   
+	         "key": "active"  
+		}).execute(function(users){
+			console.log(users);
+		});
 	}
 }
+
+

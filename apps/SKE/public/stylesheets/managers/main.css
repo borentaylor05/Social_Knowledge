@@ -1,0 +1,8 @@
+div.client{
+	margin-left: 30px;
+	margin-right: 30px;
+}
+
+div.view-header > div > h3{
+	margin-top: 3px;
+}

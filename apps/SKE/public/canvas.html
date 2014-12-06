@@ -13,6 +13,7 @@
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(function() {
 		osapi.people.getViewer().execute(function(viewerData){
+				user.setExtendedProperties(viewerData.id, {active: true});
 			user.initCurrentUser(viewerData.id, function(extProps){
 				var my = {
 					id: viewerData.id,

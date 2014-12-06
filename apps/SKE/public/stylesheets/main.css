@@ -1,5 +1,9 @@
+div.container{
+	font-family: Myriad Pro, sans-serif;
+}
 div.container.main{
 	margin-bottom: 30px;
+	min-height: 700px;
 }
 
 /* centered columns styles */
@@ -19,15 +23,23 @@ div.container.main{
 	margin-left: auto;
 }
 
-.navList{
+ul.navList{
+	text-decoration: none;
+	
+}
+ul.navList > li{
 	text-decoration: none;
 }
-ul.navList > li {
-	float: left;
-	padding-left: 20px;
-	padding-top: 15px;
+li > a.active{
+	background-color: white;
+	color: black;
+}
+div.navContainer{
+	background-color: #eee;
+	margin-left: -15px;
+	margin-right: -15px;
 }
 
-.navContainer{
-	background-color: #eee;
+div.container > .navbar-header{
+	margin-left: 0px;
 }
