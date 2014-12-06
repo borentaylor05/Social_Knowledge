@@ -20,7 +20,9 @@
 					name: viewerData.displayName,
 					extendedProperties: user.extendedProperties
 				}
-				gadgets.views.requestNavigateTo('manager-home', {my: my});
+				if(my.extendedProperties.client == 'all')
+					var view = 'manager-home';
+				gadgets.views.requestNavigateTo(view, {my: my, history: [view]});
 			});
 		});
 	});

@@ -80,6 +80,9 @@
   <Content type="html" view="canvas" href="canvas.html" />
   <!--  MANAGER PAGES  -->
   <Content type="html" view="manager-home" href="managers/home.html" />
+  <Content type="html" view="manage-docs" href="managers/manage-docs.html" />
+  <Content type="html" view="manage-users" href="managers/manage-users.html" />
+  <Content type="html" view="new-post" href="managers/new-post.html" />
   <!--  FAIRFAX PAGES  -->
   <Content type="html" view="ff-home" href="fairfax/home.html" />
 
