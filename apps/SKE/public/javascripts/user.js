@@ -79,7 +79,7 @@ var user = {
          success : function(data) {
              console.log(data);
          }
-     };
+     });
 	},
 	listActive: function(){
 		osapi.jive.corev3.search.byExtProp({   
