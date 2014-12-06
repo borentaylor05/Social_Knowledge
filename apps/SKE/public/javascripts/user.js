@@ -74,11 +74,12 @@ var user = {
 		});
 	},
 	launchSearch: function(){
-		osapi.jive.corev3.search.requestPicker({   
-	         success: function(data) { console.log('success: '+JSON.parse(data)); },  
-	         error: function(data) { console.log('error: '+JSON.parse(data)); },  
-	         multiple: true  
-		}); 
+		osapi.jive.corev3.search.requestPicker({
+         excludePlaces : true,
+         success : function(data) {
+             console.log(data);
+         }
+     };
 	},
 	listActive: function(){
 		osapi.jive.corev3.search.byExtProp({   
