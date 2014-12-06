@@ -74,12 +74,13 @@ var user = {
 		});
 	},
 	launchSearch: function(){
-		osapi.jive.corev3.search.requestPicker({
-         excludePlaces : true,
-         success : function(data) {
-             console.log(data);
-         }
-     });
+		osapi.jive.corev3.search.requestPicker({  
+         excludeContent : true,  
+         excludePlaces : false,  
+         excludePeople : false,  
+         success: function(data) { console.log('success: '+JSON.stringify(data)); },  
+         error: function(data) { console.log('error: '+JSON.stringify(data)); }  
+   });
 	},
 	listActive: function(){
 		osapi.jive.corev3.search.byExtProp({   
