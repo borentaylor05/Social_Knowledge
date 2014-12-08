@@ -118,7 +118,7 @@ var user = {
 					'<div class="col-xs-1"><span>'+person.id+'</span></div>'+
 					'<div class="col-xs-2"><span>'+person.jive.username+'</span></div>'+
 					'<div class="col-xs-2"><span>'+person.displayName+'</span></div>'+
-					'<div class="col-xs-2"><span>'+person.emails[0].value+'</span></div>'+
+					'<div class="col-xs-3"><span>'+person.emails[0].value+'</span></div>'+
 					'<div class="col-xs-2"><button data-id="'+person.id+'" class="btn btn-primary btn-sm">Profile</button></div>'+
 					'<div class="col-xs-2"><button data-id="'+person.id+'" class="btn btn-default btn-sm">Edit</button></div>'+
 				  '</div>';
