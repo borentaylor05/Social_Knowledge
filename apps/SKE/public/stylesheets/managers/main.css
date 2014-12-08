@@ -21,6 +21,7 @@ div.personRow{
 div.personRow > div > button{
 	min-width: 100px;
 	margin-top: -5px;
+	margin-left: 15px;
 }
 
 form#searchForm > input{
@@ -33,5 +34,5 @@ form#searchForm > input.btn{
 }
 
 input#peopleSearch{
-	max-width: 370px;
+	max-width: 280px;
 }
