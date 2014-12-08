@@ -73,22 +73,58 @@ var user = {
 	        });
 		});
 	},
-	launchSearch: function(){
-		osapi.jive.corev3.search.requestPicker({  
-         excludeContent : true,  
-         excludePlaces : false,  
-         excludePeople : false,  
-         success: function(data) { console.log('success: '+JSON.stringify(data)); },  
-         error: function(data) { console.log('error: '+JSON.stringify(data)); }  
-   });
+	search: function(name){
+		$(".personRow, .personError").remove();
+		osapi.jive.core.get({
+	        "href": "/search/people?filter=search("+name+")",
+	        "v": "v3"
+	    }).execute(function(data){
+	    	if(data.content.list.length > 0)
+	    		user.makeList(data.content.list);
+	    	else{
+	    		$("#peopleList").append("<div style='margin-top:20px;' class='text-center personError'><strong>The search did not match any user...</strong></div>");
+	    	}
+	    });
 	},
-	listActive: function(){
-		osapi.jive.corev3.search.byExtProp({   
-	         "key": "active"  
-		}).execute(function(users){
-			console.log(users);
-		});
+	makeList: function(people){
+    	for(var i = 0 ; i < people.length ; i++){
+    		$("#peopleList").append(user.row(people[i]));
+    	}
+	},
+	listAll: function(startIndex){
+		osapi.jive.core.get({
+	        "href": "/people?count=30&startIndex="+startIndex.toString(),
+	        "v": "v3"
+	    }).execute(function(data){
+	    	var people = data.content.list;
+	    	user.makeList(people);
+	    });
+	},
+	listByClient: function(client){
+		$(".personRow, .personError").remove();
+		osapi.jive.core.get({
+	        "href": "/extprops/client/"+client,
+	        "v": "v3"
+	    }).execute(function(data){
+	    	if(data.content.list.length > 0)
+	    		user.makeList(data.content.list);
+	    	else{
+	    		$("#peopleList").append("<div style='margin-top:20px;' class='text-center personError'><strong>There are no people for that client...</strong></div>");
+	    	}
+	    });
+	},
+	row: function(person){
+		var row = '<div class="row personRow text-center">'+
+					'<div class="col-xs-1"><span>'+person.id+'</span></div>'+
+					'<div class="col-xs-2"><span>'+person.jive.username+'</span></div>'+
+					'<div class="col-xs-2"><span>'+person.displayName+'</span></div>'+
+					'<div class="col-xs-2"><span>'+person.emails[0].value+'</span></div>'+
+					'<div class="col-xs-2"><button data-id="'+person.id+'" class="btn btn-primary btn-sm">Profile</button></div>'+
+					'<div class="col-xs-2"><button data-id="'+person.id+'" class="btn btn-default btn-sm">Edit</button></div>'+
+				  '</div>';
+		return row;
 	}
 }
+
 
 

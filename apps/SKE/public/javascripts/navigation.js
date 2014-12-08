@@ -9,7 +9,7 @@ var navigation = {
 		callback();
 	},
 	makeLinks: function(){
-		$("a").each(function(){
+		$(".link").each(function(){
 			$(this).on("click touch", function(e){
 				e.preventDefault();
 				var view = $(this).attr("data-view");
@@ -40,7 +40,9 @@ var navigation = {
 	navListItem: function(text, view, c, id){
 		console.log(this.currentView());
 		if(view == this.currentView())
-			c = "active";
+			c = "link active "+c;
+		else
+			c = "link "+c;
 		return "<li><a data-view='"+view+"' href='#' class='"+c+"' id='"+id+"'>"+text+"</li>";
 	},
 	currentView: function(){

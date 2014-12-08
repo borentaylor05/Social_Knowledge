@@ -37,26 +37,37 @@
 			</div>
 			<div class="col-xs-2">
 				<div id="select-menu" class="btn-group btn-input clearfix">
-				  	<button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+				  	<button id="clients" type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
 				    <span data-bind="label">Filter By Client</span> <span class="caret"></span>
 				  	</button>
 				  	<ul class="dropdown-menu text-left" role="menu">
-				    	<li><a class="primary" data-client="all" href="#">All (managers)</a></li>
-				    	<li><a class="primary" data-client="arc" href="#">ARC</a></li>
-				    	<li><a class="primary" data-client="cdc" href="#">CDC</a></li>
-				    	<li><a class="primary" data-client="fairfax" href="#">Fairfax</a></li>
-				    	<li><a class="primary" data-client="hrsa" href="#">HRSA</a></li>
-				    	<li><a class="primary" data-client="hyundai" href="#">Hyundai</a></li>
-				    	<li><a class="primary" data-client="spark" href="#">Spark</a></li>
-				    	<li><a class="primary" data-client="ww" href="#">WW</a></li>
+				    	<li><a class="client" data-client="all" href="#">Site Managers</a></li>
+				    	<li><a class="client" data-client="arc" href="#">ARC</a></li>
+				    	<li><a class="client" data-client="cdc" href="#">CDC</a></li>
+				    	<li><a class="client" data-client="fairfax" href="#">Fairfax</a></li>
+				    	<li><a class="client" data-client="hrsa" href="#">HRSA</a></li>
+				    	<li><a class="client" data-client="hyundai" href="#">Hyundai</a></li>
+				    	<li><a class="client" data-client="spark" href="#">Spark</a></li>
+				    	<li><a class="client" data-client="ww" href="#">WW</a></li>
 				  	</ul>
 				  </div>
 			</div>
-			<div class="col-xs-3">
-				<button id="peopleSearch" class="btn btn-success btn-sm">Search for People</button>
+			<div class="col-xs-6">
+				<form id="searchForm">
+					<input class="form-control " id="peopleSearch" type="text" placeholder="Search for user">
+					<input type="submit" class="btn btn-sm btn-success" value="Search">
+				</form>
 			</div>
 		</div>
-		
+		<div id="peopleList" class="container listContainer">
+			<div class="row headerRow">
+				<div class="col-xs-1"><strong>Jive ID</strong></div>
+				<div class="col-xs-2"><strong>Oracle ID</strong></div>
+				<div class="col-xs-2"><strong>Name</strong></div>
+				<div class="col-xs-2"><strong>Email</strong></div>
+			</div>
+			<!-- Dynamically populated -->
+		</div>	
 	</div>
 	    <!-- /#page-content-wrapper -->
 </div>
@@ -74,19 +85,20 @@
 		gadgets.window.adjustHeight();
 		navigation.init(gadgets.views.getParams(), function(){
 			navigation.makeLinks();
-			user = gadgets.views.getParams().my;
-			console.log(user);
-			$("#peopleSearch").on("click touch", function(e){
-				e.preventDefault();
-				user.launchSearch();
+			user.listAll(0);
+			
+			$(".client").each(function(){
+				$(this).on("click touch", function(e){
+					e.preventDefault();
+					$("#clients").children().first().text($(this).text());
+					user.listByClient($(this).attr("data-client"));
+				});	
 			});
-			osapi.jive.core.get({
-		        "href": "/get/active/true",
-		        "v": "v3"
-		    }).execute(function(data){
-		    	console.log("NEXT");
-		    	console.log(data);
-		    });
+			$("#searchForm").submit(function(e){
+				console.log("adasdas");
+				e.preventDefault();
+				user.search($("#peopleSearch").val());
+			});
 		});
 	//	users.getAll(0);
 	});

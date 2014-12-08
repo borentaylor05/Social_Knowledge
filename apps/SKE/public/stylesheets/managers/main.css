@@ -6,3 +6,32 @@ div.client{
 div.view-header > div > h3{
 	margin-top: 3px;
 }
+
+div.headerRow{
+	border-bottom: 2px solid #CCC
+}
+
+div.personRow{
+	padding: 10px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #CCC;
+	font-size: 1.2em;
+}
+
+div.personRow > div > button{
+	min-width: 100px;
+	margin-top: -5px;
+}
+
+form#searchForm > input{
+	display: inline;
+}
+
+form#searchForm > input.btn{
+	margin-top: 2px;
+	margin-left: 5px;
+}
+
+input#peopleSearch{
+	max-width: 370px;
+}

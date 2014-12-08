@@ -18,6 +18,10 @@ div.container.main{
     /* inline-block space fix */
 }
 
+.listContainer{
+	margin-top: 20px;
+}
+
 #managerHome{
 	margin-right: auto;
 	margin-left: auto;
