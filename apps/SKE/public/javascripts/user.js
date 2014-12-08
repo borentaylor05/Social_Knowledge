@@ -90,6 +90,7 @@ var user = {
     	for(var i = 0 ; i < people.length ; i++){
     		$("#peopleList").append(user.row(people[i]));
     	}
+    	gadgets.window.adjustHeight();
 	},
 	listAll: function(startIndex){
 		osapi.jive.core.get({
