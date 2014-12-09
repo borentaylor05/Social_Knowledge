@@ -15,7 +15,7 @@ div.personRow{
 	padding: 10px;
 	padding-bottom: 5px;
 	border-bottom: 1px solid #CCC;
-	font-size: 1.2em;
+	font-size: 1em;
 }
 
 div.personRow > div > button{
@@ -35,4 +35,12 @@ form#searchForm > input.btn{
 
 input#peopleSearch{
 	max-width: 280px;
+}
+
+#extPropsForm > div > div > div > input{
+	margin-top: 6px;
+}
+
+button#addEP{
+	margin-top: 8px;
 }

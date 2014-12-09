@@ -34,7 +34,7 @@ var navigation = {
 		// insert breadcrumbs
 		for(var i = 0 ; i < this.history.length ; i++){
 			var crumb = this.history[i];
-			$(".breadcrumb").append("<li><a href='#' data-view='"+crumb+"'>"+crumb+"</a></li>");
+			$(".breadcrumb").append("<li><a class='link' href='#' data-view='"+crumb+"'>"+crumb+"</a></li>");
 		}
 	},
 	navListItem: function(text, view, c, id){
@@ -49,7 +49,7 @@ var navigation = {
 		return this.history[this.history.length-1];
 	},
 	home: function(){
-		if(this.user.extendedProperties.siteManager){
+		if(this.user.extendedProperties.siteManager && this.user.extendedProperties.client == "all"){
 			return "manager-home";
 		}
 	},

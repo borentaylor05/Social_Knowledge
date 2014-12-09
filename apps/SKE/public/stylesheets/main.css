@@ -47,3 +47,35 @@ div.navContainer{
 div.container > .navbar-header{
 	margin-left: 0px;
 }
+
+.hide{
+	display: none;
+}
+
+.modal{
+	width: 100% !important;
+}
+
+.modal-content{
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 30px;
+	text-align: center;
+}
+
+.modal-body{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.tiny{
+	font-size: .6em;
+	font-weight: 100;
+}
+
+.btn-warning{
+	background-color: #fcf8e3;
+	color: #8a6d3b;
+	border-color: #faebcc;
+}

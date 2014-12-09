@@ -1,0 +1,25 @@
+div.docRow{
+	padding: 10px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #CCC;
+	font-size: 1em;
+}
+
+div.docRow > div > button{
+	min-width: 100px;
+	margin-top: -5px;
+	margin-left: 15px;
+}
+
+form#searchForm > input{
+	display: inline;
+}
+
+form#searchForm > input.btn{
+	margin-top: 2px;
+	margin-left: 5px;
+}
+
+input#docSearch{
+	max-width: 280px;
+}
