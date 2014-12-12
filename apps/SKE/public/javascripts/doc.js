@@ -157,7 +157,6 @@ var doc = {
 	        "href": "/search/contents?filter=search("+content+")",
 	        "v": "v3"
 	    }).execute(function(data){
-	    	console.log(data);
 	    	data = util.responseCheck(data);
 	    	if(data.list.length > 0)
 	    		doc.makeList(data.list, function(){});
@@ -252,6 +251,7 @@ var doc = {
 		});	
 	},
 	getExtendedProperties: function(id, callback){
+		console.log("ID: ", id);
 		osapi.jive.core.get({
 	        "href": "/contents/"+id.toString()+"/extprops",
 	        "v": "v3"
@@ -319,6 +319,7 @@ var doc = {
 	rails: {
 		create: function(api_id, featured){
 			doc.get(api_id, function(docData){
+
 				var to_rails = {
 					featured: featured,
 					api_id: docData.api_id,
