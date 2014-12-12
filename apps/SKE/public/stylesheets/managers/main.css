@@ -62,4 +62,6 @@ div.overlay > button{
 }
 
 div.main{
+	height: 100%;
+	overflow: scroll;
 }
