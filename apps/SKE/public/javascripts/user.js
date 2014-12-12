@@ -108,7 +108,7 @@ var user = {
 		    id: jive_user_id.toString(),  
 		}).execute(function (currentUser) {  
 	        currentUser.getExtProps().execute(function (resp) {  
-	            user.extendedProperties = resp.content;  
+	            user.extendedProperties = resp.content; 
 	            callback(resp.content);
 	        });
 		});
@@ -160,8 +160,10 @@ var user = {
 		        "v": "v3"
 		    }).execute(function(data){
 		    	data = user.responseCheck(data);
-		    	if(data.list.length > 0)
-		    		user.makeList(data.list, function(){});
+		    	if(data.list.length > 0){
+		    		var people = util.getRelevant(data.list, "person");
+		    		user.makeList(people, function(){});
+		    	}
 		    	else{
 		    		$("#peopleList").append("<div style='margin-top:20px;' class='text-center personError'><strong>There are no people for that client...</strong></div>");
 		    	}

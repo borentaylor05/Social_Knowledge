@@ -1,0 +1,53 @@
+<!--<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css" media="screen" /> -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/simple-sidebar.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/managers/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/managers/docs.css" type="text/css" media="screen" />
+
+<div class="container clearfix navContainer">
+	<div class="navbar-header ">
+	  <a class="navbar-brand" href="#">SKE Management</a>
+	</div>
+</div>
+
+<div class="container main" id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    Actions
+                </a>
+            </li>
+            <ul class="navList">
+			</ul>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+	<div id="page-content-wrapper" class="container main text-center">
+		<h1>For Testing</h1>
+	</div>
+	    <!-- /#page-content-wrapper -->
+
+
+
+
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="javascripts/gadget-helper.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/doc.js"></script>
+<script type="text/javascript" src="javascripts/navigation.js"></script>
+<script type="text/javascript">
+	gadgets.util.registerOnLoadHandler(function() {
+		gadgets.window.adjustHeight();
+		navigation.init(gadgets.views.getParams(), function(){
+			navigation.makeLinks();
+			
+		});
+	});
+</script>

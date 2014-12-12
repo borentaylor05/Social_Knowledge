@@ -67,8 +67,18 @@
 				<div class="col-xs-1"><strong>API</strong></div>
 				<div class="col-xs-1"><strong>Views</strong></div>
 			</div>
-			<!-- Dynamically populated -->
-		</div>	
+			<div id="docRows">
+				<!-- Dynamically populated -->
+			</div>
+		</div>
+		<div class="overlay hide">
+			<button id="favorite" class="btn btn-md btn-info"><i class="fa fa-plus"></i>&nbsp Add to Favorites</button>
+			<div class="navigation">
+				
+			</div>
+			<div class="doc-container"></div>
+		</div>
+	</div>	
 	</div>
 	    <!-- /#page-content-wrapper -->
 </div>
@@ -97,6 +107,7 @@
 
 <script type="text/javascript" src="javascripts/jquery.min.js"></script>
 <script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="javascripts/gadget-helper.js"></script>
 <script type="text/javascript" src="javascripts/util.js"></script>
 <script type="text/javascript" src="javascripts/doc.js"></script>
 <script type="text/javascript" src="javascripts/navigation.js"></script>
@@ -104,11 +115,15 @@
 	gadgets.util.registerOnLoadHandler(function() {
 		gadgets.window.adjustHeight();
 		navigation.init(gadgets.views.getParams(), function(){
+			util.rails_env.setCurrent(util.rails_env.local);
 			navigation.makeLinks();
 			doc.list(0);
-			$("#saveEdit").on("click touch", function(e){
-				e.preventDefault();
-				doc.saveExtendedProperties($(this).attr("data-id"),".ep");
+			$(".client").each(function(){
+				$(this).on("click touch", function(e){
+					e.preventDefault();
+					$("#clients").children().first().text($(this).text());
+					doc.listByExtProp("client",$(this).attr("data-client"));
+				});	
 			});
 			$("#searchForm").submit(function(e){
 				e.preventDefault();

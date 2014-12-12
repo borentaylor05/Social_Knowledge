@@ -44,3 +44,19 @@ input#peopleSearch{
 button#addEP{
 	margin-top: 8px;
 }
+
+div.overlay {
+    position: absolute;
+    background-color: white !important;
+    padding: 20px;
+    top:0;
+    left:250;
+    right:0;
+    bottom:0;
+    z-index: 9999;
+    height: 100%;
+}
+
+div.overlay > button{
+	margin: 10px;
+}

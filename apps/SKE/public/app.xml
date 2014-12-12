@@ -83,6 +83,7 @@
   <Content type="html" view="manage-docs" href="managers/manage-docs.html" />
   <Content type="html" view="manage-users" href="managers/manage-users.html" />
   <Content type="html" view="new-post" href="managers/new-post.html" />
+  <Content type="html" view="test" href="managers/test.html" />
   <!--  FAIRFAX PAGES  -->
   <Content type="html" view="ff-home" href="fairfax/home.html" />
 

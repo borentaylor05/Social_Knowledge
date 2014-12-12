@@ -25,6 +25,7 @@ var navigation = {
 			$(".navList").append(this.navListItem("Create Post", "new-post"));
 			$(".navList").append(this.navListItem("Manage Docs", "manage-docs"));
 			$(".navList").append(this.navListItem("Manage Users", "manage-users"));
+			$(".navList").append(this.navListItem("Test", "test"));
 		}
 		switch(user.extendedProperties.client){
 			case "all":
@@ -38,7 +39,6 @@ var navigation = {
 		}
 	},
 	navListItem: function(text, view, c, id){
-		console.log(this.currentView());
 		if(view == this.currentView())
 			c = "link active "+c;
 		else
@@ -57,9 +57,9 @@ var navigation = {
 		if($.inArray(view, this.history) < 0)
 			this.history.push(view);
 		else{
-			console.log(this.history.splice(this.history.indexOf(view) + 1));
+			this.history.splice(this.history.indexOf(view) + 1);
 		}
-		console.log(this.history);
+	//	console.log(this.history);
 		gadgets.views.requestNavigateTo(view, {my: this.user, history: this.history});
 	}
 }

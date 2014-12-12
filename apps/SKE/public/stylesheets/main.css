@@ -79,3 +79,22 @@ div.container > .navbar-header{
 	color: #8a6d3b;
 	border-color: #faebcc;
 }
+
+.alert{
+	padding: 5px;
+}
+
+div.doc-container{
+	padding: 20px;
+	text-align: left;
+	overflow-y: scroll; 
+}
+
+div.overlay{
+	overflow: scroll;
+}
+
+span.tiny > a{
+	font-size: .6em;
+	margin-left: 30px;
+}

@@ -2,10 +2,9 @@ var doc = {
 	getAll: function(i){
 		if(i < 0) return;
 		osapi.jive.core.get({
-	        "href": "/contents?count=100&startIndex="+i.toString(),
+	        "href": "/contents?filter=place(/places/1005)&count=100&startIndex="+i.toString(),
 	        "v": "v3"
 	    }).execute(function(response){
-	    	console.log(response);
 	    	response = util.responseCheck(response);
 	    	console.log(response);
 	    	if(typeof response === "undefined" ){
@@ -15,7 +14,6 @@ var doc = {
 	        if(response.list.length > 0){
 	        	var docs = [];
 	        	for(var j = 0 ; j < response.list.length ; j++){
-	        		console.log(response.list[j]);
 	        		var doc = {
 	        			doc_id: response.list[j].id,
 	        			api_id: response.list[j].contentID,
@@ -23,12 +21,14 @@ var doc = {
 	        			views: response.list[j].viewCount
 	        		}
 	        		docs.push(doc);
-	        	} 
+	        	}
+	        	console.log(docs);
+	        	doc.getAll(-1); 
 	        	// make post request here
-	        	users.getAll(i + 100);
+	        //	doc.getAll(i + 100);
 	        }
 	        else{
-	        	users.getAll(-1);
+	        	doc.getAll(-1);
 	        }
 	    });
 	},
@@ -40,8 +40,8 @@ var doc = {
 	    	// consecutive requests return different objects
 	    	data = util.responseCheck(response);
 	    	doc.getExtendedProperties(data.contentID, function(extprops){
-	    		doc.getData(data, extprops, function(userData){
-	    			callback(userData);
+	    		doc.getData(data, extprops, function(docData){
+	    			callback(docData);
 	    		});
 	    	});
 	    });	
@@ -53,19 +53,46 @@ var doc = {
 			doc_id: docObj.id,
 			extendedProperties: extendedProperties,
 			tags: docObj.tags,
-			views: docObj.viewCount
+			views: docObj.viewCount,
+			summary: docObj.content.text.substring(0, 2000)
 		}
 		callback(d);
 	},
-	modalDisplay: function(api_id){
+	modalDisplay: function(api_id, type){
 		this.get(api_id, function(docObj){
 			$(".modal-title").text("Edit "+docObj.title);
 			$(".modal-body").empty();
-			$(".modal-body").append(doc.extendedPropertiesList(docObj.extendedProperties));
-			$("#addEP").on("click touch", function(e){
-				e.preventDefault();
-				$("#epList").append(doc.epRow());
-			});
+			if(type === "ep"){
+				$(".modal-body").append(doc.extendedPropertiesList(docObj.extendedProperties));
+				$("#addEP").on("click touch", function(e){
+					e.preventDefault();
+					$("#epList").append(doc.epRow());
+				});
+				$("#saveEdit").unbind("click touch");
+				$("#saveEdit").on("click touch", function(e){
+					e.preventDefault();
+					doc.saveExtendedProperties($(this).attr("data-id"),".ep");
+					doc.reload();
+				});
+			}
+			else if(type === "feature"){
+				$(".modal-body").append(doc.messageForm(api_id));
+				gadget_helper.get(util.rails_env.current+"/content/get-message?api_id="+api_id.toString(), {}, function(resp){
+					var json = JSON.parse(resp.text);
+					$("#message").val(json.message);
+				});
+				$("#saveEdit").unbind("click touch");
+				$("#saveEdit").on("click touch", function(e){
+					e.preventDefault();
+					var msg = $("#message").val();
+					gadget_helper.post(util.rails_env.current+"/content/attach-message", 
+										{api_id: $(this).attr("data-id"),  message: msg}, 
+										function(data){
+											$("#saveEdit").addClass("hide");
+											$(".modal-body").empty().append("<div class='alert alert-success'>Message saved!</div> ");
+										});
+				});
+			}
 		});
 	},
 	saveExtendedProperties: function(api_id, className){
@@ -82,7 +109,7 @@ var doc = {
 		});
 		this.setExtendedProperties(api_id, props);
 		$("#saveEdit").addClass("hide");
-		$(".modal-body").empty().append("<div class='alert alert-success'>Properties Saved! Sometimes it can take ~1 minute for the changes to take effect.</div> ")
+		$(".modal-body").empty().append("<div class='alert alert-success'>Properties Saved! Sometimes it can take ~1 minute for the changes to take effect.</div> ");
 	},
 	epRow: function(){
 		var row = '<div class="row">'+
@@ -102,6 +129,27 @@ var doc = {
 	        }
 	    });
 	},
+	listByExtProp: function(key, value){
+		$(".docRow, .docError").remove();
+		if(value === "everyone")
+			this.list(0);
+		else{
+			osapi.jive.core.get({
+		        "href": "/extprops/"+key+"/"+value,
+		        "v": "v3"
+		    }).execute(function(data){
+		    	data = util.responseCheck(data);
+		    	if(data.list.length > 0){
+		    		var documents = util.getRelevant(data.list, "document");
+		    		doc.makeList(documents, function(){});
+		    	}
+		    	else{
+		    		$("#docList").append("<div style='margin-top:20px;' class='text-center personError'><strong>There are no documents for that client...</strong></div>");
+		    	}
+		    	doc.attachHandlers();
+		    });
+		}
+	},
 	search: function(content){
 		$(".docRow, .docError").remove();
 		osapi.jive.core.get({
@@ -115,7 +163,7 @@ var doc = {
 	    	else{
 	    		$("#docList").append("<div style='margin-top:20px;' class='text-center docError'><strong>The search did not match any document...</strong></div>");
 	    	}
-	    	user.attachHandlers();
+	    	doc.attachHandlers();
 	    });
 	},
 	makeList: function(docs, callback){
@@ -134,29 +182,47 @@ var doc = {
 	row: function(docObj){
 		this.getExtendedProperties(docObj.api_id, function(props){
 			docObj.extendedProperties = props;
-			if(props.featured === "true")
+			if(props.featured === "true"){
 				var fBtn = '<div class="col-xs-2"><button id="'+docObj.api_id+'" data-id="'+docObj.api_id+'" class="btn btn-success btn-sm feature yes"><i class="fa fa-check"></i>&nbsp&nbspFeatured</button></div>';
-			else 
-				var fBtn = '<div class="col-xs-2"><button id="'+docObj.api_id+'" data-id="'+docObj.api_id+'" class="btn btn-warning btn-sm feature"><i class="fa fa-star"></i>&nbsp&nbspFeature</button></div>';
+				var vBtn = '<div id="view'+docObj.api_id+'" class="col-xs-2"><button data-id="'+docObj.api_id+'" class="btn btn-primary btn-sm viewdocObj" data-toggle="modal" data-target="#myModal">Edit Message</button></div>'
+			}
+			else{
+				var fBtn = '<div class="col-xs-2"><button id="'+docObj.api_id+'" data-id="'+docObj.api_id+'" class="btn btn-warning btn-sm feature" ><i class="fa fa-star"></i>&nbsp&nbspFeature</button></div>';
+				var vBtn = '<div id="view'+docObj.api_id+'" class="col-xs-2"><button data-id="'+docObj.api_id+'" class="btn btn-primary btn-sm viewdocObj disabled" data-toggle="modal" data-target="#myModal" >Edit Message</button></div>'
+			} 
 			var row = '<div class="row docRow text-left">'+
-					'<div class="col-xs-3"><span>'+util.truncate(docObj.subject, 25)+'</span></div>'+
+					'<div class="col-xs-3"><span><a href="#" id="DOC-'+docObj.doc_id+'">'+util.truncate(docObj.subject, 25)+'</a></span></div>'+
 					'<div class="col-xs-1"><span>'+docObj.doc_id+'</span></div>'+
 					'<div class="col-xs-1"><span>'+docObj.api_id+'</span></div>'+
 					'<div class="col-xs-1"><span>'+docObj.views+'</span></div>'+
 					fBtn+
-					'<div id="view'+docObj.api_id+'" class="col-xs-2"><button data-id="'+docObj.api_id+'" class="btn btn-primary btn-sm viewdocObj">View</button></div>'+
-					'<div id="edit'+docObj.api_id+'" class="col-xs-2"><button data-id="'+docObj.api_id+'" class="btn btn-default btn-sm editDoc" data-toggle="modal" data-target="#myModal">Edit</button></div>'+
+					vBtn+
+					'<div id="edit'+docObj.api_id+'" class="col-xs-2"><button data-id="'+docObj.api_id+'" class="btn btn-default btn-sm editDoc" data-toggle="modal" data-target="#myModal">Edit Props</button></div>'+
 				  '</div>';
 
-			$("#docList").append(row);
+			$("#docRows").append(row);
+			$("#DOC-"+docObj.doc_id.toString()).on("click touch", function(e){
+				e.preventDefault();
+				$(".overlay").removeClass("hide");
+				util.get_doc_html($(this).attr("id").substring(4), function(api_id){
+					util.showFeatureBtn(gadgets.views.getParams().my.id.toString(), api_id);
+					setTimeout(2000, gadgets.window.adjustHeight());
+				});
+			});
 			$("#"+docObj.api_id.toString()).on("click touch", function(e){
 				e.preventDefault();
 				doc.fixFeatureBtn($(this));
 			});
 			$("#edit"+docObj.api_id.toString()).on("click touch", function(e){
 				e.preventDefault();
+				$("#saveEdit").removeClass("hide");
 				$("#saveEdit").attr("data-id", $(this).attr("id").substring(4));
-				doc.modalDisplay($(this).attr("id").substring(4));
+				doc.modalDisplay($(this).attr("id").substring(4), "ep");
+			});
+			$("#view"+docObj.api_id.toString()).on("click touch", function(e){
+				e.preventDefault();
+				$("#saveEdit").attr("data-id", $(this).attr("id").substring(4));
+				doc.modalDisplay($(this).attr("id").substring(4), "feature");
 			});	
 		});
 		
@@ -165,6 +231,12 @@ var doc = {
 		this.getExtendedProperties(api_id, function(ep){
 			for (var key in propObj) {
 			    ep[key] = propObj[key];
+			    if(key === "client"){
+			    	doc.rails.update_client(api_id, propObj[key].toLowerCase());
+			    }
+			    else if(key === "featured"){
+			    	doc.rails.set_feature(api_id, propObj[key]);
+			    }
 			}
 			if(!util.isEmpty(propObj)){
 				osapi.jive.corev3.documents.get({
@@ -176,9 +248,6 @@ var doc = {
 				   }); 
 				}); 
 			}
-			else{
-				alert("You must include a property to set.");
-			}	
 		});	
 	},
 	getExtendedProperties: function(id, callback){
@@ -199,23 +268,21 @@ var doc = {
 	},
 	fixFeatureBtn: function(btn){
 		if(btn.hasClass("yes")){
+			$(btn).parent().next().children().first().addClass("disabled");
 			btn.removeClass("btn-success yes").addClass("btn-warning");
 			var icon = btn.children().first();
 			$(icon).removeClass("fa-check").addClass("fa-star");
 			this.setExtendedProperties($(btn).attr("id"), { featured: false });
+			doc.rails.create($(btn).attr("id"), false);
 		}
 		else{
+			$(btn).parent().next().children().first().removeClass("disabled");
 			btn.removeClass("btn-warning").addClass("btn-success yes");
 			var icon = btn.children().first();
 			$(icon).removeClass("fa-star").addClass("fa-check");
 			this.setExtendedProperties($(btn).attr("id"), { featured: true });
+			doc.rails.create($(btn).attr("id"), true);
 		}		
-	},
-	featuredBtn: function(props){
-		console.log(props);
-		//props = util.responseCheck(props);
-		if(props.featured)
-			btn.addClass("yes");
 	},
 	extendedPropertiesList: function(ep){
 		var list = '<h4>Extended Properties <span class="tiny"><strong>(Do not change these unless you know what you are doing!)</strong></span></h4>'+
@@ -236,6 +303,51 @@ var doc = {
 			        	'</div>';
         list += '</form>';
         return list;
+	},
+	messageForm: function(api_id){
+		var form = '<form id="messageForm">'+
+			        	'<p>Type any message you want to appear with the featured article.</p>'+
+			        	'<textarea id="message" class="form-control" rows="4"></textarea>'+
+			        '</form>';
+		return form;
+	},
+	reload: function(){
+		$("#docRows").empty();
+		this.list(0);
+	},
+	rails: {
+		create: function(api_id, featured){
+			doc.get(api_id, function(docData){
+				var to_rails = {
+					featured: featured,
+					api_id: docData.api_id,
+					doc_id: docData.doc_id,
+					title: docData.title,
+					jive_id: gadgets.views.getParams().my.id,
+					client: docData.extendedProperties.client,
+					tags: docData.tags,
+					message: docData.summary
+				}
+				console.log("INFO", to_rails);
+				gadget_helper.post(util.rails_env.current+"/content", to_rails, function(resp){
+				//	console.log("RESP", resp);
+				});
+			});
+		},
+		update_client: function(api_id, client){
+			gadget_helper.post(util.rails_env.current+"/content/update-client", 
+	    		{client: client, api_id: api_id},
+	    		function(resp){
+	    		//	console.log(resp);
+	    		});
+		},
+		set_feature: function(api_id, value){
+			gadget_helper.post(util.rails_env.current+"/content", 
+	    		{featured: value, api_id: api_id},
+	    		function(resp){
+	    		//	doc.reload();
+	    		});
+		}
 	}
 }
 

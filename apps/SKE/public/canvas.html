@@ -7,23 +7,36 @@
 </div>
 
 <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/gadget-helper.js"></script>
 <script type="text/javascript" src="javascripts/util.js"></script>
 <script type="text/javascript" src="javascripts/user.js"></script>
 
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(function() {
 		osapi.people.getViewer().execute(function(viewerData){
-			user.setExtendedProperties(viewerData.id, {active: true, client: "all", siteManager: true});
-			user.initCurrentUser(viewerData.id, function(extProps){
-				var my = {
-					id: viewerData.id,
-					photo: viewerData.photos[0].value,
-					name: viewerData.displayName,
-					extendedProperties: user.extendedProperties
+		//	user.setExtendedProperties(viewerData.id, {active: true, client: "all", siteManager: true});
+			user.get(viewerData.id, function(userData){
+				var rails_env = {
+					local: "http://localhost:3000",
+					remote: "",
+					current: "",
+					setCurrent: function(env){
+						this.current = env;
+					}
 				}
-				if(my.extendedProperties.client == 'all')
+				rails_env.setCurrent(rails_env.local);
+				var to_rails = {
+					client: userData.extendedProperties.client,
+					jive_id: userData.id,
+					employee_id: userData.username
+				}
+				gadget_helper.post(rails_env.current+"/user", to_rails, function(resp){
+				//	console.log(resp);
+				});
+				
+				if(user.extendedProperties.client == 'all')
 					var view = 'manager-home';
-				gadgets.views.requestNavigateTo(view, {my: my, history: [view]});
+				gadgets.views.requestNavigateTo(view, {my: userData, history: [view]});
 			});
 		});
 	});
