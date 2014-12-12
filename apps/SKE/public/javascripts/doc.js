@@ -331,7 +331,7 @@ var doc = {
 				}
 				console.log("INFO", to_rails);
 				gadget_helper.post(util.rails_env.current+"/content", to_rails, function(resp){
-				//	console.log("RESP", resp);
+					console.log("RESP", resp);
 				});
 			});
 		},
