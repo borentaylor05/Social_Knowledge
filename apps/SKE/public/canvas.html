@@ -23,11 +23,12 @@
 				}
 				gadget_helper.post(util.rails_env.current+"/user", to_rails, function(resp){
 					console.log("USER",resp);
+					if(user.extendedProperties.client == 'all')
+						var view = 'manager-home';
+					gadgets.views.requestNavigateTo(view, {my: userData, history: [view]});
 				});
 				
-				if(user.extendedProperties.client == 'all')
-					var view = 'manager-home';
-				gadgets.views.requestNavigateTo(view, {my: userData, history: [view]});
+				
 			});
 		});
 	});

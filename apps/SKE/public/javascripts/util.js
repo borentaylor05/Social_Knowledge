@@ -27,8 +27,8 @@ var util = {
 	},
 	rails_env: {
 		local: "http://localhost:3000",
-		remote: "https://quiet-fortress-3946.herokuapp.com",
-		current: "https://quiet-fortress-3946.herokuapp.com",
+		remote: "https://lit-inlet-2632.herokuapp.com",
+		current: "https://lit-inlet-2632.herokuapp.com",
 		setCurrent: function(env){
 			this.current = env;
 		}
