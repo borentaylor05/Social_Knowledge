@@ -125,7 +125,7 @@ var doc = {
 	    }).execute(function(response){
 	    	response = util.responseCheck(response);
 	        if(response.list.length > 0){
-	        	doc.makeList(response.list, function(){ setTimeout(2000,gadgets.window.adjustHeight()); });
+	        	doc.makeList(response.list, function(){ setTimeout(gadgets.window.adjustHeight(), 2000); });
 	        }
 	    });
 	},
