@@ -16,15 +16,6 @@
 		osapi.people.getViewer().execute(function(viewerData){
 		//	user.setExtendedProperties(viewerData.id, {active: true, client: "all", siteManager: true});
 			user.get(viewerData.id, function(userData){
-				var rails_env = {
-					local: "http://localhost:3000",
-					remote: "",
-					current: "",
-					setCurrent: function(env){
-						this.current = env;
-					}
-				}
-				rails_env.setCurrent(rails_env.local);
 				var to_rails = {
 					client: userData.extendedProperties.client,
 					jive_id: userData.id,
