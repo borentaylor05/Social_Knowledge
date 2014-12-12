@@ -79,7 +79,7 @@
 			<div class="doc-container"></div>
 		</div>
 	</div>	
-	</div>
+</div>
 	    <!-- /#page-content-wrapper -->
 </div>
 <!-- Modal -->
@@ -115,7 +115,6 @@
 	gadgets.util.registerOnLoadHandler(function() {
 		gadgets.window.adjustHeight();
 		navigation.init(gadgets.views.getParams(), function(){
-			util.rails_env.setCurrent(util.rails_env.local);
 			navigation.makeLinks();
 			doc.list(0);
 			$(".client").each(function(){
