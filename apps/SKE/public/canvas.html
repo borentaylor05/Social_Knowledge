@@ -21,8 +21,8 @@
 					jive_id: userData.id,
 					employee_id: userData.username
 				}
-				gadget_helper.post(rails_env.current+"/user", to_rails, function(resp){
-				//	console.log(resp);
+				gadget_helper.post(util.rails_env.current+"/user", to_rails, function(resp){
+					console.log("USER",resp);
 				});
 				
 				if(user.extendedProperties.client == 'all')
