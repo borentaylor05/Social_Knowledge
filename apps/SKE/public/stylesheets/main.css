@@ -3,6 +3,8 @@ div.container{
 }
 div.container.main{
 	margin-bottom: 30px;
+	min-height: 700px;
+	overflow: scroll;
 }
 
 /* centered columns styles */
