@@ -7,6 +7,7 @@ var post = {
 	},
 	display: function(client, callback){
 		if(!client || client === "all"){
+			console.log("RAILS", util.rails_env.current);
 			gadget_helper.get(util.rails_env.current+"/posts", {}, function(resp){
 				console.log("RESP", resp);
 				var posts = JSON.parse(resp.text);
