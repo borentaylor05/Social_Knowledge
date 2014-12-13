@@ -1,5 +1,4 @@
 {
-    "clientUrl": "http://localhost",
-    "port":"8090",
+    "clientUrl": "https://lit-inlet-2632.herokuapp.com",
     "development" : true
 }
