@@ -105,7 +105,7 @@
 		navigation.init(gadgets.views.getParams(), function(){
 			navigation.makeLinks();
 			var client = null;
-			post.display(null, function(){
+			myPost.display(null, function(){
 				$(".showDoc").each(function(){
 					$(this).on("click touch", function(e){
 						e.preventDefault();
@@ -148,7 +148,7 @@
 							title: $("#postTitle").val(),
 							jive_id: gadgets.views.getParams().my.id
 						}
-						post.save(params, function(resp){
+						myPost.save(params, function(resp){
 							$("#savePost").addClass("hide");
 							if(JSON.parse(resp.text).status == 1)
 								util.clearAndAlert($(".modal-body"), "success", "Post successfully saved!");
