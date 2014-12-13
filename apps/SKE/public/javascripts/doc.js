@@ -206,7 +206,7 @@ var doc = {
 				$(".overlay").removeClass("hide");
 				util.get_doc_html($(this).attr("id").substring(4), function(api_id){
 					util.showFeatureBtn(gadgets.views.getParams().my.id.toString(), api_id);
-					setTimeout(2000, gadgets.window.adjustHeight());
+					setTimeout(function(){gadgets.window.adjustHeight(); }, 2000);
 				});
 			});
 			$("#"+docObj.api_id.toString()).on("click touch", function(e){

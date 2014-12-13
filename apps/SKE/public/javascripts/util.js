@@ -28,7 +28,7 @@ var util = {
 	rails_env: {
 		local: "http://localhost:3000",
 		remote: "https://lit-inlet-2632.herokuapp.com",
-		current: "https://lit-inlet-2632.herokuapp.com",
+		current: "http://localhost:3000",
 		setCurrent: function(env){
 			this.current = env;
 		}
