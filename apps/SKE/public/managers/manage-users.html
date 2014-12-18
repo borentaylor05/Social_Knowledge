@@ -51,7 +51,7 @@
 				    	<li><a class="client" data-client="spark" href="#">Spark</a></li>
 				    	<li><a class="client" data-client="ww" href="#">WW</a></li>
 				  	</ul>
-				  </div>
+				 </div>
 			</div>
 			<div class="col-xs-6 text-left">
 				<form id="searchForm">
@@ -95,6 +95,7 @@
 
 <script type="text/javascript" src="javascripts/jquery.min.js"></script>
 <script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="javascripts/gadget-helper.js"></script>
 <script type="text/javascript" src="javascripts/util.js"></script>
 <script type="text/javascript" src="javascripts/user.js"></script>
 <script type="text/javascript" src="javascripts/navigation.js"></script>
@@ -108,7 +109,15 @@
 
 				$("#saveEdit").on("click touch", function(e){
 					e.preventDefault();
-					user.saveExtendedProperties($(this).attr("data-id"),".ep");
+					var u = gadgets.views.getParams().my;
+					var to_rails = {
+						jive_id: $(this).attr("data-id"),
+						employee_id: $(this).attr("data-username")
+					};
+					gadget_helper.post(util.rails_env.current+"/user", to_rails, function(resp){
+						console.log("RESPONSE",resp);
+						user.saveExtendedProperties(to_rails.jive_id, ".ep");
+					});
 				});
 
 				$(".client").each(function(){

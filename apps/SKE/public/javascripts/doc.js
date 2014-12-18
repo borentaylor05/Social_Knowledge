@@ -119,7 +119,19 @@ var doc = {
 		return row;
 	},
 	list: function(startIndex){
-		osapi.jive.core.get({
+		if(!startIndex)
+			startIndex = 0;
+		gadget_helper.get(util.rails_env.current+"/contents?start="+startIndex.toString(), {}, function(resp){
+			var docs = JSON.parse(resp.text);
+			if(docs.length > 0){
+	        	doc.makeList(docs, function(){ 
+	        		setTimeout(function(){
+	        			gadgets.window.adjustHeight()
+	        		}, 1000); 
+	        	});
+	        }
+		});
+	/*	osapi.jive.core.get({
 	        "href": "/contents?count=30&startIndex="+startIndex.toString(),
 	        "v": "v3"
 	    }).execute(function(response){
@@ -128,24 +140,25 @@ var doc = {
 	        	doc.makeList(response.list, function(){ setTimeout(function(){
 	        		gadgets.window.adjustHeight()}, 2000); });
 	        }
-	    });
+	    }); */
 	},
 	listByExtProp: function(key, value){
 		$(".docRow, .docError").remove();
 		if(value === "everyone")
 			this.list(0);
-		else{
-			osapi.jive.core.get({
-		        "href": "/extprops/"+key+"/"+value,
-		        "v": "v3"
-		    }).execute(function(data){
-		    	data = util.responseCheck(data);
-		    	if(data.list.length > 0){
-		    		var documents = util.getRelevant(data.list, "document");
-		    		doc.makeList(documents, function(){});
+		else if(key === "client"){
+			gadget_helper.get(util.rails_env.current+"/contents?client="+value, {}, function(resp){
+		    	var docs = JSON.parse(resp.text);
+		    	if(docs.length > 0){
+		    	//	var documents = util.getRelevant(data.list, "document");
+		    		doc.makeList(docs, function(){ 
+		        		setTimeout(function(){
+		        			gadgets.window.adjustHeight();
+		        		}, 2000); 
+		        	});
 		    	}
 		    	else{
-		    		$("#docList").append("<div style='margin-top:20px;' class='text-center personError'><strong>There are no documents for that client...</strong></div>");
+		    		$("#docList").append("<div style='margin-top:20px;' class='text-center docError'><strong>There are no documents for that client...</strong></div>");
 		    	}
 		    	doc.attachHandlers();
 		    });
@@ -168,11 +181,11 @@ var doc = {
 	},
 	makeList: function(docs, callback){
     	for(var j = 0 ; j < docs.length ; j++){
+    		var doc_id = util.fixDocNum(docs[j].doc_id);
 			var d = {
-    			doc_id: docs[j].id,
-    			api_id: docs[j].contentID,
-    			subject: docs[j].subject,
-    			views: docs[j].viewCount,
+    			doc_id: doc_id,
+    			api_id: docs[j].api_id,
+    			subject: docs[j].title
     		}
     		this.row(d);
     	} 
@@ -194,7 +207,7 @@ var doc = {
 					'<div class="col-xs-3"><span><a href="#" id="DOC-'+docObj.doc_id+'">'+util.truncate(docObj.subject, 25)+'</a></span></div>'+
 					'<div class="col-xs-1"><span>'+docObj.doc_id+'</span></div>'+
 					'<div class="col-xs-1"><span>'+docObj.api_id+'</span></div>'+
-					'<div class="col-xs-1"><span>'+docObj.views+'</span></div>'+
+				//	'<div class="col-xs-1"><span>'+docObj.views+'</span></div>'+
 					fBtn+
 					vBtn+
 					'<div id="edit'+docObj.api_id+'" class="col-xs-2"><button data-id="'+docObj.api_id+'" class="btn btn-default btn-sm editDoc" data-toggle="modal" data-target="#myModal">Edit Props</button></div>'+

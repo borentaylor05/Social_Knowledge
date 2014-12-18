@@ -60,3 +60,12 @@ div.overlay {
 div.overlay > button{
 	margin: 10px;
 }
+
+form#specialties > input {
+	margin-left: 30px;
+}
+
+div#specContainer{
+	margin-top: 20px;
+}
+

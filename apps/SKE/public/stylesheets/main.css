@@ -81,8 +81,9 @@ div.container > .navbar-header{
 	border-color: #faebcc;
 }
 
-.alert{
+div.alert{
 	padding: 5px;
+	margin-top: 10px;
 }
 
 div.doc-container{

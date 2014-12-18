@@ -6,10 +6,24 @@ var util = {
 	    }
     	return true;
 	},
+	fixDocNum: function(doc_id){
+		if(doc_id.indexOf("DOC") >= 0)
+			return doc_id.substring(4);
+		else
+			return doc_id;
+	},
+	adjustHeight: function(){
+		setTimeout(function(){
+			gadgets.window.adjustHeight()
+		}, 1000);
+	},
 	responseCheck: function(data){
 		if(typeof data !== 'undefined' && typeof data.content !== 'undefined' && data.type !== "document")
 			data = data.content;
 		return data;
+	},
+	capitaliseFirstLetter: function(string){
+	    return string.charAt(0).toUpperCase() + string.slice(1);
 	},
 	truncate: function(string, length){
 		if(string.length > length)
@@ -28,7 +42,7 @@ var util = {
 	rails_env: {
 		local: "http://localhost:3000",
 		remote: "https://lit-inlet-2632.herokuapp.com",
-		current: "https://lit-inlet-2632.herokuapp.com",
+		current: "http://localhost:3000",
 		setCurrent: function(env){
 			this.current = env;
 		}
@@ -59,7 +73,9 @@ var util = {
 		});
 	},
 	get_doc_html: function(docNum, callback){
-
+		if(docNum.indexOf("DOC") >= 0)
+			docNum = docNum.substring(4);
+		console.log(docNum);
 		osapi.jive.corev3.contents.get({
 		     entityDescriptor: "102,"+docNum
 		 }).execute(function(data){

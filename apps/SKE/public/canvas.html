@@ -25,6 +25,7 @@
 					console.log("USER",resp);
 					if(user.extendedProperties.client == 'all')
 						var view = 'manager-home';
+					console.log(view);
 					gadgets.views.requestNavigateTo(view, {my: userData, history: [view]});
 				});
 				
