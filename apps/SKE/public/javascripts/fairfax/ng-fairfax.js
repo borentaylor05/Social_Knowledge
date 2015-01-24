@@ -27,6 +27,7 @@ app.controller("Fairfax", ['$http', '$scope', function($http, $scope){
 	        "v": "v3"
 	    }).execute(function(data){
 	    	data = user.responseCheck(data);
+	    	console.log(data);
 	    	fx.people = data.list;
 	    	$scope.$apply(fx.people);
 	    });
