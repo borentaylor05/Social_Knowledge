@@ -46,3 +46,11 @@ div.modal-body label{
 	font-weight: 100;
 	margin-top: 30px;
 }
+
+div#issueOnly{
+	display: inline;
+}
+
+button#resolve{
+	margin-left: 30px;
+}

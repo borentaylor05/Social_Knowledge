@@ -1,0 +1,39 @@
+#sidebar-wrapper{
+	top: 0;
+}
+
+.sidebar-nav li{
+	line-height: 25px;
+	color: white;
+}
+
+.section:hover{
+	background-color: #777;
+	color: black;
+	cursor: pointer;
+}
+
+li.section.active{
+	width: 110%;
+	background-color: white;
+	color: black;
+}
+
+ul.sidebar-nav{
+	padding: 10px;
+}
+
+ul.sidebar-nav > li > a.showMenu{
+	font-size: 1.4em;
+}
+
+li.animate-switch{
+	margin-left: 20px;
+}
+
+li.animate-switch > h5{
+	font-size: 1.2em;
+	box-shadow: 0 0 5px #555;
+	background-color: #333;
+	color: #ccc;
+}

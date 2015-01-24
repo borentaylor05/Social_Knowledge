@@ -254,11 +254,18 @@ var user = {
 									$("#saveEdit").on("click touch", function(e){
 										e.preventDefault();
 										var selected = [];
-										$("input.specialty:checked").each(function(){
-											specs.push($(this).val());
+										$("input.specialty").each(function(){
+											var s = {
+												name: $(this).val()										
+											};
+											if($(this).prop("checked"))
+												s.attached = true;
+											else
+												s.attached = false;
+											selected.push(s);
 										});
 										user.addSpecialty(selected, jive_user_id, selectedClient, function(resp){
-											// do something-
+											console.log(resp);
 										});
 									});
 								});
@@ -274,11 +281,18 @@ var user = {
 							$("#saveEdit").on("click touch", function(e){
 								e.preventDefault();
 								var selected = [];
-								$("input.specialty:checked").each(function(){
-									specs.push($(this).val());
+								$("input.specialty").each(function(){
+									var s = {
+										name: $(this).val()										
+									};
+									if($(this).prop("checked"))
+										s.attached = true;
+									else
+										s.attached = false;
+									selected.push(s);
 								});
 								user.addSpecialty(selected, jive_user_id, selectedClient, function(resp){
-									// do something
+									console.log(resp);
 								});
 							});
 						});
@@ -294,10 +308,12 @@ var user = {
 	addSpecialty: function(specialties, jive_user_id, client, callback){
 		if(client.length > 1){
 			// set client extprop
-			user.setExtendedProperties(jive_user_id, { "client":client });
+			this.setExtendedProperties(jive_user_id, { "client":client });
+			this.rails.update_client(jive_user_id, client);
+			this.rails.add_specialties(jive_user_id, specialties, callback);
 		}
 		if(specialties.length > 0)
-			user.rails.addSpecialty(jive_user_id, specialties, callback);
+			this.rails.add_specialties(jive_user_id, specialties, callback);
 	},
 	getData: function(user, extendedProperties, callback){
 		var data = {
@@ -372,7 +388,7 @@ var user = {
 		add_specialties: function(jive_user_id, specialties, callback){
 			var params = {
 				user: jive_user_id,
-				specialties: specialties
+				specialties: JSON.stringify(specialties)
 			}
 			gadget_helper.post(util.rails_env.current+"/user/add-specialties", params, function(resp){
 				callback(resp);

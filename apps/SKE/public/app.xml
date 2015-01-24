@@ -18,6 +18,21 @@
 		<Param name="action-contributions">  
 			<![CDATA[ 
 				
+        <action id="sendmessage.create"  
+          path="jive/actions/navmenu"  
+          label="Send Message"  
+          view="send-message"/>
+
+        <action id="sendmessage.actions"  
+          path="jive/actions/places/*"  
+          label="Send Message"  
+          view="send-message"/>
+
+        <action id="sendmessage.tabs"  
+          path="jive/tabs/places/space"  
+          label="Send Message"  
+          view="send-message"/>
+
 			]]>  
 		</Param>  
 	</Require>  
@@ -84,8 +99,14 @@
   <Content type="html" view="manage-users" href="managers/manage-users.html" />
   <Content type="html" view="new-post" href="managers/new-post.html" />
   <Content type="html" view="test" href="managers/test.html" />
+  <Content type="html" view="request" href="managers/request.html" />
+  <Content type="html" view="request-queue" href="managers/request-queue.html" />
+  <Content type="html" view="publish" href="managers/publish.html" />
   <!--  FAIRFAX PAGES  -->
-  <Content type="html" view="ff-home" href="fairfax/home.html" />
-
+  <Content type="html" view="fx-home" href="fairfax/home.html" />
+  <Content type="html" view="nz-care-home" href="fairfax/nz-care/home.html" />
+  <Content type="html" view="nz-sales-home" href="fairfax/nz-sales/home.html" />
+ <!--  GENERAL  -->
+  <Content type="html" view="send-message" href="general/send-message.html" />
 
 </Module>

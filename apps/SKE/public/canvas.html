@@ -22,7 +22,7 @@
 					employee_id: userData.username
 				}
 				gadget_helper.post(util.rails_env.current+"/user", to_rails, function(resp){
-					console.log("USER",resp);
+					console.log("USER",user);
 					if(user.extendedProperties.client == 'all')
 						var view = 'manager-home';
 					console.log(view);

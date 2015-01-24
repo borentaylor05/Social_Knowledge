@@ -6,6 +6,9 @@ var util = {
 	    }
     	return true;
 	},
+	fix: function(data){
+		return data.replace(/^throw [^;]*;/, '');
+	},
 	fixDocNum: function(doc_id){
 		if(doc_id.indexOf("DOC") >= 0)
 			return doc_id.substring(4);
@@ -72,6 +75,22 @@ var util = {
 			});
 		});
 	},
+	pushOrRemove: function(array, item){
+		var index = array.indexOf(item);
+		if (index > -1) {
+    		array.splice(index, 1);
+		}
+		else{
+			array.push(item);
+		}
+		return array;
+	},
+	remove: function(array, item){
+		var index = array.indexOf(item);
+		if (index > -1) {
+    		return array.splice(index, 1);
+		}
+	},
 	get_doc_html: function(docNum, callback){
 		if(docNum.indexOf("DOC") >= 0)
 			docNum = docNum.substring(4);
@@ -105,6 +124,18 @@ var util = {
 			}
 			gadgets.window.adjustHeight();
 		});
+	},
+	getUrlParams: function(sParam){
+		var sPageURL = window.parent.location.search.substring(1);
+	    var sURLVariables = sPageURL.split('&');
+	    for (var i = 0; i < sURLVariables.length; i++) 
+	    {
+	        var sParameterName = sURLVariables[i].split('=');
+	        if (sParameterName[0] == sParam) 
+	        {
+	            return sParameterName[1];
+	        }
+	    }
 	},
 	showFeatureBtn: function(jive_user_id, api_id){
 		$("div.overlay > button#featureMe").remove();

@@ -1,4 +1,4 @@
-var myPost = {
+var post = {
 	// params has client, jive_id, title and text properties
 	save: function(params, callback){
 		gadget_helper.post(util.rails_env.current+"/update", params, function(resp){
@@ -7,7 +7,6 @@ var myPost = {
 	},
 	display: function(client, callback){
 		if(!client || client === "all"){
-			console.log("RAILS", util.rails_env.current);
 			gadget_helper.get(util.rails_env.current+"/posts", {}, function(resp){
 				console.log("RESP", resp);
 				var posts = JSON.parse(resp.text);
@@ -16,7 +15,7 @@ var myPost = {
 						var icon = "fa-quote-left";
 					else
 						var icon = "fa-file-text-o";
-					$("#postContainer").append(myPost.format(icon, posts[i]));		
+					$("#postContainer").append(post.format(icon, posts[i]));		
 				}
 				callback();
 			});

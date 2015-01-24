@@ -1,0 +1,120 @@
+<!--<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css" media="screen" /> -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/simple-sidebar.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/fairfax/sales.css" type="text/css" media="screen" />
+
+<div class="container main" ng-app="FX" ng-controller="Fairfax as fx">
+	<div class="row headerContainer">
+		<div class="col-xs-9">
+			<ul class="breadcrumb text-left"></ul>
+			<h2>FairFax Inbound Sales</h2>
+		</div>
+		<div class="col-xs-3 gameContainer">
+			<div class="row text-center">
+				<div class="col-xs-1 gBadge">
+					<img src="images/fairfax/badge_heart.png" alt="Well Played" >
+					<label>Winner!</label>
+				</div>
+				<div class="col-xs-1 gBadge">
+					<img src="images/fairfax/badge_radio.png" alt="Well Played" >
+					<label>Winner!</label>
+				</div>
+				<div class="col-xs-1 gBadge">
+					<img src="images/fairfax/badge_medal.png" alt="Winner" >
+					<label>Winner!</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-9">
+			<div class="row row-centered">
+				<div class="col-xs-4">
+					<button class="peter-river-flat-button">Systems</button>
+				</div>
+				<div class="col-xs-4">
+					<button class="peter-river-flat-button">Billing</button>
+				</div>
+				<div class="col-xs-4">
+					<button class="peter-river-flat-button">Processes</button>
+				</div>
+			</div>
+			<div class="row row-centered pubs">
+				<div class="col-xs-4 logo" ng-click="fx.select('test')">
+					<img pub src="images/fairfax/dp.jpg" alt="Dominion Post">
+				</div>
+				<div class="col-xs-4 logo">
+					<img pub src="images/fairfax/ms.png" alt="Manawatu Standard">
+				</div>
+				<div class="col-xs-4 logo" ng-click="fx.select('admin')">
+					<img pub src="images/fairfax/marl.png" alt="Marlborough Express">
+				</div>
+				<div class="col-xs-4 logo">
+					<img pub src="images/fairfax/nelson_mail.jpg" alt="Nelson Mail">
+				</div>
+				<div class="col-xs-4 logo">
+					<img pub src="images/fairfax/press.jpg" alt="The Press">
+				</div>
+				<div class="col-xs-4 logo">
+					<img pub src="images/fairfax/s_times.jpg" alt="Southland Times">
+				</div>
+				<div class="col-xs-4 logo">
+					<img pub src="images/fairfax/smh.jpg" alt="Sydney Morning Herald">
+				</div>
+				<div class="col-xs-4 logo">
+					<img pub src="images/fairfax/Taranaki_NZ.jpg" alt="Taranaki NZ">
+				</div>
+				
+				<div class="col-xs-4 logo">
+					<img pub src="images/fairfax/timaru.jpg" alt="Timaru Times">
+				</div>
+				<div class="col-xs-4 logo">
+					<img pub src="images/fairfax/waikatotimes.jpg" alt="Waikato Times">
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-3 widgetContainer">
+			<div class="widget text-center">
+				<h5>Something Awesome</h5>
+			</div>
+		</div>
+	</div>
+	<div class="specContainer row">
+		<div class="col-xs-4" id="rates">
+			<div class="spec text-center">
+				<h1>Rates</h1>
+				<span ng-repeat="p in fx.people"> {{ p.id }} </span>
+			</div>
+		</div>
+		<div class="col-xs-4" id="geos">
+			<div class="spec text-center">
+				<h1>Geos</h1>
+			</div>
+		</div>
+		<div class="col-xs-4" id="mastheads">
+			<div class="spec text-center">
+				<h1>Mastheads</h1>
+			</div>
+		</div>
+	</div>
+	<!-- Page Content -->
+	
+</div>
+
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/angular.min.js"></script>
+<script type="text/javascript" src="javascripts/user.js"></script>
+<script type="text/javascript" src="javascripts/navigation.js"></script>
+<script type="text/javascript" src="javascripts/templates.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/fairfax/ng-fairfax.js"></script>
+<script type="text/javascript">
+	gadgets.util.registerOnLoadHandler(function() {
+		navigation.init(gadgets.views.getParams(), function(){
+			util.adjustHeight();
+		});
+	});
+</script>

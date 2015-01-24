@@ -1,3 +1,6 @@
+a{
+	cursor: pointer;
+}
 div.container{
 	font-family: Myriad Pro, sans-serif;
 }
@@ -5,6 +8,9 @@ div.container.main{
 	margin-bottom: 30px;
 	min-height: 700px;
 	overflow: scroll;
+}
+.logo{
+	width: 7.4%;
 }
 
 /* centered columns styles */
@@ -18,7 +24,6 @@ div.container.main{
     text-align:center;
     /* inline-block space fix */
 }
-
 .listContainer{
 	margin-top: 20px;
 }
@@ -26,6 +31,12 @@ div.container.main{
 #managerHome{
 	margin-right: auto;
 	margin-left: auto;
+}
+
+.mid{
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 800px;
 }
 
 ul.navList{
@@ -99,4 +110,11 @@ div.overlay{
 span.tiny > a{
 	font-size: .6em;
 	margin-left: 30px;
+}
+
+div.formContainer{
+	max-width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	
 }

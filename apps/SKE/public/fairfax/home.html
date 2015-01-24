@@ -1,16 +1,92 @@
 <!--<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css" media="screen" /> -->
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="stylesheets/clients/wwc/wwc.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/simple-sidebar.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/fairfax/main.css" type="text/css" media="screen" />
 
-<div class="container">
-	<h1>Welcome to Fairfax</h1>
+<div id="wrapper" class="container main" ng-app="FX" ng-controller="Fairfax as fx">
+	<h1>{{ fx.header }}</h1>
+	<ul class="breadcrumb text-left"></ul>
+	<!-- START SIDEBAR -->
+	<div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li><a class="showMenu">NZ Care</a></li>
+            <li class="animate-switch">
+            	<h5>General</h5>
+            	<ul>
+            		<li class="section">One</li>
+            		<li class="section">Two</li>
+            		<li class="section">Three</li>
+            	</ul>
+            	<h5>Special</h5>
+            	<ul>
+            		<li class="section">One</li>
+            		<li class="section">Two</li>
+            		<li class="section">Three</li>
+            	</ul>
+            </li>
+            <li><a class="showMenu">NZ Sales</a></li>
+            <li class="animate-switch inactive">
+            	<ul>
+            		<li class="section">One</li>
+            		<li class="section">Two</li>
+            		<li class="section">Three</li>
+            	</ul>
+            </li>
+        </ul>
+    </div>
+	<!-- END SIDEBAR -->
+	<!-- Page Content -->
+	<div id="page-content-wrapper" class="container main text-left"> 
+		<div class="row row-centered">
+			<div class="col-xs-4 col-centered">
+				<a href="#" >
+					<button class="btn btn-md btn-info">Go to NZ CARE</button>
+				</a>
+			</div>
+			<div class="col-xs-4 col-centered">
+				<a href="#" ng-click="fx.go('nz-sales-home')">
+					<button class="btn btn-md btn-success">Go to NZ Sales</button>
+				</a>
+			</div>
+		</div>
+		<ul>
+			<li>What is Fairfax New Zealand?</li>
+			<li>What is the FX NZ TeleTech Program?</li>
+			<li>What Mastheads and Geos?</li>
+			<li>Who are the stakeholders?</li>
+		</ul>
+	</div>
 </div>
 
-
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/angular.min.js"></script>
+<script type="text/javascript" src="javascripts/user.js"></script>
+<script type="text/javascript" src="javascripts/navigation.js"></script>
+<script type="text/javascript" src="javascripts/templates.js"></script>
+<script type="text/javascript" src="javascripts/fairfax/ng-fairfax.js"></script>
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(function() {
-		
-		console.log(gadgets.views.getParams());
+		navigation.init(gadgets.views.getParams(), function(){
+			$(".inactive").hide();
+			setTimeout(function(){gadgets.window.adjustHeight()}, 1000);
+			$(".showMenu").each(function(){
+				$(this).click(function(e){
+					e.preventDefault();
+					var cur = this;
+					$(".animate-switch").slideUp(function(){
+						$(cur).parent().next().slideDown();
+					});
+					
+				});
+			});
+			$(".section").each(function(){
+				$(this).click(function(e){
+					$(".section").removeClass("active");
+					$(this).addClass("active");
+				});
+			});
+		});
 	});
 </script>

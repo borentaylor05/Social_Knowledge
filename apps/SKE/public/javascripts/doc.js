@@ -2,7 +2,7 @@ var doc = {
 	getAll: function(i){
 		if(i < 0) return;
 		osapi.jive.core.get({
-	        "href": "/contents?filter=place(/places/1005)&count=100&startIndex="+i.toString(),
+	        "href": "/contents?startIndex="+i.toString(),
 	        "v": "v3"
 	    }).execute(function(response){
 	    	response = util.responseCheck(response);

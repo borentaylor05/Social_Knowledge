@@ -1,0 +1,27 @@
+div#typeMenu{
+	width: 100%;
+}
+
+div#typeMenu > ul{
+	width: 100%;
+}
+
+label{
+	margin-top: 20px;
+	display: block;
+}
+
+input#requestSubmit{
+	margin-top: 20px;
+}
+
+p.alert{
+	padding: 5px;
+	margin-top: 5px;
+}
+
+div.formContainer{
+	box-shadow: 0 0 15px #999;
+	border-radius: 3px;
+	padding: 40px;
+}

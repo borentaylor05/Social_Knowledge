@@ -9,57 +9,26 @@
 <div ng-app="App">
 
 	<skeheader></skeheader>
-
 	<div class="container main" id="wrapper">
 	    <!-- Sidebar -->
-	    <div id="sidebar-wrapper">
-	        <ul class="sidebar-nav">
-	            <li class="sidebar-brand">
-	                <a href="#">
-	                    Actions
-	                </a>
-	            </li>
-	            <ul class="navList">
-				</ul>
-	        </ul>
-	    </div>
+	    <mngside></mngside>
 	    <!-- /#sidebar-wrapper -->
 
 	    <!-- Page Content -->
-		<div id="page-content-wrapper" class="container main text-left" ng-controller="PostsController as posts">
-			<h1>Posts</h1>
-			<div class="post" ng-repeat="post in posts.all">
-				<h4>
-					<i ng-class="posts.getClass(post.type)"></i>&nbsp&nbsp 
-					<a href="#" ng-if="posts.isLink(post.type)" opendoc="{{post.id}}">{{ post.title }}</a>
-					<span ng-if="!posts.isLink(post.type)"> {{ post.title }} </span>
-					<span class="tiny"> {{ post.updated }} </span>
-					<span show-input="{{ post.type }}" fxn="posts.comment(post)"></span>
-				</h4>
-				<p> {{ post.body }} </p>
-				<div ng-show="posts.cur == post">
-					<textarea class="form-control" cols="4"></textarea>	
-					<button class="btn btn-sm btn-info">Post</button>
-				</div>
-				<div id="issueOnly" ng-show="posts.isIssue(post.type)">
-					<button ng-click="posts.resolve(post)" id="resolve"  ng-class="posts.btnClass">
-						<i ng-class="posts.iconClass"></i>&nbsp {{ posts.btnText }}
-					</button>
-					<a ng-click="posts.unresolve(post)" href="#" class="tiny" ng-show="posts.undo">Undo</a>
-				</div>
+		<div id="page-content-wrapper" class="container main text-left" ng-controller="Publish as p">
+			<h1>Publish</h1>
+		</div>
+		<div class="overlay hide">
+			<overlayclose></overlayclose>
+			<button id="favorite" class="btn btn-md btn-info"><i class="fa fa-plus"></i>&nbsp Add to Favorites</button>
+			<div class="navigation">
+				
 			</div>
-
-			<div class="overlay hide">
-				<overlayclose></overlayclose>
-				<button id="favorite" class="btn btn-md btn-info"><i class="fa fa-plus"></i>&nbsp Add to Favorites</button>
-				<div class="navigation">
-					
-				</div>
-				<div class="doc-container"></div>
-			</div>   
+			<div class="doc-container"></div>
 		</div>
 		<!-- /#page-content-wrapper -->
 	</div>
+	
 </div>
 
 
@@ -71,13 +40,13 @@
 <script type="text/javascript" src="javascripts/post.js"></script>
 <script type="text/javascript" src="javascripts/navigation.js"></script>
 <script type="text/javascript" src="javascripts/templates.js"></script>
-<script type="text/javascript" src="javascripts/managers/test.js"></script>
+<script type="text/javascript" src="javascripts/managers/publish.js"></script>
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(function() {
 		gadgets.window.adjustHeight();
 		navigation.init(gadgets.views.getParams(), function(){
 			navigation.makeLinks();
-			
+			util.adjustHeight();
 		});
 	});
 </script>

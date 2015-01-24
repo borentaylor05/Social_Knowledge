@@ -1,0 +1,63 @@
+<!--<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css" media="screen" /> -->
+<!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">-->
+<!--[if IE 9]>
+<script src="//cdn.rawgit.com/jpillora/xdomain/0.6.17/dist/xdomain.min.js"></script>
+<script>
+  xdomain.slaves({
+    'https://lit-inlet-2632.herokuapp.com': '/web/IE9/proxy.html'
+  });
+</script>
+<![endif]-->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/message.css" type="text/css" media="screen" />
+
+<div ng-app="MessageApp" ng-controller="MessageController as msgs">
+	<div class="container main">
+		<div ng-hide="msgs.doneSelecting">
+			<h3> Select Group(s) to Send Message To </h3>
+			<input id="searchInput" ng-model="data.search" type="text" class="form-control">
+		</div>
+		<div ng-show="msgs.selectedGroups.length > 0" class="selected">
+			<h5>Selected Groups:</h5>
+			<ul>
+				<li class="btn btn-xs btn-info" ng-repeat="selected in msgs.selectedGroups" ng-click="msgs.removeGroup(selected)"> 
+					{{ selected.name }} 
+					<i class="fa fa-remove i-right" ></i>
+				</li>
+			</ul>
+		</div>
+		<div class="selectContainer" ng-hide="msgs.doneSelecting">
+			<button class="btn btn-sm btn-default" ng-click="msgs.getPeople()">Done Selecting Recipients</button>
+			<div class="searchResults" ng-repeat="secGroup in msgs.sgs | filter:data.search track by $index">
+				<div ng-hide="msgs.alreadyAdded(secGroup)" class="result">
+					<input type="checkbox" ng-model="secGroup.selected" ng-click="msgs.pushSelected(secGroup)">
+					<span> {{ secGroup.name }}</span>
+				</div>
+			</div>
+		</div>
+		<div class="msgContainer" ng-show="msgs.doneSelecting">
+			<h3>Type Your Message Below: <button ng-click="msgs.setDoneSelecting(false)" class="btn btn-xs btn-info">Change Selection</button></h3>
+			<textarea class="form-control" rows="8" placeholder="type your message..." ng-model="data.message"></textarea>
+			<div class="text-center">
+				<button ng-click="msgs.send(data.message)" class="btn btn-md btn-success">Send Message</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript" src="javascripts/angular.min.js"></script>
+<script type="text/javascript" src="javascripts/gadget-helper.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/post.js"></script>
+<script type="text/javascript" src="javascripts/navigation.js"></script>
+<script type="text/javascript" src="javascripts/templates.js"></script>
+<script type="text/javascript" src="javascripts/ng/apps/MessageApp.js"></script>
+<script type="text/javascript" src="javascripts/ng/controllers/MessageController.js"></script>
+<script type="text/javascript">
+	gadgets.util.registerOnLoadHandler(function() {
+		gadgets.window.adjustHeight();
+		gadgets.window.adjustWidth();
+	});
+</script>
