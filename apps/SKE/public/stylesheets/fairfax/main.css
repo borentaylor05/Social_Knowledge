@@ -1,7 +1,9 @@
 #sidebar-wrapper{
 	top: 0;
 }
-
+.tabContainer{
+	margin-left: 0px !important;
+}
 .sidebar-nav li{
 	line-height: 25px;
 	color: white;

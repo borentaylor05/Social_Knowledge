@@ -6,11 +6,11 @@
 <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="stylesheets/fairfax/sales.css" type="text/css" media="screen" />
 
-<div class="container main" ng-app="FX" ng-controller="Fairfax as fx">
+<div class="main" ng-app="FX" ng-controller="Fairfax as fx">
 	<div class="row headerContainer">
 		<div class="col-xs-9">
 			<ul class="breadcrumb text-left"></ul>
-			<h2>FairFax Inbound Sales</h2>
+			<h2 class="header">FairFax Inbound Sales</h2>
 		</div>
 		<div class="col-xs-3 gameContainer">
 			<div class="row text-center">
@@ -31,7 +31,7 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-9">
-			<div class="row row-centered">
+			<div class="row row-centered tabContainer">
 				<div class="col-xs-4">
 					<button class="peter-river-flat-button">Systems</button>
 				</div>
@@ -43,35 +43,35 @@
 				</div>
 			</div>
 			<div class="row row-centered pubs">
-				<div class="col-xs-4 logo" ng-click="fx.select('test')">
+				<div class="col-xs-4 logo" ng-click="fx.select('dompost')">
 					<img pub src="images/fairfax/dp.jpg" alt="Dominion Post">
 				</div>
-				<div class="col-xs-4 logo">
+				<div class="col-xs-4 logo" ng-click="fx.select('manawatu-standard')">
 					<img pub src="images/fairfax/ms.png" alt="Manawatu Standard">
 				</div>
-				<div class="col-xs-4 logo" ng-click="fx.select('admin')">
+				<div class="col-xs-4 logo" ng-click="fx.select('marlborough')">
 					<img pub src="images/fairfax/marl.png" alt="Marlborough Express">
 				</div>
-				<div class="col-xs-4 logo">
+				<div class="col-xs-4 logo" ng-click="fx.select('nelson-mail')">
 					<img pub src="images/fairfax/nelson_mail.jpg" alt="Nelson Mail">
 				</div>
-				<div class="col-xs-4 logo">
+				<div class="col-xs-4 logo" ng-click="fx.select('the-press')">
 					<img pub src="images/fairfax/press.jpg" alt="The Press">
 				</div>
-				<div class="col-xs-4 logo">
+				<div class="col-xs-4 logo" ng-click="fx.select('southland-times')">
 					<img pub src="images/fairfax/s_times.jpg" alt="Southland Times">
 				</div>
-				<div class="col-xs-4 logo">
+				<div class="col-xs-4 logo" ng-click="fx.select('smh')">
 					<img pub src="images/fairfax/smh.jpg" alt="Sydney Morning Herald">
 				</div>
-				<div class="col-xs-4 logo">
+				<div class="col-xs-4 logo" ng-click="fx.select('taranaki')">
 					<img pub src="images/fairfax/Taranaki_NZ.jpg" alt="Taranaki NZ">
 				</div>
 				
-				<div class="col-xs-4 logo">
+				<div class="col-xs-4 logo" ng-click="fx.select('timaru-times')">
 					<img pub src="images/fairfax/timaru.jpg" alt="Timaru Times">
 				</div>
-				<div class="col-xs-4 logo">
+				<div class="col-xs-4 logo" ng-click="fx.select('waikato-times')">
 					<img pub src="images/fairfax/waikatotimes.jpg" alt="Waikato Times">
 				</div>
 			</div>
@@ -82,21 +82,39 @@
 			</div>
 		</div>
 	</div>
-	<div class="specContainer row">
+	<div ng-if="fx.pubSelected" class="specContainer row">
+		<h2 class="header" style="margin-left: 15px;">Showing Docs For: {{ fx.selected }} </h2>
 		<div class="col-xs-4" id="rates">
 			<div class="spec text-center">
 				<h1>Rates</h1>
-				<span ng-repeat="p in fx.people"> {{ p.id }} </span>
+				<div class="alert alert-danger" ng-if="fx.rates.length == 0"> No Rates found for {{ fx.selected }} </div>
+				<ul class="text-left">
+					<li class="match" ng-repeat="rate in fx.rates">
+						{{ rate.subject }}
+					</li>
+				</ul>
 			</div>
 		</div>
 		<div class="col-xs-4" id="geos">
 			<div class="spec text-center">
 				<h1>Geos</h1>
+				<div class="alert alert-danger" ng-if="fx.rates.length == 0"> No Geos found for {{ fx.selected }} </div>
+				<ul class="text-left">
+					<li class="match" ng-repeat="geo in fx.geos">
+						{{ geo.subject }}
+					</li>
+				</ul>
 			</div>
 		</div>
 		<div class="col-xs-4" id="mastheads">
 			<div class="spec text-center">
 				<h1>Mastheads</h1>
+				<div class="alert alert-danger" ng-if="fx.rates.length == 0"> No Mastheads found for {{ fx.selected }} </div>
+				<ul class="text-left">
+					<li class="match" ng-repeat="mh in fx.mastheads">
+						{{ mh.subject }}
+					</li>
+				</ul>
 			</div>
 		</div>
 	</div>
