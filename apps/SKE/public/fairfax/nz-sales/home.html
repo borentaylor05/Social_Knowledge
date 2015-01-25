@@ -98,7 +98,7 @@
 		<div class="col-xs-4" id="geos">
 			<div class="spec text-center">
 				<h1>Geos</h1>
-				<div class="alert alert-danger" ng-if="fx.rates.length == 0"> No Geos found for {{ fx.selected }} </div>
+				<div class="alert alert-danger" ng-if="fx.geos.length == 0"> No Geos found for {{ fx.selected }} </div>
 				<ul class="text-left">
 					<li class="match" ng-repeat="geo in fx.geos">
 						{{ geo.subject }}
@@ -109,7 +109,7 @@
 		<div class="col-xs-4" id="mastheads">
 			<div class="spec text-center">
 				<h1>Mastheads</h1>
-				<div class="alert alert-danger" ng-if="fx.rates.length == 0"> No Mastheads found for {{ fx.selected }} </div>
+				<div class="alert alert-danger" ng-if="fx.mastheads.length == 0"> No Mastheads found for {{ fx.selected }} </div>
 				<ul class="text-left">
 					<li class="match" ng-repeat="mh in fx.mastheads">
 						{{ mh.subject }}
