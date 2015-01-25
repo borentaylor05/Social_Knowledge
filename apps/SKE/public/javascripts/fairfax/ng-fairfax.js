@@ -30,7 +30,8 @@ app.controller("Fairfax", ['$http', '$scope', function($http, $scope){
 	        "href": "/search/contents?filter=tag("+pub+")",
 	        "v": "v3"
 	    }).execute(function(resp){
-	    	data = user.responseCheck(resp);
+	    	console.log(resp)
+	    	resp = user.responseCheck(resp);
 	    	divvyUp(resp.list)
 	    	util.adjustHeight();
 	    });
