@@ -27,7 +27,7 @@ app.controller("Fairfax", ['$http', '$scope', function($http, $scope){
 		fx.selected = getPubTitle(pub);
 		fx.pubSelected = true;
 		osapi.jive.core.get({
-	        "href": "/search/contents?filter=tag("+pub+")",
+	        "href": "/contents?filter=tag("+pub+")",
 	        "v": "v3"
 	    }).execute(function(resp){
 	    	console.log(resp)
