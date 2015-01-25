@@ -24,8 +24,7 @@ app.controller("Fairfax", ['$http', '$scope', function($http, $scope){
 	fx.mastheads = [];
 	
 	fx.select = function(pub){
-		fx.selected = getPubTitle(pub);
-		fx.pubSelected = true;
+		fx.reset();
 		osapi.jive.core.get({
 	        "href": "/contents?filter=tag("+pub+")",
 	        "v": "v3"
@@ -40,7 +39,13 @@ app.controller("Fairfax", ['$http', '$scope', function($http, $scope){
 	fx.go = function(view){
 		navigation.go(view);
 	}
-	
+	fx.reset = function(){
+		fx.selected = getPubTitle(pub);
+		fx.pubSelected = true;
+		fx.rates = [];
+		fx.geos = [];
+		fx.mastheads = [];
+	}
 	var divvyUp = function(docs, callback){
 		var tags;
 		if(docs){
