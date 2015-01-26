@@ -66,11 +66,8 @@ fxApp.controller("Fairfax", ['$http', '$scope', function($http, $scope){
 	    });
 	}
 	fx.getTweets = function(){
-		gadget_helper.get(util.rails_env.current+"/tweets/multiple-users", {}, function(resp){
-			var t = JSON.parse(resp.text);
-			fx.tweets = t.tweets;
-			console.log(fx.tweets);
-			$scope.$apply(fx.tweets);
+		$http.get(util.rails_env.current+"/tweets/multiple-users").success(function(resp){
+			fx.tweets = resp.tweets;
 		});
 	}
 
