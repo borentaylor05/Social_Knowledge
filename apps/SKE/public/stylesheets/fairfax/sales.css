@@ -55,7 +55,8 @@ div.gBadge{
 .widget{
 	border: 1px solid #EEE;
 	padding-left: 0px;
-	height: 150px;
+	height: 180px;
+	overflow: scroll;
 }
 .widgetContainer{
 	padding-left: 0px;

@@ -1,4 +1,4 @@
-var fxApp = angular.module("FX", []);
+var fxApp = angular.module("FX", ['ngSanitize']);
 
 fxApp.directive("pub", function(){
 	return function(scope, el, attrs){
@@ -66,8 +66,11 @@ fxApp.controller("Fairfax", ['$http', '$scope', function($http, $scope){
 	    });
 	}
 	fx.getTweets = function(){
-		$http.get(util.rails_env.current+"/tweets/multiple-users").success(function(resp){
-			console.log(resp);
+		gadget_helper.get(util.rails_env.current+"/tweets/multiple-users", {}, function(resp){
+			var t = JSON.parse(resp.text);
+			fx.tweets = t.tweets;
+			console.log(fx.tweets);
+			$scope.$apply(fx.tweets);
 		});
 	}
 
