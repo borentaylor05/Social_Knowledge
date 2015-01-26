@@ -137,6 +137,6 @@ fxApp.controller("Fairfax", ['$http', '$scope', function($http, $scope){
 	}
 
 	// on page load
-	fx.getTweets();
+//	fx.getTweets();
 
 }]);

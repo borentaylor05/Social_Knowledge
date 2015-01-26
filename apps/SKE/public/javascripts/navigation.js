@@ -3,7 +3,6 @@ var navigation = {
 	history: [],
 	init: function(params, callback){
 		var hash = this.getHash();
-		console.log(hash);
 		this.user = params.my;
 		if(typeof params.history !== 'undefined')
 			this.history = params.history;
@@ -25,8 +24,6 @@ var navigation = {
 		callback();
 	},
 	getHash: function(){
-		console.log(window.parent.location);
-		console.log("HASH",window.parent.location.hash);
 		if(window.parent.location.hash.length > 0)
 			return window.parent.location.hash.slice(1);
 		else 
