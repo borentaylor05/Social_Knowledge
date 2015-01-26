@@ -118,7 +118,7 @@
 				<h1>Mastheads</h1>
 				<div class="alert alert-danger" ng-if="fx.mastheads.length == 0"> No Mastheads found for {{ fx.selected }} </div>
 				<ul class="text-left">
-					<li class="match" ng-repeat="mh in fx.mastheads" opendoc="{{ mh.contentID }}">
+					<li class="match" ng-repeat="mh in fx.mastheads" opendoc="{{ mh.id }}">
 						<a>{{ mh.subject }}</a>
 					</li>
 				</ul>
