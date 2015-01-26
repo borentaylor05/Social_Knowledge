@@ -79,7 +79,7 @@
 		<div class="col-xs-3 widgetContainer">
 			<div class="widget text-center">
 				<h5>Something Awesome</h5>
-				<button class="btn btn-xs btn-default">Get Tweets</button>
+				<button class="btn btn-xs btn-default" ng-click="fx.getTweets()">Get Tweets</button>
 				<ul class="text-left">
 					<li ng-repeat="tweet in fx.tweets"> @{{tweet.user.screen_name}}: {{ tweet.text }} </li>
 				</ul>
