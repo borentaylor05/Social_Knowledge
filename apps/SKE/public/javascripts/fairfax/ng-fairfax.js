@@ -1,4 +1,4 @@
-var fxApp = angular.module("FX", ['ngSanitize']);
+var fxApp = angular.module("FX", []);
 
 fxApp.directive("pub", function(){
 	return function(scope, el, attrs){
@@ -137,6 +137,6 @@ fxApp.controller("Fairfax", ['$http', '$scope', function($http, $scope){
 	}
 
 	// on page load
-//	fx.getTweets();
+	fx.getTweets();
 
 }]);

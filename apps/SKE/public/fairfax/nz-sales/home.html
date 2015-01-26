@@ -80,8 +80,7 @@
 			<div class="widget text-center">
 				<h5>Something Awesome</h5>
 				<ul class="text-left">
-					<li ng-repeat="tweet in fx.tweets"> @{{tweet.user.screen_name}}: 
-						<span ng-bind-html="tweet.text | linky"></span> </li>
+					<li ng-repeat="tweet in fx.tweets"> @{{tweet.user.screen_name}}: {{ tweet.text }} </li>
 				</ul>
 			</div>
 		</div>
@@ -130,7 +129,6 @@
 </div>
 <script type="text/javascript" src="javascripts/jquery.min.js"></script>
 <script type="text/javascript" src="javascripts/angular.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-sanitize.min.js"></script>
 <script type="text/javascript" src="javascripts/user.js"></script>
 <script type="text/javascript" src="javascripts/navigation.js"></script>
 <script type="text/javascript" src="javascripts/gadget-helper.js"></script>
