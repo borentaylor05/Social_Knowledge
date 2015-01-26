@@ -92,8 +92,8 @@
 					<li class="match" opendoc="DOC-1030">
 						<a>Blah Blah Document</a>
 					</li>
-					<li class="match" ng-repeat="rate in fx.rates">
-						{{ rate.subject }}
+					<li class="match" ng-repeat="rate in fx.rates" opendoc="{{ rate.contentID }}">
+						<a>{{ rate.subject }}</a>
 					</li>
 				</ul>
 			</div>
@@ -103,8 +103,8 @@
 				<h1>Geos</h1>
 				<div class="alert alert-danger" ng-if="fx.geos.length == 0"> No Geos found for {{ fx.selected }} </div>
 				<ul class="text-left">
-					<li class="match" ng-repeat="geo in fx.geos">
-						{{ geo.subject }}
+					<li class="match" ng-repeat="geo in fx.geos" opendoc="{{ geo.contentID }}">
+						<a>{{ geo.subject }}</a>
 					</li>
 				</ul>
 			</div>
