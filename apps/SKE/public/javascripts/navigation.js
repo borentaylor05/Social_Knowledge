@@ -57,7 +57,7 @@ var navigation = {
 		if(user.extendedProperties.siteManager){
 			$(".navList").append(this.navListItem("Create Post", "new-post"));
 			$(".navList").append(this.navListItem("Manage Docs", "manage-docs"));
-			$(".navList").append(this.navListItem("Manage peeps", "manage-users"));
+			$(".navList").append(this.navListItem("Manage Users", "manage-users"));
 			$(".navList").append(this.navListItem("Test", "test"));
 			$(".navList").append(this.navListItem("Request", "request"));
 			$(".navList").append(this.navListItem("Request Queue", "request-queue"));

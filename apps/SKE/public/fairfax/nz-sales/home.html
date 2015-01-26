@@ -89,6 +89,9 @@
 				<h1>Rates</h1>
 				<div class="alert alert-danger" ng-if="fx.rates.length == 0"> No Rates found for {{ fx.selected }} </div>
 				<ul class="text-left">
+					<li class="match" opendoc="DOC-1030">
+						<a>Blah Blah Document</a>
+					</li>
 					<li class="match" ng-repeat="rate in fx.rates">
 						{{ rate.subject }}
 					</li>
@@ -111,15 +114,15 @@
 				<h1>Mastheads</h1>
 				<div class="alert alert-danger" ng-if="fx.mastheads.length == 0"> No Mastheads found for {{ fx.selected }} </div>
 				<ul class="text-left">
-					<li class="match" ng-repeat="mh in fx.mastheads">
-						{{ mh.subject }}
+					<li class="match" ng-repeat="mh in fx.mastheads" opendoc="{{ mh.contentID }}">
+						<a>{{ mh.subject }}</a>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</div>
 	<!-- Page Content -->
-	
+	<overlay close-color="red"></overlay>
 </div>
 
 <script type="text/javascript" src="javascripts/jquery.min.js"></script>

@@ -1,6 +1,6 @@
-var app = angular.module("FX", []);
+var fxApp = angular.module("FX", []);
 
-app.directive("pub", function(){
+fxApp.directive("pub", function(){
 	return function(scope, el, attrs){
 		el.bind("click", function(){
 			imgs = el.parent().parent().find('img');
@@ -13,7 +13,37 @@ app.directive("pub", function(){
 	}
 });
 
-app.controller("Fairfax", ['$http', '$scope', function($http, $scope){
+fxApp.directive("opendoc", function(){
+	return function(scope, element, attrs){
+		element.bind("click", function(){
+			$(".overlay").removeClass("hide");
+			util.get_doc_html(util.fixDocNum(attrs.opendoc), function(id){
+				util.adjustHeight();
+				$(".main").click(function(){
+					$(".overlay").addClass("hide");
+					$(".main").unbind("click"); // remove handler so you can reopen overlay
+				});
+			});
+		});
+	};
+});
+
+fxApp.directive("overlay", function(){
+	return {
+		restrict: "E",
+		template: '<div class="overlay hide"><i class="fa fa-close fa-3x pull-right pointer"></i><div class="doc-container"></div></div>',
+		link: function(scope, element, attrs){
+				element.find("i").first().css({ "color":attrs.closeColor });
+				element.find("i").first().bind("click", function(){
+					$(".overlay").addClass("hide");
+				});
+			}
+	}
+		
+});
+
+
+fxApp.controller("Fairfax", ['$http', '$scope', function($http, $scope){
 	var fx = this;
 	fx.pubSelected = false;
 	fx.view = "main";
@@ -34,6 +64,11 @@ app.controller("Fairfax", ['$http', '$scope', function($http, $scope){
 	    	divvyUp(resp.list)
 	    	util.adjustHeight();
 	    });
+	}
+	fx.getTweets = function(){
+		$http.get(util.rails_env.current+"/tweets/multiple-users").success(function(resp){
+			console.log(resp);
+		});
 	}
 
 	fx.go = function(view){
@@ -97,5 +132,8 @@ app.controller("Fairfax", ['$http', '$scope', function($http, $scope){
 			break;
 		}
 	}
+
+	// on page load
+	fx.getTweets();
 
 }]);

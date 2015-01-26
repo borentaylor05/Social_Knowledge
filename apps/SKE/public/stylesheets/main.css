@@ -12,6 +12,9 @@ div.container.main{
 .logo{
 	width: 7.4%;
 }
+.pointer{
+	cursor: pointer;
+}
 
 /* centered columns styles */
 .row-centered {

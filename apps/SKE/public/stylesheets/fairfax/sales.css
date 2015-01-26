@@ -48,6 +48,9 @@ div.gBadge{
 	margin-top: 0px;
 	margin-left: 15px;
 	margin-right: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 15px;
 }
 .widget{
 	border: 1px solid #EEE;
@@ -60,6 +63,25 @@ div.gBadge{
 	padding-bottom: 10px;
 	padding-right: 10px 
 
+}
+div.overlay {
+    position: absolute;
+    background-color: #FFF !important;
+    padding: 20px;
+    opacity: .99;
+    top:50;
+    left:40;
+    right:40;
+    bottom:40;
+    z-index: 9999;
+    height: 100%;
+    overflow: scroll;
+    border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    box-shadow: 0 0 5px black;
 }
 
 /* From http://cssdeck.com/labs/beautiful-flat-buttons  */
