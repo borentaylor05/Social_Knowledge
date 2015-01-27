@@ -85,6 +85,7 @@ cdcApp.controller("cdcController", ['$http', '$scope', function($http, $scope){
 	        "href": "search/contents?filter=search("+pr+")",
 	        "v": "v3"
 	    }).execute(function(resp){
+	    	console.log(resp);
 	    	resp = user.responseCheck(resp);
 	    	cdc.prs = resp.list;
 	    });
