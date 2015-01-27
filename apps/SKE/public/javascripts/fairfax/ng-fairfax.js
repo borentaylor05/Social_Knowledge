@@ -32,7 +32,7 @@ fxApp.directive("opendoc", function(){
 fxApp.directive("overlay", function(){
 	return {
 		restrict: "E",
-		template: '<div class="overlayContainer><div class="overlay hide"><i class="fa fa-close fa-3x pull-right pointer"></i><div class="doc-container"></div></div></div>',
+		template: '<div class="overlay hide"><i class="fa fa-close fa-3x pull-right pointer"></i><div class="doc-container"></div></div>',
 		link: function(scope, element, attrs){
 				element.find("i").first().css({ "color":attrs.closeColor });
 				element.find("i").first().bind("click", function(){
