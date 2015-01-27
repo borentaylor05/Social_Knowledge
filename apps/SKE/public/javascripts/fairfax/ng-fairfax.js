@@ -39,15 +39,14 @@ fxApp.directive("overlay", function(){
 					$(".overlay").addClass("hide");
 				});
 			}
-	}
-		
+	}		
 });
 
 fxApp.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
 
 fxApp.controller("Fairfax", ['$http', '$scope', '$sce', function($http, $scope, $sce){
 	var fx = this;
-	fx.pubSelected = false;
+	fx.pubSelected = fx.deadlines = false;
 	fx.view = "main";
 	fx.header = "Welcome to Fairfax";
 	fx.sideMenu = "care";
@@ -63,6 +62,9 @@ fxApp.controller("Fairfax", ['$http', '$scope', '$sce', function($http, $scope, 
 		end = html.indexOf("</blockquote>", start);
 		length = end - start;
 		return $sce.trustAsHtml(html.substring(start+startLength+1, end));
+	}
+	fx.getDeadlines = function(pub){
+		fx.deadlines = true;
 	}
 	
 	fx.select = function(pub){
@@ -93,6 +95,9 @@ fxApp.controller("Fairfax", ['$http', '$scope', '$sce', function($http, $scope, 
 	    });
 	}
 
+	fx.setDeadlines = function(status){
+		fx.deadlines = status;
+	}
 	fx.go = function(view){
 		navigation.go(view);
 	}
@@ -102,6 +107,10 @@ fxApp.controller("Fairfax", ['$http', '$scope', '$sce', function($http, $scope, 
 		fx.rates = [];
 		fx.geos = [];
 		fx.marketing = [];
+	}
+	fx.checkDeadlines = function(){
+		if(fx.deadlines)
+			fx.deadlines = false;
 	}
 	var divvyUp = function(docs, callback){
 		var tags;
@@ -155,6 +164,74 @@ fxApp.controller("Fairfax", ['$http', '$scope', '$sce', function($http, $scope, 
 			break;
 		}
 	}
+	fx.allDeadlines = [
+		 {
+		 	day: "Monday",
+			deadlines: [
+				{
+					pub: "Dominion Post (Situations Vacant)",
+					nz: "2:00 PM",
+					mla: "9:00 AM",
+					run: "Wednesday",
+					close: "Monday"
+				},
+				{
+					pub: "Dominion Post (General)",
+					nz: "3:30 PM",
+					mla: "10:30 AM",
+					run: "Tuesday",
+					close: "Monday"
+				},
+				{
+					pub: "Dominion Post (Family Notices)",
+					nz: "5:00 PM",
+					mla: "12:00 PM",
+					run: "Tuesday",
+					close: "Monday"
+				}
+			]
+		},
+		{
+			day: "Tuesday",
+			deadlines: [
+				{
+					pub: "Dominion Post (General)",
+					nz: "3:30 PM",
+					mla: "10:30 AM",
+					run: "Wednesday"
+				},
+				{
+					pub: "Dominion Post (Family Notices)",
+					nz: "5:00 PM",
+					mla: "12:00 PM",
+					run: "Wednesday"
+				}
+			]
+		},
+		{
+			day: "Wednesday",
+			deadlines: [
+				{
+					pub: "Dominion Post (General)",
+					nz: "3:30 PM",
+					mla: "10:30 AM",
+					run: "Thursday"
+				},
+				{
+					pub: "Dominion Post (Family Notices)",
+					nz: "5:00 PM",
+					mla: "12:00 PM",
+					run: "Thursday"
+				},
+				{
+					pub: "Dominion Post (Motoring)",
+					nz: "5:00 PM",
+					mla: "12:00 PM",
+					run: "Saturday"
+				}
+			]
+		}
+	]
 
 	// on page load
 	fx.getPeople();

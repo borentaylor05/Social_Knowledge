@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="stylesheets/fairfax/sales.css" type="text/css" media="screen" />
 
-<div class="main" ng-app="FX" ng-controller="Fairfax as fx">
+<div class="main" ng-app="FX" ng-controller="Fairfax as fx" >
 	<div class="row headerContainer">
 		<div class="col-xs-9">
 			<ul class="breadcrumb text-left"></ul>
@@ -43,7 +43,7 @@
 					</div>
 				</div>
 				<div class="col-xs-4">
-					<button class="peter-river-flat-button category">
+					<div class="peter-river-flat-button category">
 						Processes
 						<div class="links text-left">
 							<a opendoc="DOC-1601"><i class="fa fa-github"></i>Billing</a>
@@ -51,7 +51,7 @@
 							<a opendoc="DOC-1603"><i class="fa fa-github"></i>Escalations</a>
 							<a opendoc="DOC-1604"><i class="fa fa-github"></i>Subscriptions</a>
 						</div>
-					</button>
+					</div>
 				</div>
 				<div class="col-xs-4">
 					<div class="peter-river-flat-button category">
@@ -112,7 +112,10 @@
 		</div>
 	</div>
 	<div ng-if="fx.pubSelected" class="specContainer row">
-		<h2 class="header" style="margin-left: 15px;">Showing Docs For: {{ fx.selected }} </h2>
+		<h2 class="header" style="margin-left: 15px;">
+			Showing Docs For: {{ fx.selected }} 
+			<button class="btn btn-md btn-info" ng-click="fx.getDeadlines(pub)">Click to See Deadlines</button>
+		</h2>
 		<div class="col-xs-4" id="rates">
 			<div class="spec text-center">
 				<h1>Rates</h1>
@@ -157,7 +160,31 @@
 		</div>
 	</div>
 	<!-- Page Content -->
-	<overlay close-color="red"></overlay>
+	<div id="deadlineOverlay" class="container overlay text-center" ng-if="fx.deadlines">
+		<i class="fa fa-close fa-2x" ng-click="fx.setDeadlines(false)"></i>
+		<div class="deadlineContainer">
+			<h1>Deadlines for: {{ fx.selected }} </h1>
+			<input type="text" class="form-control" ng-model="data.filter" placeholder="begin typing to filter results">
+			<div class="row text-left headerRow">
+				<div class="col-xs-5"><strong>Publication</strong></div>
+				<div class="col-xs-2"><strong>NZ Time</strong></div>
+				<div class="col-xs-2"><strong>MLA Time</strong></div>
+				<div class="col-xs-2"><strong>Run Day</strong></div>
+			</div>
+			<div class="text-left day" ng-repeat="day in fx.allDeadlines">
+				<h3> {{ day.day }} </h3>
+				<div class="row" ng-repeat="dl in day.deadlines | filter:data.filter">
+					<div class="col-xs-5"> {{ dl.pub }} </div>
+					<div class="col-xs-2"> {{ dl.nz }} </div>
+					<div class="col-xs-2"> {{ dl.mla }} </div>
+					<div class="col-xs-2"> {{ dl.run }} </div>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<overlay close-color="red" >
+		<h2>TEST</h2>
+	</overlay>
 </div>
 <script type="text/javascript" src="javascripts/jquery.min.js"></script>
 <script type="text/javascript" src="javascripts/angular.min.js"></script>

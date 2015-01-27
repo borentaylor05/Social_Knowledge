@@ -58,6 +58,11 @@
 	padding-right: 10px 
 
 }
+.deadlineContainer{
+	max-width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+}
 div.overlay {
     position: absolute;
     background-color: #FFF !important;
@@ -125,7 +130,13 @@ div.overlay {
 	width: 20px;
 	height: 20px;
 }
-
+.headerRow{
+	margin-top: 20px;
+}
+.day{
+	border-bottom: 1px solid #DDD;
+	padding-bottom: 10px;
+}
 
 /* From http://cssdeck.com/labs/beautiful-flat-buttons  */
 .peter-river-flat-button {
