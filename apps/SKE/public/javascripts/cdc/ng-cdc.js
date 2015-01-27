@@ -82,12 +82,13 @@ cdcApp.controller("cdcController", ['$http', '$scope', function($http, $scope){
 	}
 	cdc.prSearch = function(pr){
 		osapi.jive.core.get({
-	        "href": "search/contents?filter=search("+pr+")",
+	        "href": "/search/contents?filter=search("+pr+")",
 	        "v": "v3"
 	    }).execute(function(resp){
-	    	console.log(resp);
+	    //	console.log(resp);
 	    	resp = user.responseCheck(resp);
 	    	cdc.prs = resp.list;
+	    	$scope.$apply(cdc.prs);
 	    });
 	}
 	cdc.isCurrentTopic = function(topic){
