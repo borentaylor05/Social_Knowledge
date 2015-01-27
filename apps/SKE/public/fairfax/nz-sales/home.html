@@ -101,9 +101,8 @@
 		<div class="col-xs-3 widgetContainer">
 			<div class="widget text-center">
 				<h5>Something Awesome</h5>
-				<button class="btn btn-xs btn-default" ng-click="fx.getTweets()">Get Tweets</button>
-				<ul class="text-left">
-					<li ng-repeat="tweet in fx.tweets"> @{{tweet.user.screen_name}}: {{ tweet.text }} </li>
+				<ul class="leaderboard">
+					<li ng-repeat="fx.people"></li>
 				</ul>
 			</div>
 		</div>
@@ -118,7 +117,7 @@
 					<li class="match" ng-repeat="rate in fx.rates" opendoc="{{ rate.id }}">
 						<a>{{ rate.subject }}</a>
 						<ul class="desc">
-							<li ng-bind-html="fx.getBlockQuote(rate.content.text) | unsafe"> </li>
+							<li ng-bind-html="fx.getBlockQuote(rate.content.text)"> </li>
 						</ul>
 					</li>
 				</ul>
@@ -132,7 +131,7 @@
 					<li class="match" ng-repeat="geo in fx.geos" opendoc="{{ geo.id }}">
 						<a>{{ geo.subject }}</a>
 						<ul class="desc">
-							<li ng-bind-html="fx.getBlockQuote(geo.content.text) | unsafe"> </li>
+							<li ng-bind-html="fx.getBlockQuote(geo.content.text)"> </li>
 						</ul>
 					</li>
 				</ul>
