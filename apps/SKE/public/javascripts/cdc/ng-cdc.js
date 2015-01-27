@@ -80,6 +80,15 @@ cdcApp.controller("cdcController", ['$http', '$scope', function($http, $scope){
 			});
 		}
 	}
+	cdc.prSearch = function(pr){
+		osapi.jive.core.get({
+	        "href": "search/contents?filter=search("+pr+")",
+	        "v": "v3"
+	    }).execute(function(resp){
+	    	resp = user.responseCheck(resp);
+	    	cdc.prs = resp.list;
+	    });
+	}
 	cdc.isCurrentTopic = function(topic){
 		if(topic == cdc.currentTopic)
 			return true;
@@ -100,6 +109,9 @@ cdcApp.controller("cdcController", ['$http', '$scope', function($http, $scope){
 			break;
 			case "atoz":
 				cdc.topics = [];
+			break;
+			case 'pr':
+				cdc.pr = [];
 			break;
 		}
 	}

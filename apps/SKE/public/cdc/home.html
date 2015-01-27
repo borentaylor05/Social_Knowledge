@@ -29,7 +29,7 @@
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-6">
+			<div class="col-xs-5">
 				<div class="searchContainer">
 					<label>Search A to Z List: &nbsp</label>
 					<button class="btn btn-xs btn-primary" ng-click="cdc.getAllTopics('A','D')">A-D</button>
@@ -67,7 +67,33 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xs-6">
+			<div class="col-xs-4">
+				<div class="searchContainer">
+					<label for="pr">PR Search</label>
+					<form ng-submit="cdc.prSearch(data.pr)">
+						<div class="input-group">
+							<span class="input-group-btn">
+								<button class="btn btn-md btn-success searchBtn" >Search</button>
+							</span>
+							<input name="pr" type="text" class="form-control" ng-model="data.pr" placeholder="search for PRs">
+						</div>
+					</form>
+					<div el-width="410" class="dropdown" ng-if="cdc.prs.length > 0">
+						<button el-width="371" class="pull-right pointer btn btn-xs btn-warning closeBar" ng-click="cdc.close('pr')">Close</button>
+						<ul class="topics">
+							<li > 
+								<p>
+									<span class="pull-left">TEST DOC </span>
+									<a class="pull-right" target="_blank" ng-href="">Open</a>
+								</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5">
 				<div class="searchContainer">
 					<label>Address Book</label>
 					<form >
