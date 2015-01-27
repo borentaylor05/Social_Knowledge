@@ -62,7 +62,6 @@ fxApp.controller("Fairfax", ['$http', '$scope', '$sce', function($http, $scope, 
 		start = html.indexOf(startString);
 		end = html.indexOf("</blockquote>", start);
 		length = end - start;
-		console.log("BQ", html.substring(start+startLength+1, end));
 		return $sce.trustAsHtml(html.substring(start+startLength+1, end));
 	}
 	
@@ -72,7 +71,6 @@ fxApp.controller("Fairfax", ['$http', '$scope', '$sce', function($http, $scope, 
 	        "href": "/contents?filter=tag("+pub+")",
 	        "v": "v3"
 	    }).execute(function(resp){
-	    	console.log(resp)
 	    	resp = user.responseCheck(resp);
 	    	divvyUp(resp.list)
 	    	util.adjustHeight();
@@ -82,6 +80,17 @@ fxApp.controller("Fairfax", ['$http', '$scope', '$sce', function($http, $scope, 
 		$http.get(util.rails_env.current+"/tweets/multiple-users").success(function(resp){
 			fx.tweets = resp.tweets;
 		});
+	}
+	fx.getPeople = function(){
+		osapi.jive.core.get({
+	        "href": "/people?count=10",
+	        "v": "v3"
+	    }).execute(function(resp){
+	    	resp = util.responseCheck(resp);
+	    	fx.people = resp.list;
+	    	console.log(fx.people);
+	    	$scope.$apply(fx.people);
+	    });
 	}
 
 	fx.go = function(view){
@@ -148,6 +157,6 @@ fxApp.controller("Fairfax", ['$http', '$scope', '$sce', function($http, $scope, 
 	}
 
 	// on page load
-//	fx.getTweets();
+	fx.getPeople();
 
 }]);
