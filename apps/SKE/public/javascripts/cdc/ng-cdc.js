@@ -112,8 +112,8 @@ cdcApp.controller("cdcController", ['$http', '$scope', function($http, $scope){
 			case "atoz":
 				cdc.topics = [];
 			break;
-			case 'pr':
-				cdc.pr = [];
+			case "pr":
+				cdc.prs = [];
 			break;
 		}
 	}
