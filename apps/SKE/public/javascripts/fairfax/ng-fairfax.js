@@ -63,7 +63,7 @@ fxApp.controller("Fairfax", ['$http', '$scope', '$sce', function($http, $scope, 
 		end = html.indexOf("</blockquote>", start);
 		length = end - start;
 		console.log("BQ", html.substring(start+startLength+1, end));
-		return html.substring(start+startLength+1, end);
+		return $sce.trustAsHtml(html.substring(start+startLength+1, end));
 	}
 	
 	fx.select = function(pub){

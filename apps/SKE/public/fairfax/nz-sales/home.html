@@ -146,7 +146,7 @@
 					<li class="match" ng-repeat="mc in fx.marketing" opendoc="{{ mc.id }}">
 						<a>{{ mc.subject }}</a>
 						<ul class="desc">
-							<li ng-bind-html="fx.getBlockQuote(mc.content.text) | unsafe"> </li>
+							<li ng-bind-html="fx.getBlockQuote(mc.content.text)"> </li>
 						</ul>
 					</li>
 				</ul>
