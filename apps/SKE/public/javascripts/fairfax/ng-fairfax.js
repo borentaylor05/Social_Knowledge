@@ -52,7 +52,7 @@ fxApp.controller("Fairfax", ['$http', '$scope', function($http, $scope){
 	fx.sideMenu = "care";
 	fx.rates = [];
 	fx.geos = [];
-	fx.mastheads = [];
+	fx.marketing = [];
 
 	fx.getBlockQuote = function(html){
 		var start, end, length, startString, startLength;
@@ -91,7 +91,7 @@ fxApp.controller("Fairfax", ['$http', '$scope', function($http, $scope){
 		fx.pubSelected = true;
 		fx.rates = [];
 		fx.geos = [];
-		fx.mastheads = [];
+		fx.marketing = [];
 	}
 	var divvyUp = function(docs, callback){
 		var tags;
@@ -102,12 +102,12 @@ fxApp.controller("Fairfax", ['$http', '$scope', function($http, $scope){
 					fx.rates.push(docs[i]);
 				else if(tags.indexOf("fx-geos") >= 0)
 					fx.geos.push(docs[i]);
-				else if(tags.indexOf("fx-mastheads") >= 0)
-					fx.mastheads.push(docs[i]);
+				else if(tags.indexOf("fx-marketing") >= 0)
+					fx.marketing.push(docs[i]);
 			};
 			$scope.$apply(fx.geos);
 			$scope.$apply(fx.rates);
-			$scope.$apply(fx.mastheads);
+			$scope.$apply(fx.marketing);
 		}
 	}
 	var getPubTitle = function(pub){

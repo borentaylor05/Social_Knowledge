@@ -118,7 +118,7 @@
 					<li class="match" ng-repeat="rate in fx.rates" opendoc="{{ rate.id }}">
 						<a>{{ rate.subject }}</a>
 						<ul class="desc">
-							<li> {{ fx.getBlockquote(mh.content.text) }} </li>
+							<li> {{ fx.getBlockQuote(mh.content.text) }} </li>
 						</ul>
 					</li>
 				</ul>
@@ -126,27 +126,27 @@
 		</div>
 		<div class="col-xs-4" id="geos">
 			<div class="spec text-center">
-				<h1>Geos</h1>
+				<h1>Geos And Mastheads</h1>
 				<div class="alert alert-danger" ng-if="fx.geos.length == 0"> No Geos found for {{ fx.selected }} </div>
 				<ul class="text-left">
 					<li class="match" ng-repeat="geo in fx.geos" opendoc="{{ geo.id }}">
 						<a>{{ geo.subject }}</a>
 						<ul class="desc">
-							<li> {{ fx.getBlockquote(mh.content.text) }} </li>
+							<li> {{ fx.getBlockQuote(mh.content.text) }} </li>
 						</ul>
 					</li>
 				</ul>
 			</div>
 		</div>
-		<div class="col-xs-4" id="mastheads">
+		<div class="col-xs-4" id="marketing">
 			<div class="spec text-center">
-				<h1>Mastheads</h1>
-				<div class="alert alert-danger" ng-if="fx.mastheads.length == 0"> No Mastheads found for {{ fx.selected }} </div>
+				<h1>Marketing Campaign</h1>
+				<div class="alert alert-danger" ng-if="fx.marketing.length == 0"> No Marketing Material found for {{ fx.selected }} </div>
 				<ul class="text-left">
-					<li class="match" ng-repeat="mh in fx.mastheads" opendoc="{{ mh.id }}">
+					<li class="match" ng-repeat="mc in fx.marketing" opendoc="{{ mh.id }}">
 						<a>{{ mh.subject }}</a>
 						<ul class="desc">
-							<li> {{ fx.getBlockquote(mh.content.text) }} </li>
+							<li> {{ fx.getBlockQuote(mh.content.text) }} </li>
 						</ul>
 					</li>
 				</ul>
