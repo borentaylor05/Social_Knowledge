@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="stylesheets/simple-sidebar.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="stylesheets/fairfax/main.css" type="text/css" media="screen" />
 
-<div id="wrapper" class="container main" ng-app="FX" ng-controller="Fairfax as fx">
-	<h1>{{ fx.header }}</h1>
+<div id="wrapper" class="container main">
+	<h1>Welcome to Fairfax</h1>
 	<ul class="breadcrumb text-left"></ul>
 	<!-- START SIDEBAR -->
 	<div id="sidebar-wrapper">
@@ -46,7 +46,7 @@
 				</a>
 			</div>
 			<div class="col-xs-4 col-centered">
-				<a href="#" ng-click="fx.go('nz-sales-home')">
+				<a href="#" onclick="navigation.go('nz-sales-home');">
 					<button class="btn btn-md btn-success">Go to NZ Sales</button>
 				</a>
 			</div>

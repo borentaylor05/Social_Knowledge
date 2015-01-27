@@ -45,7 +45,7 @@ var util = {
 	rails_env: {
 		local: "http://localhost:3000",
 		remote: "https://lit-inlet-2632.herokuapp.com",
-		current: "https://lit-inlet-2632.herokuapp.com",
+		current: "http://localhost:3000",
 		setCurrent: function(env){
 			this.current = env;
 		}
@@ -98,6 +98,7 @@ var util = {
 		osapi.jive.corev3.contents.get({
 		     entityDescriptor: "102,"+docNum
 		 }).execute(function(data){
+		 	console.log(data);
 		 	if(data.status === 403){
 		 		var error = "<h4 class='access-error'>"+
 						"Oops it looks like you don't have permission to view this document..."+

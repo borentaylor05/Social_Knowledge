@@ -16,6 +16,7 @@ fxApp.directive("pub", function(){
 fxApp.directive("opendoc", function(){
 	return function(scope, element, attrs){
 		element.bind("click", function(){
+			$(".doc-container").empty();
 			$(".overlay").removeClass("hide");
 			util.get_doc_html(util.fixDocNum(attrs.opendoc), function(id){
 				util.adjustHeight();
@@ -88,9 +89,9 @@ fxApp.controller("Fairfax", ['$http', '$scope', function($http, $scope){
 				tags = docs[i].tags;
 				if(tags.indexOf("fx-rates") >= 0)
 					fx.rates.push(docs[i]);
-				else if(tags.indexOf("fx-geos"))
+				else if(tags.indexOf("fx-geos") >= 0)
 					fx.geos.push(docs[i]);
-				else if(tags.indexOf("fx-mastheads"))
+				else if(tags.indexOf("fx-mastheads") >= 0)
 					fx.mastheads.push(docs[i]);
 			};
 			$scope.$apply(fx.geos);

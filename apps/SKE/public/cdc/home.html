@@ -1,1 +1,123 @@
-home.html
+<!--<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css" media="screen" /> -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/cdc/main.css" type="text/css" media="screen" />
+
+<div class="main" ng-app="CDC" ng-controller="cdcController as cdc">
+	<div class="row headerContainer">
+		<div class="col-xs-9">
+			<ul class="breadcrumb text-left"></ul>
+			<h2 class="header">CDC Knowledge Base</h2>
+		</div>
+		<div class="col-xs-3 gameContainer">
+			<div class="row text-center">
+				<div class="col-xs-1 gBadge">
+					<img src="images/fairfax/badge_heart.png" alt="Well Played" >
+					<label>Winner!</label>
+				</div>
+				<div class="col-xs-1 gBadge">
+					<img src="images/fairfax/badge_radio.png" alt="Well Played" >
+					<label>Winner!</label>
+				</div>
+				<div class="col-xs-1 gBadge">
+					<img src="images/fairfax/badge_medal.png" alt="Winner" >
+					<label>Winner!</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-6">
+				<div class="searchContainer">
+					<label>Search A to Z List: &nbsp</label>
+					<button class="btn btn-xs btn-primary" ng-click="cdc.getAllTopics('A','D')">A-D</button>
+					<button class="btn btn-xs btn-primary" ng-click="cdc.getAllTopics('E','J')">E-J</button>
+					<button class="btn btn-xs btn-primary" ng-click="cdc.getAllTopics('K','R')">K-R</button>
+					<button class="btn btn-xs btn-primary" ng-click="cdc.getAllTopics('S','Z')">S-Z</button>
+					<form ng-submit="cdc.searchTopics(data.atoz)">
+						<div class="input-group">
+							<span class="input-group-btn">
+								<button class="btn btn-md btn-success searchBtn" >Search</button>
+							</span>
+							<input type="text" class="form-control" ng-model="data.atoz" placeholder="search or select a range">
+						</div>
+					</form>
+					<div el-width="632" class="dropdown" ng-if="cdc.topics.length > 0">
+						<button el-width="591" class="pull-right pointer btn btn-xs btn-warning closeBar" ng-click="cdc.close('atoz')">Close</button>
+						<ul class="topics">
+							<li ng-repeat="topic in cdc.topics | filter:data.atoz"> 
+								<button ng-click="cdc.getTopic(topic)" class="btn btn-xs btn-info more">More</button>
+								<span>{{ topic.topic }} </span>
+								<ul class="info" ng-if="cdc.isCurrentTopic(topic)">
+									<li>AKA: {{ cdc.topicInfo.aka }} </li>
+									<li ng-class="cdc.topicInfo.scope == 'ESCALATE' ? 'esc' : 'none'">
+										Scope: {{ cdc.topicInfo.scope }} 
+									</li>
+									<li>Notes: {{ cdc.topicInfo.notes }} </li>
+									<li>Owner: {{ cdc.topicInfo.owner }} </li>
+									<li>Link: <span ng-bind-html="cdc.topicInfo.cdc_link | linky"></span> </li>
+									<li>Program Flow: {{ cdc.topicInfo.aka }} </li>
+									<li>Spanish? {{ cdc.topicInfo.aka ? "YES" : "NO" }} </li>
+									<li>PRs? {{ cdc.topicInfo.aka ? "YES" : "NO" }} </li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div class="searchContainer">
+					<label>Address Book</label>
+					<form >
+						<div class="input-group">
+							<span class="input-group-btn">
+								<button class="btn btn-md btn-success searchBtn" >Search</button>
+							</span>
+							<input type="text" class="form-control" ng-model="ab" placeholder="begin typing to see filter results">
+						</div>
+					</form>
+					<div el-width="632" class="dropdown" ng-if="ab.length > 0">
+						<button el-width="591" class="pull-right pointer btn btn-xs btn-warning closeBar" ng-click="cdc.close('ab')">Close</button>
+						<ul class="topics">
+							<li ng-repeat="entry in cdc.entries | filter:ab"> 
+								<button ng-click="cdc.getEntry(entry)" class="btn btn-xs btn-info more pull-left">More</button>
+								<div class-"pull-right text-left"> 
+									<span>{{ entry.ProgramDescription }} </span>
+									<span class="tiny" ng-if="entry.AlternateTopicName" >AKA: {{ entry.AlternateTopicName }} </span>
+									<ul class="info" ng-if="cdc.isCurrentEntry(entry)">
+										<li>Owner: {{ cdc.entryInfo.Owner }} </li>
+										<li>Email: {{ cdc.entryInfo.EmailAddress }} </li>
+										<li>Comments: {{ cdc.entryInfo.CommentText }} </li>
+										<li>First Name: {{ cdc.entryInfo.FirstName }} </li>
+										<li>Last Name: {{ cdc.entryInfo.LastName }} </li>
+										<li>Owner: {{ cdc.entryInfo.WorkPhone }} </li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Page Content -->
+	<overlay close-color="red"></overlay>
+</div>
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/angular.min.js"></script>
+<script src="//code.angularjs.org/1.2.20/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="javascripts/user.js"></script>
+<script type="text/javascript" src="javascripts/navigation.js"></script>
+<script type="text/javascript" src="javascripts/gadget-helper.js"></script>
+<script type="text/javascript" src="javascripts/templates.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/cdc/ng-cdc.js"></script>
+<script type="text/javascript">
+	gadgets.util.registerOnLoadHandler(function() {
+		navigation.init(gadgets.views.getParams(), function(){
+			util.adjustHeight();
+		});
+	});
+</script>

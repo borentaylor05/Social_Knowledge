@@ -33,13 +33,35 @@
 		<div class="col-xs-9">
 			<div class="row row-centered tabContainer">
 				<div class="col-xs-4">
-					<button class="peter-river-flat-button">Systems</button>
+					<div class="peter-river-flat-button category">
+						Systems
+						<div class="links text-left">
+							<a opendoc="DOC-1597"><i class="fa fa-github"></i>Paystation</a>
+							<a opendoc="DOC-1596"><i class="fa fa-github"></i>OWA</a>
+							<a opendoc="DOC-1595"><i class="fa fa-github"></i>Matrix</a>
+						</div>
+					</div>
 				</div>
 				<div class="col-xs-4">
-					<button class="peter-river-flat-button">Billing</button>
+					<div class="peter-river-flat-button category">
+						Billing
+						<div class="links text-left">
+							<a opendoc="DOC-1598"><i class="fa fa-github"></i>FAQ</a>
+							<a opendoc="DOC-1599"><i class="fa fa-github"></i>Invoice</a>
+							<a opendoc="DOC-1600"><i class="fa fa-github"></i>Statements</a>
+						</div>
+					</div>
 				</div>
 				<div class="col-xs-4">
-					<button class="peter-river-flat-button">Processes</button>
+					<button class="peter-river-flat-button category">
+						Processes
+						<div class="links text-left">
+							<a opendoc="DOC-1601"><i class="fa fa-github"></i>Billing</a>
+							<a opendoc="DOC-1602"><i class="fa fa-github"></i>Email and Call Handling</a>
+							<a opendoc="DOC-1603"><i class="fa fa-github"></i>Escalations</a>
+							<a opendoc="DOC-1604"><i class="fa fa-github"></i>Subscriptions</a>
+						</div>
+					</button>
 				</div>
 			</div>
 			<div class="row row-centered pubs">
@@ -93,9 +115,6 @@
 				<h1>Rates</h1>
 				<div class="alert alert-danger" ng-if="fx.rates.length == 0"> No Rates found for {{ fx.selected }} </div>
 				<ul class="text-left">
-					<li class="match" opendoc="DOC-1030">
-						<a>Blah Blah Document</a>
-					</li>
 					<li class="match" ng-repeat="rate in fx.rates" opendoc="{{ rate.id }}">
 						<a>{{ rate.subject }}</a>
 					</li>

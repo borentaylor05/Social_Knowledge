@@ -119,6 +119,12 @@ var navigation = {
 		"fx-home":{
 			auth: ['all']
 		},
+		"nz-sales-home":{
+			auth: ['all']
+		},
+		"cdc-home":{
+			auth: ['all']
+		},
 		"test":{
 			auth: ['all']
 		}

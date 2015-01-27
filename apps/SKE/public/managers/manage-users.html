@@ -106,7 +106,6 @@
 			navigation.makeLinks();
 			user.listAll(0, function(){
 				user.attachHandlers();
-
 				$("#saveEdit").on("click touch", function(e){
 					e.preventDefault();
 					var u = gadgets.views.getParams().my;

@@ -1,0 +1,56 @@
+.main{
+	min-height: 700px;
+}
+.dropdown{
+	max-height: 250px;
+	overflow: scroll;
+	position: absolute;
+	margin-left: 2px;
+	background-color: white;
+	border-radius: 2px;
+	padding: 10px;
+	box-shadow: 0px 0px 2px #AAA;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.topics{
+	list-style: none;
+	padding-left: 8px; 
+	margin-top: 15px;
+}
+.topics > li{
+	padding: 5px;
+	border-bottom: 1px solid #eee;
+	font-size: 1em;
+	font-weight: 200px;
+	width: 100%;
+}
+.more{
+	margin-right: 20px;
+}
+.closeBar{
+	width: 390px;
+	margin-top: -10px;
+	position: fixed;
+}
+.esc{
+	background-color: red;
+	color: white;
+	padding: 3px;
+	border-radius: 2px;
+	-o-border-radius: 2px;
+	-ms-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+}
+.info{
+	margin-left: 40px;
+}
+.topics .tiny{
+	display: block;
+	font-size: .7em;
+}
+.header{
+	margin-left: 20px;
+}

@@ -30,6 +30,17 @@ div.container.main{
 .listContainer{
 	margin-top: 20px;
 }
+.gameContainer{
+	padding: 10px;
+	text-align: center;
+	border-bottom: 1px solid #EEE;
+	border-left: 1px solid #EEE;
+	border-radius: 3px;
+}
+div.gBadge{
+	padding-left: 50px;
+	padding-right: 50px;
+}
 
 #managerHome{
 	margin-right: auto;
