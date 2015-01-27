@@ -30,7 +30,11 @@
 	margin-top: 40px;
 	margin-left: 10px;
 }
-
+.match{
+	border-bottom: 1px solid #eee;
+	padding-bottom: 7px;
+	margin-top: 5px;
+}
 .spec{
 	min-height: 400px;
 	border: 1px solid #09f;
