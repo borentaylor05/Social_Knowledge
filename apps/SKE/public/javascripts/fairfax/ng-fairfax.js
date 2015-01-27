@@ -105,6 +105,7 @@ fxApp.controller("Fairfax", ['$http', '$scope', function($http, $scope){
 				else if(tags.indexOf("fx-marketing") >= 0)
 					fx.marketing.push(docs[i]);
 			};
+			console.log(fx.geos);
 			$scope.$apply(fx.geos);
 			$scope.$apply(fx.rates);
 			$scope.$apply(fx.marketing);
