@@ -81,10 +81,10 @@
 					<div el-width="410" class="dropdown" ng-if="cdc.prs.length > 0">
 						<button el-width="371" class="pull-right pointer btn btn-xs btn-warning closeBar" ng-click="cdc.close('pr')">Close</button>
 						<ul class="topics">
-							<li > 
+							<li ng-repeat="pr in cdc.prs"> 
 								<p>
-									<span class="pull-left">TEST DOC </span>
-									<a class="pull-right" target="_blank" ng-href="">Open</a>
+									<span class="pull-left"> {{ pr.subject }} </span>
+									<a class="pull-right" target="_blank" ng-href="{{ pr.resources.self.ref }}">Open</a>
 								</p>
 							</li>
 						</ul>
