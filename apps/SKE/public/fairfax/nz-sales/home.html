@@ -117,6 +117,9 @@
 				<ul class="text-left">
 					<li class="match" ng-repeat="rate in fx.rates" opendoc="{{ rate.id }}">
 						<a>{{ rate.subject }}</a>
+						<ul class="desc">
+							<li> {{ fx.getBlockquote(mh.content.text) }} </li>
+						</ul>
 					</li>
 				</ul>
 			</div>
@@ -128,6 +131,9 @@
 				<ul class="text-left">
 					<li class="match" ng-repeat="geo in fx.geos" opendoc="{{ geo.id }}">
 						<a>{{ geo.subject }}</a>
+						<ul class="desc">
+							<li> {{ fx.getBlockquote(mh.content.text) }} </li>
+						</ul>
 					</li>
 				</ul>
 			</div>
@@ -139,6 +145,9 @@
 				<ul class="text-left">
 					<li class="match" ng-repeat="mh in fx.mastheads" opendoc="{{ mh.id }}">
 						<a>{{ mh.subject }}</a>
+						<ul class="desc">
+							<li> {{ fx.getBlockquote(mh.content.text) }} </li>
+						</ul>
 					</li>
 				</ul>
 			</div>

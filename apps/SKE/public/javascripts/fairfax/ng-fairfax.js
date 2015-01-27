@@ -53,6 +53,16 @@ fxApp.controller("Fairfax", ['$http', '$scope', function($http, $scope){
 	fx.rates = [];
 	fx.geos = [];
 	fx.mastheads = [];
+
+	fx.getBlockQuote = function(html){
+		var start, end, length, startString, startLength;
+		startString = '<blockquote class="jive-quote"';
+		startLength = startString.length;
+		start = html.indexOf(startString);
+		end = html.indexOf("</blockquote>", start);
+		length = end - start;
+		return html.substring(start+startLength+1, end);
+	}
 	
 	fx.select = function(pub){
 		fx.reset(pub);
