@@ -118,7 +118,7 @@
 					<li class="match" ng-repeat="rate in fx.rates" opendoc="{{ rate.id }}">
 						<a>{{ rate.subject }}</a>
 						<ul class="desc">
-							<li> {{ fx.getBlockQuote(rate.content.text) }} </li>
+							<li ng-bind-html="fx.getBlockQuote(rate.content.text) | unsafe"> </li>
 						</ul>
 					</li>
 				</ul>
@@ -132,7 +132,7 @@
 					<li class="match" ng-repeat="geo in fx.geos" opendoc="{{ geo.id }}">
 						<a>{{ geo.subject }}</a>
 						<ul class="desc">
-							<li> {{ fx.getBlockQuote(geo.content.text) }} </li>
+							<li ng-bind-html="fx.getBlockQuote(geo.content.text) | unsafe"> </li>
 						</ul>
 					</li>
 				</ul>
@@ -143,10 +143,10 @@
 				<h1>Marketing Campaign</h1>
 				<div class="alert alert-danger" ng-if="fx.marketing.length == 0"> No Marketing Material found for {{ fx.selected }} </div>
 				<ul class="text-left">
-					<li class="match" ng-repeat="mc in fx.marketing" opendoc="{{ mh.id }}">
-						<a>{{ mh.subject }}</a>
+					<li class="match" ng-repeat="mc in fx.marketing" opendoc="{{ mc.id }}">
+						<a>{{ mc.subject }}</a>
 						<ul class="desc">
-							<li> {{ fx.getBlockQuote(mc.content.text) }} </li>
+							<li ng-bind-html="fx.getBlockQuote(mc.content.text) | unsafe"> </li>
 						</ul>
 					</li>
 				</ul>

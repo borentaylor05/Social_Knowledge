@@ -43,8 +43,9 @@ fxApp.directive("overlay", function(){
 		
 });
 
+fxApp.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
 
-fxApp.controller("Fairfax", ['$http', '$scope', function($http, $scope){
+fxApp.controller("Fairfax", ['$http', '$scope', '$sce', function($http, $scope, $sce){
 	var fx = this;
 	fx.pubSelected = false;
 	fx.view = "main";
