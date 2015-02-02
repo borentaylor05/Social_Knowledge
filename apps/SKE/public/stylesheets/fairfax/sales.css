@@ -11,6 +11,7 @@
 	padding-left: 20px;
 }
 .logo{
+	padding-right: 0px;
 	width: 9.7%
 }
 .logo > img{
@@ -27,7 +28,7 @@
 	cursor: pointer;
 }
 .pubs{
-	margin-top: 40px;
+	margin-top: 10px;
 	margin-left: 10px;
 }
 .match{
@@ -45,43 +46,13 @@
 	padding-right: 15px;
 	padding-bottom: 15px;
 }
-.widget{
-	border: 1px solid #EEE;
-	padding-left: 0px;
-	height: 300px;
-	overflow: scroll;
-}
-.widgetContainer{
-	padding-left: 0px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-right: 10px 
 
-}
 .deadlineContainer{
 	max-width: 800px;
 	margin-left: auto;
 	margin-right: auto;
 }
-div.overlay {
-    position: absolute;
-    background-color: #FFF !important;
-    padding: 20px;
-    opacity: .99;
-    top:50;
-    left:80;
-    right:80;
-    bottom:40;
-    z-index: 9999;
-    height: 100%;
-    overflow: scroll;
-    border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    box-shadow: 0 0 15px #AAA;
-}
+
 .links{
 	margin: 15px;
 }
@@ -109,33 +80,30 @@ div.overlay {
 .desc > li > *{
 	margin: 0px;
 }
-.leaderboard{
-	list-style: none;
-	padding-left: 20px;
-}
-.person{
-	padding: 10px;
-}
-.person > span.badge{
-	font-family: "Lucida Console", Monaco, monospace;
-	font-size: 1.1em;
-	font-style: italic;
-	background-color: rgb(52, 152, 219);
-}
-.person > *{
-	margin-left: 5px;
-	margin-right: 5px;
-}
-.leaderboard > li > img{
-	width: 20px;
-	height: 20px;
-}
+
 .headerRow{
 	margin-top: 20px;
 }
 .day{
 	border-bottom: 1px solid #DDD;
 	padding-bottom: 10px;
+}
+.get{
+	margin-right: 20px;
+	margin-bottom: 5px;
+}
+.pubContainer{
+	text-align: left;
+	padding: 20px;
+	border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border: 1px solid #EEE;
+}
+.pubContainer > p{
+	border-bottom: 1px solid #CCC;
 }
 
 /* From http://cssdeck.com/labs/beautiful-flat-buttons  */
@@ -161,3 +129,18 @@ div.overlay {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
+.timer{
+	font-size: .7em;
+	padding: 2px;
+	padding-left: 10px;
+	padding-right: 10px;
+	width: 100%;
+	border-radius: 3px;
+}
+#hideTimers{
+	margin-top: 20;
+	margin-left: 25px;
+	margin-right: 10px;
+}
+
+

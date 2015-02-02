@@ -1,12 +1,11 @@
 
-MessageApp.controller("MessageController", ['$scope', '$sce', '$http', function($scope, $sce, $http){
+app.controller("MessageController", ['$scope', '$sce', '$http', function($scope, $sce, $http){
 	$http.defaults.transformResponse = function(data, headers){ return util.fix(data); };
 	var msgs = this;
-	msgs.welcome = "HELLO WORLD";
 	msgs.sgs = []; 
 	msgs.selectedGroups = [];
 	msgs.recipients = [];
-	msgs.doneSelecting = false;
+	msgs.doneSelecting = msgs.messageSent = false;
 
 	var isNextPage = function(resp){
 		if(resp.list.length < 100 || !resp.links || !resp.links.next)
@@ -21,7 +20,6 @@ MessageApp.controller("MessageController", ['$scope', '$sce', '$http', function(
 		else
 			return false;
 	}
-
 	var getSecGroupPeople = function(group, start, remove){
 		if(start < 0)
 			return;
@@ -47,7 +45,29 @@ MessageApp.controller("MessageController", ['$scope', '$sce', '$http', function(
 			});
 		}
 	}
-
+	msgs.send = function(msg){
+		var params = {
+			sender: window.parent._jive_current_user.ID,
+			recipients: msgs.recipients,
+			body: msg
+		}
+		$http.post(util.rails_env.current+"/message", params).success(function(resp){
+			resp = JSON.parse(resp);
+			msgs.messageSent = true;
+			msgs.status = resp.status;
+			if(msgs.status == 0){
+				msgs.responseMessage = resp.message;
+			}
+			else if(msgs.status == 2){
+				util.createUser(function(){
+					msgs.send(msg);
+				});
+			}
+			else{
+				msgs.responseMessage = resp.error;
+			}
+		});
+	}
 	msgs.checkInit = function(callback){
 		$http.get(util.rails_env.current+"/user/check?user="+window.parent._jive_current_user.ID).success(function(resp){
 			resp = JSON.parse(resp);
@@ -66,11 +86,14 @@ MessageApp.controller("MessageController", ['$scope', '$sce', '$http', function(
 		});
 	}
 	msgs.getSpaces = function(){
-		switch(msgs.client.name){
-			case "all":
-				helper("/api/core/v3/securityGroups", 0);
-			break;
-		}
+	/*	if(msgs.client){
+			switch(msgs.client.name){
+				case "all":
+					helper("/api/core/v3/securityGroups", 0);
+				break;
+			}
+		} */
+		helper("/api/core/v3/securityGroups", 0);
 	}
 	var helper = function(url, start){
 		if(start < 0)
@@ -132,7 +155,9 @@ MessageApp.controller("MessageController", ['$scope', '$sce', '$http', function(
 	msgs.setDoneSelecting = function(status){
 		msgs.doneSelecting = status;
 	}
-
+	msgs.setMessageSent = function(status){
+		msgs.messageSent = status;
+	}
 	// on page load
 	msgs.checkInit(function(resp){
 		if(resp.status == 0){

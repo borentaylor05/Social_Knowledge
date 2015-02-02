@@ -1,6 +1,5 @@
-var fxApp = angular.module("FX", []);
 
-fxApp.directive("pub", function(){
+app.directive("pub", function(){
 	return function(scope, el, attrs){
 		el.bind("click", function(){
 			imgs = el.parent().parent().find('img');
@@ -13,38 +12,55 @@ fxApp.directive("pub", function(){
 	}
 });
 
-fxApp.directive("opendoc", function(){
-	return function(scope, element, attrs){
-		element.bind("click", function(){
-			$(".doc-container").empty();
-			$(".overlay").removeClass("hide");
-			util.get_doc_html(util.fixDocNum(attrs.opendoc), function(id){
-				util.adjustHeight();
-				$(".main").click(function(){
-					$(".overlay").addClass("hide");
-					$(".main").unbind("click"); // remove handler so you can reopen overlay
-				});
-			});
-		});
-	};
-});
-
-fxApp.directive("overlay", function(){
+app.directive("timer", function(){
 	return {
 		restrict: "E",
-		template: '<div class="overlay hide"><i class="fa fa-close fa-3x pull-right pointer"></i><div class="doc-container"></div></div>',
-		link: function(scope, element, attrs){
-				element.find("i").first().css({ "color":attrs.closeColor });
-				element.find("i").first().bind("click", function(){
-					$(".overlay").addClass("hide");
-				});
-			}
-	}		
+		link: function(scope, el, attrs){
+			var now = new Date(),
+			    day = now.getDate(),
+			    month = now.getMonth(),
+			    year = now.getFullYear();
+
+			var time = attrs.deadline.split(":"),
+				hour = time[0],
+				minute = time[1];
+
+			var days, hours, minutes, seconds;
+			setInterval(function () {
+			    // find the amount of "seconds" between now and target
+			    var target_date = new Date(year, month, day, hour, minute).getTime();
+			    var current_date = new Date().getTime();
+			    var seconds_left = (target_date - current_date) / 1000;
+			 
+			    // do some time calculations
+			    days = parseInt(seconds_left / 86400);
+			    seconds_left = seconds_left % 86400;
+			     
+			    hours = parseInt(seconds_left / 3600);
+			    seconds_left = seconds_left % 3600;
+			     
+			    minutes = parseInt(seconds_left / 60);
+			    seconds = parseInt(seconds_left % 60);
+			     
+			    // format countdown string + set tag value
+			    el.html(hours + "h-"+ minutes + "m-" + seconds + "s"); 
+
+			    if(minutes == parseInt(attrs.alertAt) && seconds == 0 && hours == 0)
+			    	alert("Deadline for "+attrs.pub+" is in "+attrs.alertAt+" minutes!"); 
+			    if(minutes < 0)
+			    	el.html("DL passed")
+			    if(parseInt(hours) == 0 && parseInt(minutes) >= 0){
+			    	el.css({ "background-color":"red", "color":"white" })
+			    }
+			 
+			}, 1000);
+		}
+	}
 });
 
-fxApp.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
+app.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
 
-fxApp.controller("Fairfax", ['$http', '$scope', '$sce', function($http, $scope, $sce){
+app.controller("Fairfax", ['$http', '$scope', '$sce', function($http, $scope, $sce){
 	var fx = this;
 	fx.pubSelected = fx.deadlines = false;
 	fx.view = "main";
@@ -53,6 +69,7 @@ fxApp.controller("Fairfax", ['$http', '$scope', '$sce', function($http, $scope, 
 	fx.rates = [];
 	fx.geos = [];
 	fx.marketing = [];
+	fx.allDeadlines = [];
 
 	fx.getBlockQuote = function(html){
 		var start, end, length, startString, startLength;
@@ -64,16 +81,23 @@ fxApp.controller("Fairfax", ['$http', '$scope', '$sce', function($http, $scope, 
 		return $sce.trustAsHtml(html.substring(start+startLength+1, end));
 	}
 	fx.getDeadlines = function(pub){
-		fx.deadlines = true;
+		fx.dlSelected = pub;
+		$http.get(util.rails_env.current+"/fairfax/deadlines/publication?pub="+pub).success(function(resp){
+			console.log(resp);
+			fx.allDeadlines = resp.deadlines;
+			fx.filter = null;
+		});
 	}
-	
+	fx.clearDeadlines = function(){
+		fx.allDeadlines = [];
+	}
 	fx.select = function(pub){
 		fx.reset(pub);
 		osapi.jive.core.get({
 	        "href": "/contents?filter=tag("+pub+")",
 	        "v": "v3"
 	    }).execute(function(resp){
-	    	resp = user.responseCheck(resp);
+	    	resp = util.responseCheck(resp);
 	    	divvyUp(resp.list)
 	    	util.adjustHeight();
 	    });
@@ -94,7 +118,12 @@ fxApp.controller("Fairfax", ['$http', '$scope', '$sce', function($http, $scope, 
 	    	$scope.$apply(fx.people);
 	    });
 	}
-
+	fx.getPubs = function(){
+		fx.deadlines = true;
+		$http.get(util.rails_env.current+"/fairfax/publications").success(function(resp){
+			fx.pubs = resp.pubs;
+		});
+	}
 	fx.setDeadlines = function(status){
 		fx.deadlines = status;
 	}
@@ -164,75 +193,7 @@ fxApp.controller("Fairfax", ['$http', '$scope', '$sce', function($http, $scope, 
 			break;
 		}
 	}
-	fx.allDeadlines = [
-		 {
-		 	day: "Monday",
-			deadlines: [
-				{
-					pub: "Dominion Post (Situations Vacant)",
-					nz: "2:00 PM",
-					mla: "9:00 AM",
-					run: "Wednesday",
-					close: "Monday"
-				},
-				{
-					pub: "Dominion Post (General)",
-					nz: "3:30 PM",
-					mla: "10:30 AM",
-					run: "Tuesday",
-					close: "Monday"
-				},
-				{
-					pub: "Dominion Post (Family Notices)",
-					nz: "5:00 PM",
-					mla: "12:00 PM",
-					run: "Tuesday",
-					close: "Monday"
-				}
-			]
-		},
-		{
-			day: "Tuesday",
-			deadlines: [
-				{
-					pub: "Dominion Post (General)",
-					nz: "3:30 PM",
-					mla: "10:30 AM",
-					run: "Wednesday"
-				},
-				{
-					pub: "Dominion Post (Family Notices)",
-					nz: "5:00 PM",
-					mla: "12:00 PM",
-					run: "Wednesday"
-				}
-			]
-		},
-		{
-			day: "Wednesday",
-			deadlines: [
-				{
-					pub: "Dominion Post (General)",
-					nz: "3:30 PM",
-					mla: "10:30 AM",
-					run: "Thursday"
-				},
-				{
-					pub: "Dominion Post (Family Notices)",
-					nz: "5:00 PM",
-					mla: "12:00 PM",
-					run: "Thursday"
-				},
-				{
-					pub: "Dominion Post (Motoring)",
-					nz: "5:00 PM",
-					mla: "12:00 PM",
-					run: "Saturday"
-				}
-			]
-		}
-	]
-
+	
 	// on page load
 	fx.getPeople();
 

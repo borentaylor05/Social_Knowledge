@@ -15,7 +15,46 @@ div.container.main{
 .pointer{
 	cursor: pointer;
 }
+.widget{
+	border: 1px solid #EEE;
+	padding-left: 0px;
+	height: 300px;
+	overflow: scroll;
+}
+.widgetContainer{
+	padding-left: 0px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-right: 0px; 
+	padding-left: 10px;
 
+}
+.leaderboard{
+	list-style: none;
+	padding-left: 20px;
+}
+.person{
+	padding: 10px;
+}
+.person > span.badge{
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 1.1em;
+	font-style: italic;
+	background-color: rgb(52, 152, 219);
+}
+.person > *{
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.leaderboard > li > img{
+	width: 20px;
+	height: 20px;
+}
+.person > *{
+	margin-left: 5px;
+	margin-right: 5px;
+}
 /* centered columns styles */
 .row-centered {
     text-align:center;
@@ -118,7 +157,24 @@ div.doc-container{
 }
 
 div.overlay{
-	overflow: scroll;
+    position: absolute;
+    background-color: #FFF !important;
+    padding: 20px;
+    opacity: .99;
+    top:50;
+    left:80;
+    right:80;
+    bottom:40;
+    z-index: 9999;
+    height: 100%;
+    max-height: 900px;
+    overflow: scroll;
+    border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    box-shadow: 0 0 15px #AAA;
 }
 
 span.tiny > a{

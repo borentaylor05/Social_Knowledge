@@ -12,8 +12,8 @@
 <link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="stylesheets/message.css" type="text/css" media="screen" />
 
-<div ng-app="MessageApp" ng-controller="MessageController as msgs">
-	<div class="container main">
+<div ng-app="App" ng-controller="MessageController as msgs">
+	<div class="container main" ng-hide="msgs.messageSent">
 		<div ng-hide="msgs.doneSelecting">
 			<h3> Select Group(s) to Send Message To </h3>
 			<input id="searchInput" ng-model="data.search" type="text" class="form-control">
@@ -44,17 +44,21 @@
 			</div>
 		</div>
 	</div>
+	<div ng-class="msgs.status == 0 ? 'alert alert-success' : 'alert alert-danger'" ng-if="msgs.messageSent">
+		{{ msgs.responseMessage }}
+		<div class="text-center">
+			<button class="btn btn-default btn-sm" ng-click="msgs.setMessageSent(false)">Send Another Message</button>
+		</div>
+	</div>
 </div>
 
 
 <script type="text/javascript" src="javascripts/angular.min.js"></script>
-<script type="text/javascript" src="javascripts/gadget-helper.js"></script>
+<script type="text/javascript" src="javascripts/angular-sanitize.min.js"></script>
 <script type="text/javascript" src="javascripts/util.js"></script>
-<script type="text/javascript" src="javascripts/post.js"></script>
 <script type="text/javascript" src="javascripts/navigation.js"></script>
-<script type="text/javascript" src="javascripts/templates.js"></script>
-<script type="text/javascript" src="javascripts/ng/apps/MessageApp.js"></script>
-<script type="text/javascript" src="javascripts/ng/controllers/MessageController.js"></script>
+<script type="text/javascript" src="javascripts/ng/apps/MasterApp.js"></script>
+<script type="text/javascript" src="javascripts/ng/controllers/messages/MessageController.js"></script>
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(function() {
 		gadgets.window.adjustHeight();

@@ -1,3 +1,26 @@
+var gadget_helper = {
+	post: function(url, data, callback){
+		console.log(url);
+		var params = {};
+		params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+  		params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues(data);
+  		gadgets.io.makeRequest(url, callback, params);
+	},
+	put: function(url, data, callback){
+		console.log(url);
+		var params = {};
+		params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.PUT;
+  		params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues(data);
+  		gadgets.io.makeRequest(url, callback, params);
+	},
+	get: function(url, params, callback){
+		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+  		gadgets.io.makeRequest(url, callback, params);
+	}
+}
+
 var util = {
 	isEmpty: function(obj) {
 	    for(var prop in obj) {
@@ -5,6 +28,10 @@ var util = {
 	            return false;
 	    }
     	return true;
+	},
+	lastPart: function(url){
+		var parts = url.split("/");
+		return parts[parts.length - 1];
 	},
 	fix: function(data){
 		return data.replace(/^throw [^;]*;/, '');
@@ -45,7 +72,7 @@ var util = {
 	rails_env: {
 		local: "http://localhost:3000",
 		remote: "https://lit-inlet-2632.herokuapp.com",
-		current: "https://lit-inlet-2632.herokuapp.com",
+		current: "http://localhost:3000",
 		setCurrent: function(env){
 			this.current = env;
 		}
@@ -94,7 +121,6 @@ var util = {
 	get_doc_html: function(docNum, callback){
 		if(docNum.indexOf("DOC") >= 0)
 			docNum = docNum.substring(4);
-		console.log(docNum);
 		osapi.jive.corev3.contents.get({
 		     entityDescriptor: "102,"+docNum
 		 }).execute(function(data){
@@ -137,6 +163,16 @@ var util = {
 	            return sParameterName[1];
 	        }
 	    }
+	},
+	createUser: function(callback){
+		var user = {
+				jive_id: window.parent._jive_current_user.ID,
+				employee_id: window.parent._jive_current_user.username,
+				name: window.parent._jive_current_user.displayName
+			}
+		gadget_helper.post(this.rails_env.current+"/user", user, function(resp){
+			callback();
+		});	
 	},
 	showFeatureBtn: function(jive_user_id, api_id){
 		$("div.overlay > button#featureMe").remove();
