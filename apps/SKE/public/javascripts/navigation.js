@@ -122,6 +122,9 @@ var navigation = {
 		"nz-sales-home":{
 			auth: ['all']
 		},
+		"nz-sales-trades":{
+			auth: ['all']
+		},
 		"cdc-home":{
 			auth: ['all']
 		},

@@ -23,6 +23,11 @@
           label="Send Message"  
           view="send-message"/>
 
+          <action id="request.article"  
+          path="jive/actions/navmenu"  
+          label="Request New Article"  
+          view="request-article"/>
+
         <action id="sendmessage.actions"  
           path="jive/actions/places/*"  
           label="Send Message"  
@@ -106,10 +111,12 @@
   <Content type="html" view="fx-home" href="fairfax/home.html" />
   <Content type="html" view="nz-care-home" href="fairfax/nz-care/home.html" />
   <Content type="html" view="nz-sales-home" href="fairfax/nz-sales/home.html" />
+  <Content type="html" view="nz-sales-trades" href="fairfax/nz-sales/trades-home.html" />
   <!-- CDC PAGES -->
   <Content type="html" view="cdc-home" href="cdc/home.html" />
 
  <!--  GENERAL  -->
   <Content type="html" view="send-message" href="general/send-message.html" />
+  <Content type="html" view="request-article" href="general/request-article.html" />
 
 </Module>

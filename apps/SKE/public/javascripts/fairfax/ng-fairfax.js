@@ -43,7 +43,7 @@ app.directive("timer", function(){
 			    seconds = parseInt(seconds_left % 60);
 			     
 			    // format countdown string + set tag value
-			    el.html(hours + "h-"+ minutes + "m-" + seconds + "s"); 
+			    el.html(hours + "h-"+ minutes + "m"); 
 
 			    if(minutes == parseInt(attrs.alertAt) && seconds == 0 && hours == 0)
 			    	alert("Deadline for "+attrs.pub+" is in "+attrs.alertAt+" minutes!"); 
@@ -53,7 +53,7 @@ app.directive("timer", function(){
 			    	el.css({ "background-color":"red", "color":"white" })
 			    }
 			 
-			}, 1000);
+			}, 5000);
 		}
 	}
 });
