@@ -1,95 +1,108 @@
 <!--<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css" media="screen" /> -->
+<!--[if IE 9]>
+<script src="//cdn.rawgit.com/jpillora/xdomain/0.6.17/dist/xdomain.min.js"></script>
+<script>
+  xdomain.slaves({
+    'https://lit-inlet-2632.herokuapp.com': '/web/IE9/proxy.html'
+  });
+</script>
+<![endif]-->
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="stylesheets/simple-sidebar.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="stylesheets/fairfax/main.css" type="text/css" media="screen" />
 
-<div id="wrapper" class="container main">
-	<h1>Welcome to Fairfax</h1>
-	<ul class="breadcrumb text-left"></ul>
-	<!-- START SIDEBAR -->
-	<div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <li><a class="showMenu">NZ Care</a></li>
-            <li class="animate-switch">
-            	<h5>General</h5>
-            	<ul>
-            		<li class="section">One</li>
-            		<li class="section">Two</li>
-            		<li class="section">Three</li>
-            	</ul>
-            	<h5>Special</h5>
-            	<ul>
-            		<li class="section">One</li>
-            		<li class="section">Two</li>
-            		<li class="section">Three</li>
-            	</ul>
-            </li>
-            <li><a class="showMenu">NZ Sales</a></li>
-            <li class="animate-switch inactive">
-            	<ul>
-            		<li class="section">One</li>
-            		<li class="section">Two</li>
-            		<li class="section">Three</li>
-            	</ul>
-            </li>
-        </ul>
-    </div>
-	<!-- END SIDEBAR -->
-	<!-- Page Content -->
-	<div id="page-content-wrapper" class="container main text-left"> 
-		<div class="row row-centered">
-			<div class="col-xs-4 col-centered">
-				<a href="#" >
-					<button class="btn btn-md btn-info">Go to NZ CARE</button>
-				</a>
-			</div>
-			<div class="col-xs-4 col-centered">
-				<a href="#" onclick="navigation.go('nz-sales-home');">
-					<button class="btn btn-md btn-success">Go to NZ Sales</button>
-				</a>
+<div class="main fx-home" ng-app="App" ng-controller="Fairfax as fx">
+	<div class="row">
+		<img class="logo-main col-xs-3" src="images/fx.jpg">
+		<div class="col-xs-12 myNavContainer">
+			<ul class="myNav pull-left">
+				<li><a class="navlink" href="#">Who We Are</a></li>
+				<li><a class="navlink" href="#">What We Do</a></li>
+				<li><a class="navlink" href="#">Who We Work With</a></li>
+				<li><a class="navlink" href="#">What We Publish</a></li>
+				<li><a class="navlink" href="#">What is Printing</a></li>
+			</ul>
+			<ul class="myNav pull-right" id="subspaces">
+				<li>
+					<button class="btn btn-xs btn-default" ng-click="fx.goHome()">Home</button>
+				</li>
+				<li>
+					<button class="btn btn-xs btn-default" ng-click="fx.go('nz-sales-home')">NZ Sales</button>
+				</li>
+				<li>
+					<button class="btn btn-xs btn-default" ng-click="fx.go('nz-sales-home')">NZ Care</button>
+				</li>
+			</ul>
+			<div style="clear:both;"></div>
+		</div>
+	</div>
+	<div class="imageContainer">
+		<div id="line"></div>
+		<img id="stock" src="images/fairfax/vv.jpg">
+	</div>
+	<div class="textContainer">
+		<div class="text text-center">
+			<h1>A. Nec. Dolor augue, egestas hac, et integer, et porta, rhoncus rhoncus!</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="section gray"></div>
+	</div>
+	<div class="row row-centered icons">
+		<div class="col-xs-2 col-centered">
+			<div class="container round"><img src="images/fairfax/target.png"></div>
+			<div class="icon-info">
+				<h3>FAIRFAX AUSTRALIA</h3>
+				<div class="info">
+					Elementum dolor sociis dignissim, hac risus, augue magnis etiam ac!
+				</div>
 			</div>
 		</div>
-		<ul>
-			<li>What is Fairfax New Zealand?</li>
-			<li>What is the FX NZ TeleTech Program?</li>
-			<li>What Mastheads and Geos?</li>
-			<li>Who are the stakeholders?</li>
-		</ul>
+		<div class="col-xs-2 col-centered">
+			<div class="container round"><img src="images/fairfax/target.png"></div>
+			<div class="icon-info">
+				<h3>FAIRFAX AUSTRALIA</h3>
+				<div class="info">
+					Elementum dolor sociis dignissim, hac risus, augue magnis etiam ac!
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-2 col-centered">
+			<div class="container round"><img src="images/fairfax/target.png"></div>
+			<div class="icon-info">
+				<h3>FAIRFAX AUSTRALIA</h3>
+				<div class="info">
+					Elementum dolor sociis dignissim, hac risus, augue magnis etiam ac!
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-2 col-centered">
+			<div class="container round"><img src="images/fairfax/target.png"></div>
+			<div class="icon-info">
+				<h3>FAIRFAX AUSTRALIA</h3>
+				<div class="info">
+					Elementum dolor sociis dignissim, hac risus, augue magnis etiam ac!
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 
 <script type="text/javascript" src="javascripts/jquery.min.js"></script>
 <script type="text/javascript" src="javascripts/angular.min.js"></script>
 <script type="text/javascript" src="javascripts/angular-sanitize.min.js"></script>
-<script type="text/javascript" src="javascripts/user.js"></script>
 <script type="text/javascript" src="javascripts/gadget-helper.js"></script>
 <script type="text/javascript" src="javascripts/navigation.js"></script>
 <script type="text/javascript" src="javascripts/templates.js"></script>
 <script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/ng/apps/MasterApp.js"></script>
 <script type="text/javascript" src="javascripts/fairfax/ng-fairfax.js"></script>
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(function() {
 		navigation.init(gadgets.views.getParams(), function(){
-			$(".inactive").hide();
-			setTimeout(function(){gadgets.window.adjustHeight()}, 1000);
-			$(".showMenu").each(function(){
-				$(this).click(function(e){
-					e.preventDefault();
-					var cur = this;
-					$(".animate-switch").slideUp(function(){
-						$(cur).parent().next().slideDown();
-					});
-					
-				});
-			});
-			$(".section").each(function(){
-				$(this).click(function(e){
-					$(".section").removeClass("active");
-					$(this).addClass("active");
-				});
-			});
+			console.log(navigation.user);
+			util.adjustHeight();
 		});
 	});
 </script>

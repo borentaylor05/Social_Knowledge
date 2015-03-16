@@ -8,7 +8,7 @@ app.controller("UnreadMessages", ['$http', '$sce', '$scope', function($http, $sc
 	msgs.overlay = msgs.userInitiated = msgs.sending = false;
 
 	msgs.getUnreadMessages = function(){
-		$http.get(url.current+"/messages?user="+window.parent._jive_current_user.ID).success(function(resp){
+		$http.get(util.rails_env.current+"/messages?user="+window.parent._jive_current_user.ID).success(function(resp){
 			resp = JSON.parse(resp);
 			msgs.unread = resp.messages;
 			console.log(msgs.unread);
@@ -18,11 +18,12 @@ app.controller("UnreadMessages", ['$http', '$sce', '$scope', function($http, $sc
 			console.log(err);
 		});
 	}
-	msgs.acknowledge = function(msg_id){
+	msgs.acknowledge = function(m){
 		var data = {
-			user: window.parent._jive_current_user.ID,
-			message: msg_id
+			jive_id: window.parent._jive_current_user.ID,
+			message: m.id
 		}
+		console.log(data);
 		$http.post(util.rails_env.current+"/message/acknowledge", data).success(function(resp){
 			resp = JSON.parse(resp);
 			msgs.unread = resp.messages;
@@ -73,18 +74,16 @@ app.controller("UnreadMessages", ['$http', '$sce', '$scope', function($http, $sc
 	msgs.setOverlay = function(status){
 		msgs.overlay = status;
 	}
-
 	// on page load
 	msgs.checkInit(function(resp){
 		if(resp.status == 0){
 			msgs.getUnreadMessages();
-			msgs.getSpaces();
 		}
 		else{
 			util.createUser(function(){});
 		}
-		setTimeout(function(){ resizeMe() }, 500);
+		setTimeout(function(){ util.adjustHeight(); }, 500);
 	});
-	setTimeout(function(){ resizeMe() }, 500);
+	setTimeout(function(){ util.adjustHeight(); }, 500);
 
 }]);

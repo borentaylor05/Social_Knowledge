@@ -4,44 +4,69 @@
 <link rel="stylesheet" href="stylesheets/simple-sidebar.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="stylesheets/managers/main.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="stylesheets/managers/posts.css" type="text/css" media="screen" />
 
-<div ng-app="App">
-
-	<skeheader></skeheader>
-	<div class="container main" id="wrapper">
-	    <!-- Sidebar -->
-	    <mngside></mngside>
-	    <!-- /#sidebar-wrapper -->
-
-	    <!-- Page Content -->
-		<div id="page-content-wrapper" class="container main text-left" ng-controller="Publish as p">
-			<h1>Publish</h1>
-		</div>
-		<div class="overlay hide">
-			<overlayclose></overlayclose>
-			<button id="favorite" class="btn btn-md btn-info"><i class="fa fa-plus"></i>&nbsp Add to Favorites</button>
-			<div class="navigation">
-				
-			</div>
-			<div class="doc-container"></div>
-		</div>
-		<!-- /#page-content-wrapper -->
+<div ng-app="App" ng-controller="SF as sf">
+<div class="container clearfix navContainer" >
+	<div class="navbar-header ">
+	  <a class="navbar-brand" href="#">SKE Management</a>
 	</div>
-	
 </div>
 
+<div class="container main" id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    Actions
+                </a>
+            </li>
+            <ul class="navList">
+			</ul>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
 
+    <!-- Page Content -->
+	<div id="page-content-wrapper" class="container main text-center">
+		<ul class="breadcrumb text-left">
+		</ul> 
+		<a opendoc="DOC-1061">Click to open</a>
+		<form ng-submit="sf.searchForContact(sf.searchTerm)">
+			<div class="input-group">
+				<span class="input-group-btn">
+					<button class="btn btn-md btn-success searchBtn" >Search</button>
+				</span>
+				<input type="text" class="form-control" ng-model="sf.searchTerm" placeholder="search for contact">
+			</div>
+		</form>
+		<div class="row text-left personRow">
+			<div class="col-xs-3 tableHeader" >User Name</div>
+			<div class="col-xs-3 tableHeader" >Account Name</div>
+			<div class="col-xs-3 tableHeader" >User Phone</div>
+		</div>
+		<div class="row text-left personRow" ng-repeat="person in sf.peopleMatches">
+			<div class="col-xs-3 " > {{ person.Name }} </div>
+			<div class="col-xs-3 " ><a target="_blank" ng-href="{{ person.Account.Website }}"> {{ person.Account.Name }} </a></div>
+			<div class="col-xs-3 " > {{ person.Phone }} </div>
+		</div>
+		<overlay-two></overlay-two>
+	    <!-- /#page-content-wrapper -->
+</div>
+<!-- Modal -->
+
+</div>
 <script type="text/javascript" src="javascripts/jquery.min.js"></script>
 <script type="text/javascript" src="javascripts/angular.min.js"></script>
 <script type="text/javascript" src="javascripts/angular-sanitize.min.js"></script>
 <script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="javascripts/gadget-helper.js"></script>
 <script type="text/javascript" src="javascripts/util.js"></script>
-<script type="text/javascript" src="javascripts/post.js"></script>
 <script type="text/javascript" src="javascripts/navigation.js"></script>
-<script type="text/javascript" src="javascripts/templates.js"></script>
-<script type="text/javascript" src="javascripts/managers/publish.js"></script>
+<script src="javascripts/oauth2client.js"></script>
+<script type="text/javascript" src="javascripts/ng/apps/MasterApp.js"></script>
+<script type="text/javascript" src="javascripts/ng/factories/salesforce.js"></script>
+<script type="text/javascript" src="javascripts/ng/controllers/Salesforce.js"></script>
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(function() {
 		gadgets.window.adjustHeight();

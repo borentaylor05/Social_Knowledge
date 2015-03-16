@@ -69,6 +69,13 @@ var util = {
 		}
 		return relevant;
 	},
+	toggle: function(val){
+		if(val)
+			val = false;
+		else
+			val = true;
+		return val;
+	},
 	rails_env: {
 		local: "http://localhost:3000",
 		remote: "https://lit-inlet-2632.herokuapp.com",
@@ -97,7 +104,6 @@ var util = {
 				$(".navigation").css("top", "40px");
 				var doc = wwc.get_doc_from_link($(this).attr("href"));
 				var id = "#"+doc.split("#")[1];
-				console.log(id);
 				window.location.href = id;
 			});
 		});
@@ -164,6 +170,11 @@ var util = {
 	        }
 	    }
 	},
+	currentUser: {
+		jive_id: window.parent._jive_current_user.ID,
+		employee_id: window.parent._jive_current_user.username,
+		name: window.parent._jive_current_user.displayName
+	},
 	createUser: function(callback){
 		var user = {
 				jive_id: window.parent._jive_current_user.ID,
@@ -207,5 +218,65 @@ var util = {
 			    });
 	    	}
 	    });
+	},
+	fixDate: function(dateString) {
+		var dateRegex=/(\d\d\d\d)-(\d\d)-(\d\d)T(\d\d):(\d\d):(\d\d)\.(\d\d\d)\+0000/;
+	    //First try to match the strict date format from Jive
+	    var match = dateRegex.exec(dateString);
+	    if (!match) {
+	        //On fail, fall back to default date parsing
+	        return new Date(dateString);
+	    }
+	    var year = parseInt(match[1]);
+	    var month = parseInt(match[2]) - 1; //javascript expects a month between 0 and 11
+	    var day = parseInt(match[3]);
+	    var hour = parseInt(match[4]);
+	    var min = parseInt(match[5]);
+	    var s = parseInt(match[6]);
+	    var ms = parseInt(match[7]);
+
+	    var d = new Date();
+	    d.setUTCFullYear(year, month, day);
+	    d.setUTCHours(hour, min, s, ms);
+
+	    return d;
+	},
+	merge: function(holder, resp){
+		var arr = [];
+		for(var i = 0 ; i < resp.length ; i++){
+			resp[i].text = holder[i].content.text;
+			resp[i].author = holder[i].author.displayName;
+			resp[i].posted_at = holder[i].publishedTime+" on "+holder[i].publishedCalendarDate;
+		}
+		return resp;
+	},
+	rails: {
+		update_client: function(jive_id, client){
+			params = {
+				jive_id: jive_id,
+				client: client
+			}
+			gadget_helper.post(util.rails_env.current+"/user/update-client", params, function(resp){
+			//	console.log("UPD",resp);
+			});
+		},
+		get_specialties: function(client, jive_user_id, callback){
+			if(user)
+				var url = util.rails_env.current+"/specialties?client="+client+"&user="+jive_user_id;
+			else
+				var url = util.rails_env.current+"/specialties?client="+client;
+			gadget_helper.get(url, {}, function(resp){
+				callback(resp);
+			});
+		},
+		add_specialties: function(jive_user_id, specialties, callback){
+			var params = {
+				user: jive_user_id,
+				specialties: JSON.stringify(specialties)
+			}
+			gadget_helper.post(util.rails_env.current+"/user/add-specialties", params, function(resp){
+				callback(resp);
+			});
+		}
 	}
 }

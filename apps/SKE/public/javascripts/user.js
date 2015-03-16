@@ -72,6 +72,27 @@ var user = {
 		});
 		
 	},
+	setEPWithCallback: function(jive_user_id, propObj, callback){
+		this.getExtendedProperties(jive_user_id, function(ep){
+			for (var key in propObj) {
+			    ep[key] = propObj[key];
+			    if(key === "client")
+			    	user.rails.update_client(jive_user_id, propObj[key].toLowerCase());
+			}
+			if(!util.isEmpty(propObj)){
+				osapi.jive.corev3.people.get({  
+				    id: jive_user_id.toString() 
+				}).execute(function (currentUser) {   
+				   currentUser.createExtProps(ep).execute(function (resp) {
+				   		callback();	
+				   }); 
+				}); 
+			}
+			else{
+				alert("You must include a property to set.");
+			}
+		});
+	},
 	deleteExtendedProperty: function(jive_user_id, obj, key){
 		delete obj[key];
 		this.setExtendedProperties(jive_user_id, obj); 

@@ -1,41 +1,118 @@
-#sidebar-wrapper{
+.blue-main{
+	background-color: rgba(71,151,200, 1);
+}
+.container.fx-home{
+}
+img.logo-main{
+	height: 80px;
+	width: 150px;
+}
+.myNav{
+	margin-bottom: 0px;
+}
+.myNav li{
+	display: inline;
+}
+.myNav > li > .btn{
+	border-radius: 2px;
+	background-color: rgba(71,151,200, 1);
+	color: white;
+	border-color: navy;
+}
+.myNav > li > .btn:hover{
+	background-color: white;
+	color: rgba(71,151,200, 1);
+}
+.navLink{
+	color: rgba(71,151,200, 1);
+	font-weight: 300;
+	font-size: .8em;
+	margin-left: 3px;
+	padding-left: 8px;
+	border-left: 1px solid #AAA;
+}
+.myNavContainer{
+	margin-top: 50px;
+	margin-right: 50px;
+}
+#subspaces{
+	margin-right: 100px;
+}
+#subspaces > li{
+	margin-right: 10px;
+}
+.imageContainer{
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+#stock{
+	margin-top: -15px;
+	margin-left: auto;
+	margin-right: auto;
+	z-index: 0;
+	width: 90%;
+}
+#line{
+	height: 15px;
+	background-color: rgba(71,151,200, .8);
+	z-index: 100;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
 	top: 0;
+	width: 90%;
 }
-.tabContainer{
-	margin-left: 0px !important;
+.textContainer{
+	background-color: rgba(71,151,200, .8);
+	z-index: 100;
+	position: relative;
+	margin-top: -15px;
+	padding-top: 15px;
 }
-.sidebar-nav li{
-	line-height: 25px;
+.text{
+	height: 200px;
+	position: relative;
+	background-color: rgba(71,151,200, 1);
+	box-shadow: 0 3px 10px #888;
+}
+.text > h1{
+	font-weight: 100;
+	margin-top: 0px;
+	padding-top: 20px;
 	color: white;
 }
-
-.section:hover{
-	background-color: #777;
-	color: black;
-	cursor: pointer;
+div.section.gray{
+	height: 150px;
+	background-color: rgba(0,0,0,.15);
+	position: relative;
 }
-
-li.section.active{
-	width: 110%;
-	background-color: white;
-	color: black;
+.icons{
+	margin-top: -70px;
 }
-
-ul.sidebar-nav{
+.icon-info{
+	text-align: left;
+}
+.icon-info > .info{
 	padding: 10px;
+	border-left: 1px solid #AAA;
+	color: rgba(71,151,200, 1);
 }
-
-ul.sidebar-nav > li > a.showMenu{
-	font-size: 1.4em;
-}
-
-li.animate-switch{
-	margin-left: 20px;
-}
-
-li.animate-switch > h5{
+.icons h3{
 	font-size: 1.2em;
-	box-shadow: 0 0 5px #555;
-	background-color: #333;
-	color: #ccc;
+	font-weight: 200;
+	color: rgba(22,120,189,1);
+	margin-top: -10px;
+}
+.container.round{
+	width: 138px;
+	height: 138px;
+	padding: 10px;
+	background-color: white;
+}
+.round{
+	border-radius: 50%;
+}
+.round > img{
+	margin: -5px;
 }

@@ -1,6 +1,7 @@
 div.container.main{
 	padding-left: 40px;
 	padding-right: 40px;
+	padding-bottom: 50px;
 	width: 700px;
 	height: 600px;
 	overflow: scroll;
@@ -67,4 +68,14 @@ label{
 }
 .selected > ul > li{
 	margin: 3px;
+}
+.msg-body{
+	padding: 10px;
+	border: 1px solid #EEE;
+}
+.msg-body > .tiny{
+	font-size: .7em;
+}
+.tiny.alert-info{
+	padding: 3px;
 }

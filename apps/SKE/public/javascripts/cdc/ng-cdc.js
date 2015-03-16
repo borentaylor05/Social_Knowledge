@@ -59,8 +59,11 @@ app.directive("elWidth", function(){
 app.controller("cdcController", ['$http', '$scope', 'atoz', 'addressBook', 'people', 'countries', function($http, $scope, atoz, addressBook, people, countries){
 	var cdc = this;
 	cdc.dualSearch = true;
+	cdc.showOverlay = cdc.showNew = cdc.postingComment = false;
+	cdc.currentDoc = null; // jive id of current doc
 	cdc.topics = [];
 	cdc.prs = [];
+	cdc.testComments = [];
 	cdc.currentTopic = {};
 	cdc.currentEntry = {};
 	cdc.countries = countries.all;
@@ -68,9 +71,43 @@ app.controller("cdcController", ['$http', '$scope', 'atoz', 'addressBook', 'peop
 	cdc.getAllTopics = function(start, end){
 		// call function from factory
 		atoz.getRange(start, end).success(function(resp){
+			console.log(resp);
 			cdc.topics = resp.topics;
 		});
 	}
+	cdc.getComments = function(docID){
+		osapi.jive.core.get({
+	        "href": "/contents/"+docID+"/comments",
+	        "v": "v3"
+	    }).execute(function(resp){
+	    	cdc.testComments = resp.list.reverse();
+	    	$scope.$apply(cdc.testComments);
+	    	cdc.setCurrentDoc(docID)
+	    });
+	}
+	cdc.setShowNew = function(){
+		cdc.showNew = true;
+	}
+	cdc.setCurrentDoc = function(id){
+		cdc.currentDoc = id;
+	}
+	cdc.newComment = function(body){
+		cdc.postingComment = true;
+		var data = {
+			"content": { "type": "text/html", "text": body },
+			"type": "comment"
+		}
+		osapi.jive.core.post({
+			"href": "/contents/"+cdc.currentDoc+"/comments",
+			"v": "v3",
+			"body": data
+		}).execute(function(resp){
+			$("#clear").val("");
+			cdc.showNew = false;
+			cdc.postingComment = false;
+			cdc.getComments(cdc.currentDoc);
+		});
+	}	
 	cdc.searchTopics = function(term){
 		atoz.topicSearch(term).success(function(resp){
 			cdc.topics = resp.topics;
@@ -112,7 +149,6 @@ app.controller("cdcController", ['$http', '$scope', 'atoz', 'addressBook', 'peop
 	        	"v": "v3"
 	    	}).execute(function(resp){
 		    	resp = util.responseCheck(resp);
-		    	console.log(resp);
 		    	cdc.prs = resp.list;
 		    	$scope.$apply(cdc.prs);
 	    });
@@ -133,12 +169,11 @@ app.controller("cdcController", ['$http', '$scope', 'atoz', 'addressBook', 'peop
 		people.get(10).execute(function(resp){
 	    	resp = util.responseCheck(resp);
 	    	cdc.people = resp.list;
-	    	console.log(cdc.people);
 	    	$scope.$apply(cdc.people);
 	    });
 	}
 	cdc.getDocNum = function(url){
-		util.lastPart(url);
+		return util.lastPart(url);
 	}
 	cdc.close = function(input){
 		switch(input){

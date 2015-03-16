@@ -12,6 +12,7 @@
     <Require feature="osapi"/>
     <Require feature="settitle"/>
     <Require feature="views" />
+    <Require feature="oauthpopup"/>
     <Require feature="jive-core-v3" />
     <Require feature="embedded-experiences" />
 	<Require feature="actions">  
@@ -32,6 +33,16 @@
           path="jive/actions/places/*"  
           label="Send Message"  
           view="send-message"/>
+
+          <action id="viewmessages.actions"  
+          path="jive/tabs/places/space"  
+          label="View Announcements"  
+          view="view-messages"/>
+
+          <action id="viewmessages.createmenu"  
+          path="jive/actions/navmenu"  
+          label="View Announcements"  
+          view="view-messages"/>
 
         <action id="sendmessage.tabs"  
           path="jive/tabs/places/space"  
@@ -112,11 +123,13 @@
   <Content type="html" view="nz-care-home" href="fairfax/nz-care/home.html" />
   <Content type="html" view="nz-sales-home" href="fairfax/nz-sales/home.html" />
   <Content type="html" view="nz-sales-trades" href="fairfax/nz-sales/trades-home.html" />
+  <Content type="html" view="fx-champ" href="fairfax/champion.html" />
   <!-- CDC PAGES -->
   <Content type="html" view="cdc-home" href="cdc/home.html" />
 
  <!--  GENERAL  -->
   <Content type="html" view="send-message" href="general/send-message.html" />
   <Content type="html" view="request-article" href="general/request-article.html" />
+  <Content type="html" view="view-messages" href="general/view-messages.html" />
 
 </Module>

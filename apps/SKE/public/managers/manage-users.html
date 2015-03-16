@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="stylesheets/managers/main.css" type="text/css" media="screen" />
 
-
-<div class="container clearfix navContainer">
+<div ng-app="App" ng-controller="Users as u">
+<div class="container clearfix navContainer" >
 	<div class="navbar-header ">
 	  <a class="navbar-brand" href="#">SKE Management</a>
 	</div>
@@ -35,37 +35,34 @@
 			<div class="col-xs-2">
 				<h3>All Users</h3>
 			</div>
-			<div class="col-xs-2">
-				<div id="select-menu" class="btn-group btn-input clearfix">
-				  	<button id="clients" type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
-				    <span data-bind="label">Filter By Client</span> <span class="caret"></span>
-				  	</button>
-				  	<ul class="dropdown-menu text-left" role="menu">
-				  		<li><a class="client" data-client="everyone" href="#">All</a></li>
-				    	<li><a class="client" data-client="all" href="#">Site Managers</a></li>
-				    	<li><a class="client" data-client="arc" href="#">ARC</a></li>
-				    	<li><a class="client" data-client="cdc" href="#">CDC</a></li>
-				    	<li><a class="client" data-client="fairfax" href="#">Fairfax</a></li>
-				    	<li><a class="client" data-client="hrsa" href="#">HRSA</a></li>
-				    	<li><a class="client" data-client="hyundai" href="#">Hyundai</a></li>
-				    	<li><a class="client" data-client="spark" href="#">Spark</a></li>
-				    	<li><a class="client" data-client="ww" href="#">WW</a></li>
-				  	</ul>
-				 </div>
-			</div>
-			<div class="col-xs-6 text-left">
-				<form id="searchForm">
-					<input class="form-control " id="peopleSearch" type="text" placeholder="Search for user">
-					<input type="submit" class="btn btn-sm btn-success" value="Search">
+			<div class="col-xs-6" >
+				<form id="searchForm" ng-submit="u.search(u.searchTerm)">
+					<div class="input-group">
+						<span class="input-group-btn">
+							<button class="btn btn-md btn-success searchBtn" >Search</button>
+						</span>
+						<input type="text" class="form-control" ng-model="u.searchTerm" placeholder="search or filter">
+					</div>
 				</form>
 			</div>
 		</div>
-		<div id="peopleList" class="container listContainer">
+		<div id="peopleList" class="container listContainer text-left">
 			<div class="row headerRow">
 				<div class="col-xs-1"><strong>Jive ID</strong></div>
 				<div class="col-xs-2"><strong>Oracle ID</strong></div>
 				<div class="col-xs-2"><strong>Name</strong></div>
-				<div class="col-xs-3"><strong>Email</strong></div>
+				<div class="col-xs-3"><strong>Client</strong></div>
+			</div>
+			<div ng-class="person.client ? 'row personRow' : 'row personRow label-danger' " ng-init="u.onload = true" ng-repeat="person in u.people | filter:u.searchTerm" ng-show="u.meetsCriteria(person)">
+				<div class="col-xs-1"><span>{{ person.jive_id }}</span></div>
+				<div class="col-xs-2"><span>{{ person.employee_id }}</span></div>
+				<div class="col-xs-2"><span>{{ person.name ? person.name : "-"}}</span></div>
+				<div class="col-xs-2"><span>{{ person.client ? person.client : "-" }}</span></div>
+				<div class="col-xs-2">
+					<button ng-click="u.getEPs(person)" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+						<i class="fa fa-plus"></i>&nbsp Edit EPs
+					</button>
+				</div>
 			</div>
 			<!-- Dynamically populated -->
 		</div>	
@@ -78,61 +75,62 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="myModalLabel">Extended Properties </h4>
       </div>
       <div class="modal-body text-left">
-        
+      	<div >
+	        <h5 class="alert alert-danger">
+	        	<strong>Do not change these unless you know what you are doing!</strong>
+	        </h5>
+	        <div ng-show="u.epsSaved" class='alert alert-success'>Properties Saved! Sometimes it can take ~1 minute for the changes to take effect.</div> 
+	        <form ng-hide="u.epsSaved" id="extpropsForm">
+				<div class="row">
+	        		<div class="col-xs-5"><strong>Key</strong></div>
+	        		<div class="col-xs-5"><strong>Value</strong></div>
+        		</div>
+        		<div id="epList">
+        			<div class="row" ng-repeat="(key,value) in u.extProps">
+		        		<div class="col-xs-5"><input type="text" class="form-control ep" ng-model="key"></div>
+		        		<div class="col-xs-5"><input type="text" class="form-control ep" ng-model="value"></div>
+		        	</div>
+	        	</div>
+	        	<div class="row">
+	        		<div class="col-xs-3 pull-left">
+	        			<button append-ep ng-click="u.appendEP()" id="addEP" class="btn btn-sm btn-info">
+	        				<i class="fa fa-plus"></i>&nbspAdd EP
+	        			</button>
+	        		</div>
+	        		<div class="col-xs-7">
+	        			<remover person="u.current" callback="u.getEPs(user)">
+	        		</div>
+	        	</div>
+	        </form>
+		</div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="saveEdit" type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="u.clear()">Close</button>
+        <button status="u.epsSaved" callback="u.getEPs(user)" save-eps person="u.current" input-class=".ep" id="saveEdit" type="button" class="btn btn-primary" ng-hide="u.epsSaved">Save changes</button>
       </div>
     </div>
   </div>
 </div>
-
-
-
+</div>
 <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/angular.min.js"></script>
+<script type="text/javascript" src="javascripts/angular-sanitize.min.js"></script>
 <script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="javascripts/gadget-helper.js"></script>
 <script type="text/javascript" src="javascripts/util.js"></script>
-<script type="text/javascript" src="javascripts/user.js"></script>
 <script type="text/javascript" src="javascripts/navigation.js"></script>
+<script type="text/javascript" src="javascripts/ng/apps/MasterApp.js"></script>
+<script type="text/javascript" src="javascripts/ng/factories/users.js"></script>
+<script type="text/javascript" src="javascripts/ng/controllers/Users.js"></script>
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(function() {
 		gadgets.window.adjustHeight();
 		navigation.init(gadgets.views.getParams(), function(){
 			navigation.makeLinks();
-			user.listAll(0, function(){
-				user.attachHandlers();
-				$("#saveEdit").on("click touch", function(e){
-					e.preventDefault();
-					var u = gadgets.views.getParams().my;
-					var to_rails = {
-						jive_id: $(this).attr("data-id"),
-						employee_id: $(this).attr("data-username")
-					};
-					gadget_helper.post(util.rails_env.current+"/user", to_rails, function(resp){
-						console.log("RESPONSE",resp);
-						user.saveExtendedProperties(to_rails.jive_id, ".ep");
-					});
-				});
-
-				$(".client").each(function(){
-					$(this).on("click touch", function(e){
-						e.preventDefault();
-						$("#clients").children().first().text($(this).text());
-						user.listByClient($(this).attr("data-client"));
-					});	
-				});
-				$("#searchForm").submit(function(e){
-					e.preventDefault();
-					user.search($("#peopleSearch").val());
-				});
-			});
-
+			util.adjustHeight();
 		});
-	//	users.getAll(0);
 	});
 </script>

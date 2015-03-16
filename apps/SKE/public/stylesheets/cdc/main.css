@@ -1,20 +1,86 @@
-.main{
-	min-height: 700px;
+h2.header{
+	font-size: 3.8em;
+	font-weight: 200;
+	color: rgba(245,165,80, 1);
+	margin: 0px;
 }
-.dropdown{
-	max-height: 250px;
-	overflow: scroll;
-	position: absolute;
-	margin-left: 2px;
-	background-color: white;
+.header > img{
+	width: 150px;
+	margin-right: 20px;
+}
+.searchContainer label{
+	font-size: 1.2em;
+	font-weight: 200;
+}
+.btn, .form-control{
 	border-radius: 2px;
-	padding: 10px;
-	box-shadow: 0px 0px 2px #AAA;
+}
+button.btn-orange:hover{
+	background-color: #FF6600;
+	color: white;
+}
+.search{
+	color: white;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-radius: 2px;
+}
+.ht > a{
+	color: black;
+	font-weight: 200;
+	font-size: 1.6em;
+}
+.ht > a > img{
+	height: 64px;
+	width: 64px;
+	margin-right: 15px;
+	vertical-align: top;
+}
+.ht > a > span{
+	font-weight: 200;
+	font-size: 1.2em;
+	color: rgba(245,165,80, 1);
+}
+.ht{
+	width: 97%;
+	font-size: 1.9em;
+	margin-top: 5px;
+	margin-bottom: 15px;
+	margin-left: 10px;
+	padding-left: 0px;
+	border-radius: 2px;
+	border: 1px solid #CCC;
+	padding-top: 10px;
+	padding-bottom: 0px;
 	padding-left: 20px;
 	padding-right: 20px;
-	z-index: 100;
+	-o-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-ms-border-radius: 2px;
 }
-
+.ht:hover{
+	box-shadow: 0 0 10px #075290;
+	text-decoration: none;
+}
+.ht:hover a{
+	text-decoration: none;
+}
+.blue{
+	background-color: #075290;
+}
+.orange{
+	background-color: rgba(245,165,80, 1);
+}
+button.btn-orange{
+	background-color: rgba(245,165,80, 1);
+	border-color: rgba(212,165,80,1);
+	color: white;
+}
+.main{
+	min-height: 700px;
+	font-family: Tahoma;
+}
 .topics{
 	list-style: none;
 	padding-left: 8px; 
@@ -61,7 +127,45 @@
 #check{
 	margin-left: 30px;
 }
-.ht{
+.pr > p{
+	margin-bottom: 0px;
+}
+.pr > p > a{
 	width: 100%;
-	font-size: 2em;
+}
+.breadcrumb{
+	border-radius: 2px;
+	margin-bottom: 0px;
+	margin-left: -20px;
+	margin-top: 5px;
+}
+.breadcrumb a{
+	color: white !important;
+}
+.link-group > h1{
+	font-size: 2.2em;
+	font-weight: 200;
+	color: #075290;
+}
+.links{
+	text-align: left;
+	padding: 30px;
+	border: 2px solid rgb(245,165,80);
+	border-radius: 2px;
+	-o-border-radius: 2px;
+	-ms-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+}
+.links > li{
+	padding: 5px;
+	border-bottom: 1px solid #EEE;
+	font-size: 1.2em;
+}
+.links > li > a{
+	color: #075290;
+}
+.place{
+	font-style: italic;
+	font-size: 1.4em;
 }

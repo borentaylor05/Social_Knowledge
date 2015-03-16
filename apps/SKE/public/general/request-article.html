@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
 <style type="text/css">
   
   html, body, div, span, applet, object, iframe,
@@ -245,35 +246,78 @@ label.sum-label{
 .hide{
   display: none;
 }
+.main{
+  margin-bottom: 100px;
+}
+.progress{
+  margin-top: 10px;
+  box-shadow: 0 0 10px #888;
+}
+.lob{
+  font-weight: 200;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-size: 1.2em;
+}
+.lob > h3{
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.lob > input{
+  margin-left: 10px;
+}
 </style>
-<div class="main" >
-  <h1 class="request-title">Create Your Request</h1>  
-  <form class="request">
+<div class="main" ng-app="ArticleRequest" ng-controller="AR as ar">
+  <h1 class="request-title">Create Your Request</h1> 
+  <div ng-show="ar.onSuccess.length > 0 " class="alert alert-success">{{ ar.onSuccess }}</div>
+  <form ng-hide="ar.onSuccess.length > 0" class="request" ng-submit="ar.createAR(ar.doc)">
     <div class="fieldContainer">
-      <input id="docTitle" type="text" class="register-input title" placeholder="Title of Desired Document">
+ <!--     <div ng-if="ar.allClients || !ar.hasClient" id="select-menu" class="btn-group btn-input clearfix">
+        <button id="clients" type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+        <span data-bind="label">Who is this request for?</span> <span class="caret"></span>
+        </button>
+        <span>Selected: {{ ar.currentClient }}</span>
+        <ul class="dropdown-menu text-left" role="menu">
+          <li><a class="client" ng-click="ar.setClient('arc')">ARC</a></li>
+          <li><a class="client" ng-click="ar.setClient('cdc')">CDC</a></li>
+          <li><a class="client" ng-click="ar.setClient('fairfax')">Fairfax</a></li>
+          <li><a class="client" ng-click="ar.setClient('hrsa')">HRSA</a></li>
+          <li><a class="client" ng-click="ar.setClient('hyundai')">Hyundai</a></li>
+          <li><a class="client" ng-click="ar.setClient('spark')">Spark</a></li>
+          <li><a class="client" ng-click="ar.setClient('ww')">WW</a></li>
+        </ul>
+      </div> -->
+      <input ng-model="ar.doc.title" id="docTitle" type="text" class="register-input title" placeholder="Title of Desired Document">
+      <div class="lob">
+        <h3>Which LOB is this for? <em style="font-style: italic;">{{ ar.doc.lob | capitalize }}</em> </h3>
+        <input type="radio" ng-model="ar.doc.lob" value="care">&nbsp  Care 
+        <input type="radio" ng-model="ar.doc.lob" value="sales">&nbsp  Sales 
+        <input type="radio" ng-model="ar.doc.lob" value="both">&nbsp  Both 
+        <input type="radio" ng-model="ar.doc.lob" value="other">&nbsp  Other
+      </div>
       <label class="sum-label">Summary of Request</label></br>
-      <textarea class="register-input" id="summary" rows="10" placeholder="Type your detailed description here..."></textarea>
+      <textarea ng-model="ar.doc.summary" class="register-input" id="summary" rows="10" placeholder="Type your detailed description here..."></textarea>
+      <input ng-model="ar.doc.file_label" id="docTitle" type="text" class="register-input title" placeholder="Attachment Label / Description">
+      <div s3-upload bucket="trb-kb" ng-model="ar.doc.file_url"
+            s3-upload-options="{getOptionsUri: 'https://lit-inlet-2632.herokuapp.com/s3-upload', folder: 'ArticleAttachments/'}">
+      </div>
+      <h3> {{ ar.doc.attachment }} </h3>
       <input type="submit" value="Submit Request" class="register-button">
-  </div>
+    </div>
   </form>
 </div>
 <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/angular.min.js"></script>
+<script type="text/javascript" src="javascripts/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/ng-s3upload.min.js"></script>
+<script type="text/javascript" src="javascripts/ng/apps/ArticleRequest.js"></script>
 <script type="text/javascript">
 gadgets.util.registerOnLoadHandler(function() {
       gadgets.window.adjustHeight();
       gadgets.window.adjustWidth();
-      var data = {};
 
-   $(".request").submit(function(e){
-      e.preventDefault();
-   //   data.type = $('input[name=type]:radio:checked').val(),
-      data.docTitle = $("#docTitle").val(),
-   //   data.docNum = $("#docNum").val(),
-      data.summary = $("#summary").val(),
-      data.client = "fairfax";
-      console.log(data);
-
-   });
 
 });
 </script>

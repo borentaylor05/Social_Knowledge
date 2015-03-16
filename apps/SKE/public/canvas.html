@@ -2,8 +2,21 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
 
-<div class="container">
-	<h1>SKE Homs2e!</h1>
+<div class="container text-center">
+	<h1>Welcome to the new SKE!</h1>
+	<div class="container hide text-left" id="clients">
+		<h2>Please select your client to proceed</h2>
+		<ul>
+			<li><a class="client" href="#" id="arc">American Red Cross</a></li>
+			<li><a class="client" href="#" id="arc">CDC</a></li>
+			<li><a class="client" href="#" id="arc">American Red Cross</a></li>
+			<li><a class="client" href="#" id="arc">American Red Cross</a></li>
+			<li><a class="client" href="#" id="arc">American Red Cross</a></li>
+			<li><a class="client" href="#" id="arc">American Red Cross</a></li>
+			<li><a class="client" href="#" id="arc">American Red Cross</a></li>
+			<li><a class="client" href="#" id="arc">American Red Cross</a></li>
+		</ul>
+	</div>
 </div>
 
 <script type="text/javascript" src="javascripts/jquery.min.js"></script>
@@ -15,22 +28,34 @@
 	gadgets.util.registerOnLoadHandler(function() {
 		osapi.people.getViewer().execute(function(viewerData){
 		//	user.setExtendedProperties(viewerData.id, {active: true, client: "all", siteManager: true});
-			user.get(viewerData.id, function(userData){
-				var to_rails = {
-					client: userData.extendedProperties.client,
-					jive_id: userData.id,
-					employee_id: userData.username
-				}
-				gadget_helper.post(util.rails_env.current+"/user", to_rails, function(resp){
-					console.log("USER",user);
-					if(user.extendedProperties.client == 'all')
-						var view = 'manager-home';
-					console.log(view);
-					gadgets.views.requestNavigateTo(view, {my: userData, history: [view]});
+			gadget_helper.get(util.rails_env.current+"/users/"+viewerData.id, {}, function(resp){
+				resp = JSON.parse(resp.text);
+				// make sure any users added through db have client loaded into EP
+				user.setEPWithCallback(viewerData.id, { client: resp.user.client }, function(){
+					user.get(viewerData.id, function(userData){
+						console.log(userData)
+						var to_rails = {
+							client: userData.extendedProperties.client,
+							jive_id: userData.id,
+							employee_id: userData.username
+						}
+						gadget_helper.post(util.rails_env.current+"/user", to_rails, function(resp){
+							if(!userData.extendedProperties.hasOwnProperty("client")){
+								$("#clients").removeClass("hide");
+							}
+							else{
+								switch(user.extendedProperties.client){
+									case "all":
+										var view = 'manager-home';
+									break;
+								}
+								gadgets.views.requestNavigateTo(view, {my: userData, history: [view]});
+							}
+						});
+					});
 				});
-				
-				
-			});
+			});			
+			
 		});
 	});
 </script>

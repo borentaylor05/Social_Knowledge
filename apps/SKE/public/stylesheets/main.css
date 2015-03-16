@@ -1,13 +1,33 @@
 a{
 	cursor: pointer;
 }
+.myLabel{
+	font-weight: 200;
+	font-size: 1.3em;
+}
 div.container{
 	font-family: Myriad Pro, sans-serif;
 }
 div.container.main{
 	margin-bottom: 30px;
-	min-height: 700px;
+	overflow: auto;
+	overflow-x: hidden; 
+}
+div.main{
+	overflow-x: hidden; 
+}
+.dropdown{
+	max-height: 250px;
 	overflow: scroll;
+	position: absolute;
+	margin-left: 2px;
+	background-color: white;
+	border-radius: 2px;
+	padding: 10px;
+	box-shadow: 0px 0px 2px #AAA;
+	padding-left: 20px;
+	padding-right: 20px;
+	z-index: 100;
 }
 .logo{
 	width: 7.4%;
@@ -18,8 +38,21 @@ div.container.main{
 .widget{
 	border: 1px solid #EEE;
 	padding-left: 0px;
-	height: 300px;
-	overflow: scroll;
+	background-color: #555;
+	color: #CCC;
+	overflow: auto;
+	height: 100% !important;
+	border-radius: 4px;
+	-o-border-radius: 4px;
+	-ms-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+}
+.widget h5{
+	font-size: 1.3em;
+	font-weight: 200;
+	color: white;
+	letter-spacing: 1px;
 }
 .widgetContainer{
 	padding-left: 0px;
@@ -27,14 +60,36 @@ div.container.main{
 	padding-bottom: 10px;
 	padding-right: 0px; 
 	padding-left: 10px;
-
+	overflow: auto;
+	margin-top: -50px;
+}
+.loader-xs{
+	font-size: .8em;
+	color: #555;
+	margin-left: 6px;
 }
 .leaderboard{
 	list-style: none;
-	padding-left: 20px;
+	padding-left: 0px;
+}
+.leaderboard .name{
+	font-size: 1.2em;
+	font-weight: 200;
+	display: block;
 }
 .person{
+	text-decoration: none;
 	padding: 10px;
+	border-bottom: 1px solid #888;
+}
+.person a{
+	color: #DDD !important;
+}
+.person:hover, .person:hover a{
+	cursor: pointer;
+	background-color: #DDD;
+	color: black !important;
+	text-decoration: none;
 }
 .person > span.badge{
 	font-family: "Lucida Console", Monaco, monospace;
@@ -42,18 +97,21 @@ div.container.main{
 	font-style: italic;
 	background-color: rgb(52, 152, 219);
 }
-.person > *{
-	margin-left: 5px;
-	margin-right: 5px;
-}
 
-.leaderboard > li > img{
-	width: 20px;
-	height: 20px;
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
-.person > *{
-	margin-left: 5px;
-	margin-right: 5px;
+.avatar{
+	width: 40px;
+	height: 40px;
+	border-radius: 2px;
+	-o-border-radius: 2px;
+	-ms-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	margin-right: 20px;
 }
 /* centered columns styles */
 .row-centered {
@@ -153,7 +211,41 @@ div.alert{
 div.doc-container{
 	padding: 20px;
 	text-align: left;
-	overflow-y: scroll; 
+	overflow-y: auto; 
+	max-width: 840px;
+}
+div.com-container{
+	position: fixed;
+    border-left: 1px solid #EEE;
+    padding: 5px;
+    height: 90%;
+    font-family: Tahoma;
+    margin-top: -20px;
+    right:82;
+    overflow: auto;
+	max-width: 310px;    
+}
+
+.com-container .comment{
+	box-shadow: 0 0 10px #999;
+	padding: 5px;
+	color: black;
+	margin: 7px;
+}
+
+.comment > h5{
+	margin-bottom: 0px;
+}
+.comment > div.date{
+	font-size: .7em;
+}
+
+.comment > .body{
+	margin-top: 5px;
+}
+
+#nc > textarea{
+	margin-bottom: 5px;
 }
 
 div.overlay{
@@ -166,15 +258,29 @@ div.overlay{
     right:80;
     bottom:40;
     z-index: 9999;
-    height: 100%;
+    max-height: 90% !important;
     max-height: 900px;
-    overflow: scroll;
+    overflow: auto;
+    overflow-x: hidden; 
     border-radius: 3px;
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     box-shadow: 0 0 15px #AAA;
+}
+.sub-overlay{
+	position: absolute;
+    background-color: rgba(0,0,0, .7); !important;
+    padding: 20px;
+    opacity: .99;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index: 9998; 
+    height: 100%;
+    overflow: hidden; 
 }
 
 span.tiny > a{
@@ -186,5 +292,73 @@ div.formContainer{
 	max-width: 500px;
 	margin-left: auto;
 	margin-right: auto;
-	
 }
+
+/* MESSAGE OVERLAY */
+
+div.msg-overlay {
+    position: absolute;
+    background-color: #FFF !important;
+    padding: 60px;
+    top:60;
+    left:60;
+    right:60;
+    bottom:60;
+    z-index: 9999;
+    overflow: auto;
+    box-shadow: 0 0 20px #CCC;
+    min-height: 550px;
+}
+.msg-overlay .alert{
+	padding-left: 50px;
+}
+.msg-overlay > .alert > p{
+	margin-bottom: 10px;
+}
+.msg-badge{
+	margin-left: 5px;
+}
+.btn-default .msg-badge{
+	background-color: #E60000;
+}
+.msg-body{
+	padding: 10px;
+	border: 1px solid #EEE;
+}
+.screenshot{
+	max-height: 400px;
+}
+.remover{
+	text-align: right;
+	margin-top: 15px;
+}
+
+/* END MESSAGE OVERLAY */
+
+
+/* START FIXED FOOTER */
+
+html,
+body {
+	margin:0;
+	padding:0;
+	height:100%;
+}
+.wrapper {
+	min-height:100%;
+	position:relative;
+}
+.content {
+	padding:10px;
+	padding-bottom:80px;   /* Height of the footer element */
+}
+.footer {
+	width:100%;
+	height:80px;
+	position:fixed;
+	bottom:0;
+	left:0;
+	background:#ee5;
+}
+
+/* END FIXED FOOTER */
