@@ -14,7 +14,7 @@
 
 <div ng-app="App" ng-controller="MessageController as msgs">
 	<div class="container main" ng-hide="msgs.messageSent">
-		<div ng-hide="msgs.doneSelecting">
+		<div ng-hide="msgs.doneSelecting" >
 			<h3> Select Group(s) to Send Message To </h3>
 			<input id="searchInput" ng-model="data.search" type="text" class="form-control">
 		</div>
@@ -27,14 +27,28 @@
 				</li>
 			</ul>
 		</div>
-		<div class="selectContainer" ng-hide="msgs.doneSelecting">
-			<button class="btn btn-sm btn-default" ng-click="msgs.getPeople()">Done Selecting Recipients</button>
-			<div class="searchResults" ng-repeat="secGroup in msgs.sgs | filter:data.search track by $index">
+		<div ng-hide="msgs.doneSelecting">
+			<button class="btn btn-sm btn-default" ng-click="msgs.showMessage()">Done Selecting Recipients</button>
+			<button class="btn btn-sm btn-primary" ng-click="msgs.setShowClients(true)" ng-if="msgs.userClient == 'all'">Show Clients</button>
+		</div>
+		<div class="selectContainer" ng-hide="msgs.doneSelecting || msgs.showAllClients">
+			<div class="searchResults" ng-repeat="group in msgs.groups | filter:data.search track by $index">
 				<div ng-hide="msgs.alreadyAdded(secGroup)" class="result">
-					<input type="checkbox" ng-model="secGroup.selected" ng-click="msgs.pushSelected(secGroup)">
-					<span> {{ secGroup.name }}</span>
+					<input type="checkbox" ng-model="g.selected" ng-click="msgs.pushSelected(group)">
+					<span> {{ group.name }}</span>
 				</div>
 			</div>
+		</div>
+		<div ng-if="msgs.showAllClients" class="clients text-center">
+			<h2>Select a Client</h2>
+			<button ng-click="msgs.setClient('all')" class="btn btn-md btn-info">Admins</button>
+			<button ng-click="msgs.setClient('arc')" class="btn btn-md btn-info">American Red Cross</button>
+			<button ng-click="msgs.setClient('cdc')" class="btn btn-md btn-info">CDC</button>
+			<button ng-click="msgs.setClient('fairfax')" class="btn btn-md btn-info">Fairfax</button>
+			<button ng-click="msgs.setClient('hrsa')" class="btn btn-md btn-info">HRSA</button>
+			<button ng-click="msgs.setClient('hyundai')" class="btn btn-md btn-info">Hyundai</button>
+			<button ng-click="msgs.setClient('spark')" class="btn btn-md btn-info">Spark</button>
+			<button ng-click="msgs.setClient('ww')" class="btn btn-md btn-info">Weight Watchers</button>
 		</div>
 		<div class="msgContainer" ng-show="msgs.doneSelecting">
 			<h3>Type Your Message Below: <button ng-click="msgs.setDoneSelecting(false)" class="btn btn-xs btn-info">Change Selection</button></h3>

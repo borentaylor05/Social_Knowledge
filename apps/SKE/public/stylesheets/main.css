@@ -1,3 +1,11 @@
+.j-app-canvas{
+	width: 104% !important;
+  	margin-left: -20px !important;
+  	margin-top: -23px !important;
+}
+.j-canvas-preference-container{
+	display: none !important;
+}
 a{
 	cursor: pointer;
 }
@@ -36,10 +44,9 @@ div.main{
 	cursor: pointer;
 }
 .widget{
-	border: 1px solid #EEE;
 	padding-left: 0px;
-	background-color: #555;
-	color: #CCC;
+	background-color: #fff;
+	color: #555;
 	overflow: auto;
 	height: 100% !important;
 	border-radius: 4px;
@@ -49,9 +56,9 @@ div.main{
 	-moz-border-radius: 4px;
 }
 .widget h5{
-	font-size: 1.3em;
+	font-size: 1.7em;
 	font-weight: 200;
-	color: white;
+	color: #555;
 	letter-spacing: 1px;
 }
 .widgetContainer{
@@ -80,10 +87,11 @@ div.main{
 .person{
 	text-decoration: none;
 	padding: 10px;
-	border-bottom: 1px solid #888;
+	border-bottom: 2px solid #CCC;
+	padding-left: 20px;
 }
 .person a{
-	color: #DDD !important;
+	color: #555 !important;
 }
 .person:hover, .person:hover a{
 	cursor: pointer;
@@ -91,13 +99,6 @@ div.main{
 	color: black !important;
 	text-decoration: none;
 }
-.person > span.badge{
-	font-family: "Lucida Console", Monaco, monospace;
-	font-size: 1.1em;
-	font-style: italic;
-	background-color: rgb(52, 152, 219);
-}
-
 #footer {
     position: fixed;
     bottom: 0;
@@ -269,7 +270,7 @@ div.overlay{
     -webkit-border-radius: 3px;
     box-shadow: 0 0 15px #AAA;
 }
-.sub-overlay{
+.sub-overlay, #sub-overlay-unique{
 	position: absolute;
     background-color: rgba(0,0,0, .7); !important;
     padding: 20px;

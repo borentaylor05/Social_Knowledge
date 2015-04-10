@@ -3,6 +3,8 @@ h2.header{
 	font-weight: 200;
 	color: rgba(245,165,80, 1);
 	margin: 0px;
+	position: relative;
+  	z-index: 100;
 }
 .header > img{
 	width: 150px;
@@ -42,22 +44,26 @@ button.btn-orange:hover{
 	color: rgba(245,165,80, 1);
 }
 .ht{
-	width: 97%;
 	font-size: 1.9em;
-	margin-top: 5px;
+	margin-top: -70px;
 	margin-bottom: 15px;
-	margin-left: 10px;
+	margin-left: 20px;
 	padding-left: 0px;
 	border-radius: 2px;
-	border: 1px solid #CCC;
 	padding-top: 10px;
-	padding-bottom: 0px;
+	padding-bottom: 10px;
 	padding-left: 20px;
 	padding-right: 20px;
-	-o-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	-ms-border-radius: 2px;
+	-o-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-ms-border-radius: 4px;
+	position: relative;
+	z-index: 100;
+}
+.ht #flame{
+	width: 60px;
+	height: 60px;
 }
 .ht:hover{
 	box-shadow: 0 0 10px #075290;
@@ -79,6 +85,9 @@ button.btn-orange{
 }
 .main{
 	min-height: 700px;
+	font-family: Tahoma;
+}
+div,p,h1,h2,h3,h4,h5,h6,label,li{
 	font-family: Tahoma;
 }
 .topics{
@@ -136,8 +145,13 @@ button.btn-orange{
 .breadcrumb{
 	border-radius: 2px;
 	margin-bottom: 0px;
-	margin-left: -20px;
-	margin-top: 5px;
+	margin-left: 0px;
+}
+#swirl{
+	position: relative;
+  	margin-left: -20;
+  	margin-top: -40;
+  	z-index: 0;
 }
 .breadcrumb a{
 	color: white !important;
@@ -168,4 +182,7 @@ button.btn-orange{
 .place{
 	font-style: italic;
 	font-size: 1.4em;
+}
+.widgetContainer{
+	margin-top: -10px;
 }

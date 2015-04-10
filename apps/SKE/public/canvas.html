@@ -33,21 +33,27 @@
 				// make sure any users added through db have client loaded into EP
 				user.setEPWithCallback(viewerData.id, { client: resp.user.client }, function(){
 					user.get(viewerData.id, function(userData){
-						console.log(userData)
 						var to_rails = {
 							client: userData.extendedProperties.client,
 							jive_id: userData.id,
 							employee_id: userData.username
 						}
 						gadget_helper.post(util.rails_env.current+"/user", to_rails, function(resp){
+							var view;
 							if(!userData.extendedProperties.hasOwnProperty("client")){
 								$("#clients").removeClass("hide");
 							}
 							else{
 								switch(user.extendedProperties.client){
 									case "all":
-										var view = 'manager-home';
-									break;
+										view = 'manager-home';
+										break;
+									case "fairfax":
+										view = 'fx-home';
+										break;
+									case "cdc":
+										view = 'cdc-home';
+										break;
 								}
 								gadgets.views.requestNavigateTo(view, {my: userData, history: [view]});
 							}

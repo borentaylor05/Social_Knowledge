@@ -16,13 +16,58 @@ app.filter('parseUrlFilter', function () {
     };
 });
 
+app.directive("leaderboard", function(){
+	return {
+		restrict: "E",
+		scope: {
+			people: "="
+		},
+		template: '<div class="widget text-center">'+
+					'<h5>Leaderboard</h5>'+
+					'<ul class="leaderboard text-left">'+
+						'<li class="person" ng-repeat="person in people">'+
+							'<a target="_blank" ng-href="{{ person.resources.html.ref }}">'+
+								'<img class="avatar pull-left" ng-src="{{ person.resources.avatar.ref }}"></img>'+
+								'<div >'+
+									'<span class="name"> {{ person.displayName }} </span>'+
+									'<span class="name"> {{ (1000 / ($index+1)) | number:0 }} points </span>'+
+								'</div>'+
+							'</a>'+
+						'</li>'+
+					'</ul>'+
+				'</div>'
+	}
+});
+
+app.directive("myProgress", function(){
+	return {
+		restrict: "E",
+		scope: {
+			goal: '@',
+			complete: '@'
+		},
+		template: 	'<div class="progress">'+
+					  '<div class="progress-bar" role="progressbar" aria-valuenow="{{(complete / goal)*100}}" aria-valuemin="0" aria-valuemax="100" >'+
+					    '{{(complete / goal)*100}}%'+
+					  '</div>'+
+					'</div>',
+		link: function(scope, el, attrs){
+			scope.percent = (scope.complete / scope.goal)*100;
+			el.children().children().css({ "width": scope.percent+"%", "color": "black" });
+		}
+	}
+});
+
 app.directive("opendoc", function(){
 	return {
 		scope: {
-			getComments: "&"
+			getComments: "&",
+			openOverlay: "="
 		},
 		link: function(scope, element, attrs){
 			element.bind("click", function(){
+				scope.openOverlay = true;
+				scope.$apply(scope.openOverlay);
 				$(".doc-container, .coms").empty();
 				$(".overlay, .sub-overlay").removeClass("hide");
 				util.get_doc_html(util.fixDocNum(attrs.opendoc), function(id){
@@ -56,6 +101,22 @@ app.directive("loader", function(){
 		link: function(scope, el, attrs){
 			console.log("Loading", scope.loading);
 			el.css("font-size", scope.size);
+		}
+	}
+});
+app.directive("load", function(){
+	return {
+		restrict: "E",
+		scope: {
+			hideOn: "=", // boolean that determines whether to show spinner
+			size: "@",
+			text: "@"
+		},
+		template: '<div ng-hide="hideOn"><i class="fa fa-spinner fa-spin"></i>'+
+				  '<p ng-if="text"> {{ text }} </p></div>',
+		link: function(scope, el, attrs){
+			el.find("i").css("font-size", scope.size);
+			el.find("p").css("font-size", ".8em");
 		}
 	}
 });
@@ -124,7 +185,24 @@ app.directive("myImage", function($compile){
 	}
 });
 
-app.directive("overlayTwo", function($http){
+app.directive("searchOverlay", function(){
+	return {
+		restrict: "E",
+		scope: {
+			showOn: "="
+		},
+		transclude: true,
+		template: '<div ng-show="showOn"><div class="sub-overlay"></div><div class="overlay" ng-transclude></div></div>',
+		link: function(scope,el,attrs){
+			$(".sub-overlay").on("click touch", function(e){
+				scope.showOn = false;
+				scope.$apply(scope.showOn);
+			});
+		}
+	}
+});
+
+app.directive("overlayTwo", function(){
 	return {
 		restrict: "E",
 		scope: {
@@ -132,11 +210,11 @@ app.directive("overlayTwo", function($http){
 			showNew: "=",
 			setShowNew: "&",
 			newComment: "&",
-			loading: "="
+			loading: "=",
+			showOn: "="
 		},
-		template:   '<div class="sub-overlay hide"></div>'+
-					'<div class="overlay hide">'+
-					//	'<i class="fa fa-close fa-3x pull-right pointer"></i>'+
+		template:   '<div ng-show="showOn"><div class="sub-overlay"></div>'+
+					'<div class="overlay">'+
 						'<div class="row" >'+
 							'<div class="col-xs-9 doc-container">'+
 							'</div>'+
@@ -151,11 +229,11 @@ app.directive("overlayTwo", function($http){
 							'</div>'+
 							'</div>'+
 						'</div>'+
-					'</div>',
+					'</div></div>',
 		link: function(scope, element, attrs){
 				$(".sub-overlay").on("click touch", function(e){
-					$(this).addClass("hide");
-					$(".overlay").addClass("hide");
+					scope.showOn = false;
+					scope.$apply(scope.showOn);
 				});
 			}
 	}

@@ -2,7 +2,7 @@ div.container.main{
 	padding-left: 40px;
 	padding-right: 40px;
 	padding-bottom: 50px;
-	width: 700px;
+	width: 900px;
 	height: 600px;
 	overflow: scroll;
 }
@@ -32,6 +32,9 @@ label{
 .searchContainer{
 	margin-left: auto;
 	margin-right: auto;
+}
+.searchResults{
+	overflow-y: auto;
 }
 .result{
 	display: block;
@@ -78,4 +81,15 @@ label{
 }
 .tiny.alert-info{
 	padding: 3px;
+}
+.clients{
+
+}
+.clients button{
+	display: block;
+	margin: 3px;
+	width: 350px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 2px;
 }

@@ -22,6 +22,21 @@ var gadget_helper = {
 }
 
 var util = {
+	fullView: function(){
+		var label = window.parent.document.getElementsByClassName('j-canvas-preference-container')[0];
+		var holder =  window.parent.document.getElementsByClassName('j-app-canvas')[0];
+		$(label).css("display", "none");
+		$(holder).css({
+			"width": "104%",
+			"margin-left": "-20px",
+			"margin-top": "-23px"
+		});
+	},
+	fixResp: function(resp){
+		 if(typeof resp == "string")
+			resp = JSON.parse(resp);
+		return resp;
+	},
 	isEmpty: function(obj) {
 	    for(var prop in obj) {
 	        if(obj.hasOwnProperty(prop))

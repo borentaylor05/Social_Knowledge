@@ -23,7 +23,6 @@ app.factory("documents", ['$http', function($http){
 	}
 	
 	docs.toggleResolved = function(doc, com){
-		console.log("API", com.api_id);
 		return $http.post(util.rails_env.current+"/old/comment/toggle", {api: com.api_id});
 	}
 	docs.checkForNewComments = function(docs){

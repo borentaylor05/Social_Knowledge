@@ -71,7 +71,7 @@ img.logo-main{
 	padding-top: 15px;
 }
 .text{
-	height: 200px;
+	height: 150px;
 	position: relative;
 	background-color: rgba(71,151,200, 1);
 	box-shadow: 0 3px 10px #888;
@@ -83,7 +83,7 @@ img.logo-main{
 	color: white;
 }
 div.section.gray{
-	height: 150px;
+	height: 120px;
 	background-color: rgba(0,0,0,.15);
 	position: relative;
 }
@@ -102,7 +102,6 @@ div.section.gray{
 	font-size: 1.2em;
 	font-weight: 200;
 	color: rgba(22,120,189,1);
-	margin-top: -10px;
 }
 .container.round{
 	width: 138px;
@@ -115,4 +114,14 @@ div.section.gray{
 }
 .round > img{
 	margin: -5px;
+	width: 128px;
+	height: 128px;
+}
+.headerContainer > div > h2{
+	height: 60px;
+	padding-top: 12;
+	padding-left: 20;
+	margin-left: 20px;
+	border-left: 1px solid #3498db;
+	font-weight: 200;
 }

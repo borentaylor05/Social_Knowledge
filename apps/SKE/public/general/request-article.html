@@ -266,43 +266,65 @@ label.sum-label{
 .lob > input{
   margin-left: 10px;
 }
+*{
+  overflow-y: scroll;
+}
 </style>
 <div class="main" ng-app="ArticleRequest" ng-controller="AR as ar">
   <h1 class="request-title">Create Your Request</h1> 
   <div ng-show="ar.onSuccess.length > 0 " class="alert alert-success">{{ ar.onSuccess }}</div>
   <form ng-hide="ar.onSuccess.length > 0" class="request" ng-submit="ar.createAR(ar.doc)">
     <div class="fieldContainer">
- <!--     <div ng-if="ar.allClients || !ar.hasClient" id="select-menu" class="btn-group btn-input clearfix">
-        <button id="clients" type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
-        <span data-bind="label">Who is this request for?</span> <span class="caret"></span>
-        </button>
-        <span>Selected: {{ ar.currentClient }}</span>
-        <ul class="dropdown-menu text-left" role="menu">
-          <li><a class="client" ng-click="ar.setClient('arc')">ARC</a></li>
-          <li><a class="client" ng-click="ar.setClient('cdc')">CDC</a></li>
-          <li><a class="client" ng-click="ar.setClient('fairfax')">Fairfax</a></li>
-          <li><a class="client" ng-click="ar.setClient('hrsa')">HRSA</a></li>
-          <li><a class="client" ng-click="ar.setClient('hyundai')">Hyundai</a></li>
-          <li><a class="client" ng-click="ar.setClient('spark')">Spark</a></li>
-          <li><a class="client" ng-click="ar.setClient('ww')">WW</a></li>
-        </ul>
-      </div> -->
       <input ng-model="ar.doc.title" id="docTitle" type="text" class="register-input title" placeholder="Title of Desired Document">
+      <p class="tLabel">Priority:</p>
+      <input class="rad" type="radio" ng-model="ar.doc.priority" value="1">&nbsp  High
+      <input class="rad" type="radio" ng-model="ar.doc.priority" value="2">&nbsp  Medium
+      <input class="rad" type="radio" ng-model="ar.doc.priority" value="3">&nbsp  Low
+      <p class="tLabel">Type:</p>
+      <input class="rad" type="radio" ng-model="ar.doc.type" value="Article">&nbsp  Article
+      <input class="rad" type="radio" ng-model="ar.doc.type" value="Announcement">&nbsp  Announcement
       <div class="lob">
-        <h3>Which LOB is this for? <em style="font-style: italic;">{{ ar.doc.lob | capitalize }}</em> </h3>
-        <input type="radio" ng-model="ar.doc.lob" value="care">&nbsp  Care 
-        <input type="radio" ng-model="ar.doc.lob" value="sales">&nbsp  Sales 
-        <input type="radio" ng-model="ar.doc.lob" value="both">&nbsp  Both 
-        <input type="radio" ng-model="ar.doc.lob" value="other">&nbsp  Other
+        <h3 class="tLabel">Which LOB is this for? <em style="font-style: italic;">{{ ar.doc.lob | capitalize }}</em> </h3>
+        <input type="radio" ng-model="ar.doc.lob" value="AU AMM Care">&nbsp  AU AMM Care 
+        <input type="radio" ng-model="ar.doc.lob" value="AU ACM Sales">&nbsp  AU ACM Sales 
+        <input type="radio" ng-model="ar.doc.lob" value="AU Outbound">&nbsp  AU Outbound 
+        </br>
+        <input type="radio" ng-model="ar.doc.lob" value="NZ Care ">&nbsp  NZ Care 
+        <input type="radio" ng-model="ar.doc.lob" value="NZ Sales">&nbsp  NZ Sales
+        <input type="radio" ng-model="ar.doc.lob" value="NZ Magazines">&nbsp  NZ Magazines
+      </div>
+      <div class="row dateContainer">
+        <div class="col-xs-5">
+          <span class="tLabel">Publication Date: </span>
+          <input class="form-control" type="date" ng-model="ar.doc.pub_date">
+        </div>
+        <div class="col-xs-5">
+          <span class="tLabel">Expiration Date: </span>
+          <input class="form-control" type="date" ng-model="ar.doc.expire_date">
+        </div>
       </div>
       <label class="sum-label">Summary of Request</label></br>
       <textarea ng-model="ar.doc.summary" class="register-input" id="summary" rows="10" placeholder="Type your detailed description here..."></textarea>
       <input ng-model="ar.doc.file_label" id="docTitle" type="text" class="register-input title" placeholder="Attachment Label / Description">
       <div s3-upload bucket="trb-kb" ng-model="ar.doc.file_url"
-            s3-upload-options="{getOptionsUri: 'https://lit-inlet-2632.herokuapp.com/s3-upload', folder: 'ArticleAttachments/'}">
+            s3-upload-options="{getOptionsUri: '/s3-upload', folder: 'ArticleAttachments/'}">
       </div>
-      <h3> {{ ar.doc.attachment }} </h3>
-      <input type="submit" value="Submit Request" class="register-button">
+      <div ng-if="ar.attCount > 1">
+        <input ng-model="ar.doc.file_label2" id="docTitle2" type="text" class="register-input title" placeholder="Attachment 2 Label / Description">
+        <div s3-upload bucket="trb-kb" ng-model="ar.doc.file_url2"
+              s3-upload-options="{getOptionsUri: '/s3-upload', folder: 'ArticleAttachments/'}">
+        </div>
+      </div>
+      <div ng-if="ar.attCount > 2">
+        <input ng-model="ar.doc.file_label3" id="docTitle3" type="text" class="register-input title" placeholder="Attachment 3 Label / Description">
+        <div s3-upload bucket="trb-kb" ng-model="ar.doc.file_url3"
+              s3-upload-options="{getOptionsUri: '/s3-upload', folder: 'ArticleAttachments/'}">
+        </div>
+      </div>
+      <a ng-hide="ar.attCount > 2" ng-click="ar.incAtt()">Add Another Attachment</a>
+      <div class="text-center"><loader loading="ar.sending" size="2em"></loader></div>
+      <input type="submit" value="Submit Request" class="register-button" >
+      
     </div>
   </form>
 </div>

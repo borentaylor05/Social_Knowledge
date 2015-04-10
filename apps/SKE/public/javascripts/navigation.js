@@ -14,8 +14,13 @@ var navigation = {
 				navigation.setHash(navigation.currentView());
 			}
 		});
-		if(this.views.valid(hash)){
+		if(!hash || hash.length < 1)
+			hash = this.home();
+		if(this.views.valid(hash) && this.userAuthorized(hash,this.user)){
 			this.go(hash);
+		}
+		else if(!this.userAuthorized(hash,this.user)){
+			this.go(this.home());
 		}
 		else{
 			this.setHash(this.currentView());
@@ -83,8 +88,14 @@ var navigation = {
 		return this.history[this.history.length-1];
 	},
 	home: function(){
-		if(this.user.extendedProperties.siteManager && this.user.extendedProperties.client == "all"){
-			return "manager-home";
+		switch(this.user.extendedProperties.client){
+			case "all":
+				return "manager-home"
+			case "fairfax":
+				return "fx-home";
+			case "cdc":
+				return "cdc-home";
+			break;
 		}
 	},
 	go: function(view){
@@ -96,6 +107,12 @@ var navigation = {
 		}
 	//	console.log(this.history);
 		gadgets.views.requestNavigateTo(view, {my: this.user, history: this.history});
+	},
+	userAuthorized: function(view,user){
+		if(this.views[view].auth.indexOf(user.extendedProperties.client) > -1)
+			return true;
+		else
+			return false;
 	},
 	isAuthorized: function(user){
 		return true;
@@ -117,16 +134,19 @@ var navigation = {
 			auth: ['all']
 		},
 		"fx-home":{
-			auth: ['all']
+			auth: ['all','fairfax']
 		},
 		"nz-sales-home":{
-			auth: ['all']
+			auth: ['all','fairfax']
 		},
 		"nz-sales-trades":{
-			auth: ['all']
+			auth: ['all','fairfax']
+		},
+		"nz-care-home":{
+			auth: ['all','fairfax']
 		},
 		"cdc-home":{
-			auth: ['all']
+			auth: ['all','cdc']
 		},
 		"test":{
 			auth: ['all']

@@ -1,24 +1,246 @@
-<!--<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css" media="screen" /> -->
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<!--[if IE 9]>
+<script src="//cdn.rawgit.com/jpillora/xdomain/0.6.17/dist/xdomain.min.js"></script>
+<script>
+  xdomain.slaves({
+    'https://lit-inlet-2632.herokuapp.com': '/web/IE9/proxy.html'
+  });
+</script>
+<![endif]-->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="stylesheets/clients/wwc/wwc.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/fairfax/internal.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/fairfax/care.css" type="text/css" media="screen" />
 
-<div class="container">
-	<h1>Welcome to New Zealand Care</h1>
-	<ul class="breadcrumb text-left"></ul> 
-	
+<div class="main" ng-app="App">
+	<div ng-controller="Fairfax as fx" >
+		<div class="row headerContainer">
+			<div class="col-xs-9">
+				<img class="pull-left main-logo" src="images/fx.jpg">
+				<h2 class="header main-header pull-left">New Zealand Care Knowledge Base</h2>
+				<div style="clear:both;"></div>
+				<ul class="breadcrumb text-left"></ul>
+			</div>
+			<div class="col-xs-3 gameContainer">
+				<div class="row text-center">
+					<div class="col-xs-1 gBadge">
+						<img src="images/fairfax/badge_heart.png" alt="Well Played" >
+						<label>Winner!</label>
+					</div>
+					<div class="col-xs-1 gBadge">
+						<img src="images/fairfax/badge_radio.png" alt="Well Played" >
+						<label>Winner!</label>
+					</div>
+					<div class="col-xs-1 gBadge">
+						<img src="images/fairfax/badge_medal.png" alt="Winner" >
+						<label>Winner!</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-9">
+				<form id="pubSearch" ng-submit="fx.pubSearch(fx.pubNameSearch)">
+							<label class="myLabel searchLabel">Search for publication or select logo below: </label>
+							<search-plus-dropdown 
+								ng-init="fx.getSuburbPublications()" 
+								model="fx.pubNameSearch" 
+								click-action=""
+								data="fx.subPubs">
+							</search-plus-dropdown>
+						</form>
+						<div class="row row-centered pubs">
+							<div class="col-xs-4 logo text-center" 
+								ng-click="fx.select({ name: 'The Dominion Post', id: 51 })">
+								<img pub src="images/fairfax/dp.jpg" alt="Dominion Post">
+							</div>
+							<div class="col-xs-4 logo" 
+								ng-click="fx.select({ name: 'Manawatu Standard', id: 59 })">
+								<img pub src="images/fairfax/ms.png" alt="Manawatu Standard">
+							</div>
+							<div class="col-xs-4 logo" 
+								ng-click="fx.select({ name: 'Marlborough Express', id: 22 })">
+								<img pub src="images/fairfax/marl.png" alt="Marlborough Express">
+							</div>
+							<div class="col-xs-4 logo" 
+								ng-click="fx.select({ name: 'Nelson Mail', id: 48 })">
+								<img pub src="images/fairfax/nelson_mail.jpg" alt="Nelson Mail">
+							</div>
+							<div class="col-xs-4 logo" 
+								ng-click="fx.select({ name: 'The Press', id: 17 })">
+								<img pub src="images/fairfax/press.jpg" alt="The Press">
+							</div>
+							<div class="col-xs-4 logo" 
+								ng-click="fx.select({ name: 'Southland Times', id: 42 })">
+								<img pub src="images/fairfax/s_times.jpg" alt="Southland Times">
+							</div>
+							<div class="col-xs-4 logo" 
+								ng-click="fx.select({ name: 'Sydney Morning Herald', id: 67 })">
+								<img pub src="images/fairfax/smh.jpg" alt="Sydney Morning Herald">
+							</div>
+							<div class="col-xs-4 logo" 
+								ng-click="fx.select({ name: 'Taranaki Daily News', id: 64 })">
+								<img pub src="images/fairfax/Taranaki_NZ.jpg" alt="Taranaki NZ">
+							</div>
+							
+							<div class="col-xs-4 logo" 
+								ng-click="fx.select({ name: 'The Timaru Herald', id: 26 })">
+								<img pub src="images/fairfax/timaru.jpg" alt="Timaru Times">
+							</div>
+							<div class="col-xs-4 logo" 
+								ng-click="fx.select({ name: 'Waikato Times', id: 30 })">
+								<img pub src="images/fairfax/waikatotimes.jpg" alt="Waikato Times">
+							</div>
+						</div>
+				<div class="row row-centered tabContainer">
+					<h1 class="header">NZ Cares Information</h1>
+					<div class="col-xs-4">
+						<div class="peter-river-flat-button category">
+							Campaigns
+							<div class="links text-left">
+								<a open-overlay="fx.showDocOverlay" open-overlay="fx.showDocOverlay" opendoc="DOC-1597" get-comments="fx.getComments(doc)"><i class="fa fa-connectdevelop"></i>Current</a>
+								<a open-overlay="fx.showDocOverlay" opendoc="DOC-1596" get-comments="fx.getComments(doc)"><i class="fa fa-connectdevelop"></i>Expired</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="peter-river-flat-button category">
+							General
+							<div class="links text-left">
+								<a open-overlay="fx.showDocOverlay" opendoc="DOC-1601" get-comments="fx.getComments(doc)"><i class="fa fa-connectdevelop"></i>Genral One</a>
+								<a open-overlay="fx.showDocOverlay" opendoc="DOC-1602" get-comments="fx.getComments(doc)"><i class="fa fa-connectdevelop"></i>Genral Two</a>
+								<a open-overlay="fx.showDocOverlay" opendoc="DOC-1603" get-comments="fx.getComments(doc)"><i class="fa fa-connectdevelop"></i>Genral Three</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="peter-river-flat-button category">
+							Processes
+							<div class="links text-left">
+								<a open-overlay="fx.showDocOverlay" opendoc="DOC-1598" get-comments="fx.getComments(doc)"><i class="fa fa-connectdevelop"></i>Process One</a>
+								<a open-overlay="fx.showDocOverlay" opendoc="DOC-1599" get-comments="fx.getComments(doc)"><i class="fa fa-connectdevelop"></i>Process Two</a>
+								<a open-overlay="fx.showDocOverlay" opendoc="DOC-1600" get-comments="fx.getComments(doc)"><i class="fa fa-connectdevelop"></i>Process Three</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="launchers row">
+					<div class="col-xs-12">
+						<button id="red-cutoff" class="btn btn-md" ng-click="fx.getRedPubs()">Redelivery Cutoffs</button>
+					</div>
+				</div>
+				<div class="row row-centered tabContainer">
+					<div class="col-xs-4">
+						<div class="peter-river-flat-button category alt">
+							Systems
+							<div class="links text-left">
+								<a open-overlay="fx.showDocOverlay" opendoc="DOC-1597" get-comments="fx.getComments(doc)"><i class="fa fa-connectdevelop"></i>Systems One</a>
+								<a open-overlay="fx.showDocOverlay" opendoc="DOC-1596" get-comments="fx.getComments(doc)"><i class="fa fa-connectdevelop"></i>Systems Two</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="peter-river-flat-button category alt">
+							Retention
+							<div class="links text-left">
+								<a open-overlay="fx.showDocOverlay" opendoc="DOC-1601" get-comments="fx.getComments(doc)"><i class="fa fa-connectdevelop"></i>Retention One</a>
+								<a open-overlay="fx.showDocOverlay" opendoc="DOC-1602" get-comments="fx.getComments(doc)"><i class="fa fa-connectdevelop"></i>Retention Two</a>
+								<a open-overlay="fx.showDocOverlay" opendoc="DOC-1603" get-comments="fx.getComments(doc)"><i class="fa fa-connectdevelop"></i>Retention Three</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="peter-river-flat-button category alt">
+							Billing
+							<div class="links text-left">
+								<a open-overlay="fx.showDocOverlay" opendoc="DOC-1598" get-comments="fx.getComments(doc)"><i class="fa fa-connectdevelop"></i>Billing One</a>
+								<a open-overlay="fx.showDocOverlay" opendoc="DOC-1599" get-comments="fx.getComments(doc)"><i class="fa fa-connectdevelop"></i>Billing Two</a>
+								<a open-overlay="fx.showDocOverlay" opendoc="DOC-1600" get-comments="fx.getComments(doc)"><i class="fa fa-connectdevelop"></i>Billing Three</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-3 widgetContainer">
+				<leaderboard people="fx.people"></leaderboard>
+			</div>
+		</div>
+		<search-overlay show-on="fx.showSearchOverlay">
+			<div ng-switch="fx.overlayView">
+				<div class="text-center" ng-switch-when="redelivery">
+					<h1>Redelivery Information</h1>
+					<h4 style="font-weight: 200;">Search by Round ID, Town or Select Parent Publication Below</h4>
+					<div class="row row-centered">
+						<div class="col-xs-6 col-centered">
+							<form ng-submit="fx.searchRed(fx.search.term)">
+								<div class="input-group">
+									<span class="input-group-btn">
+										<button class="btn btn-md btn-success">Search</button>
+									</span>
+									<input type="text" class="form-control" ng-model="fx.search.term" placeholder="search/filter by town or Round ID">
+								</div>
+							</form>
+						</div>
+					</div>
+					<h3>
+						<i class="fa fa-arrow-circle-left back" ng-click="fx.setRedWindow('pubs')" ng-hide="fx.currentRedWindow == 'pubs'"></i>
+						{{ fx.currentRedWindow == 'pubs' ? "Publications" : "Redelivery Info" }}
+					</h3>
+					<ul ng-show="fx.currentRedWindow == 'pubs'" class="results red text-left">
+						<li ng-repeat="pub in fx.redPubs" ng-click="fx.getPubRedeliveries(pub)">
+							<i class="fa fa-newspaper-o paper"></i><span>{{ pub.name }}</span>
+						</li>
+					</ul>
+					<ul ng-show="fx.currentRedWindow == 'reds'" class="results red long text-left">
+						<li class="row">
+							<span class="col-xs-2 tHeader">Publication</span>
+							<span class="col-xs-2 tHeader">Town</span>
+							<span class="col-xs-2 tHeader">Round ID</span>
+							<span class="col-xs-2 tHeader">Available?</span>
+							<span class="col-xs-2 tHeader">M-F</span>
+							<span class="col-xs-2 tHeader">Saturday</span>
+						</li>
+						<li class="row reds" ng-repeat="r in fx.redeliveries | filter:fx.search.term">
+							<span class="col-xs-2"> {{ r.publication || fx.selectedRedPub.name }} </span>
+							<span class="col-xs-2"> {{ r.town || "Not Available" }} </span>
+							<span class="col-xs-2"> {{ r.round_id || "Not Available" }} </span>
+							<span class="col-xs-2"> {{ r.redelivery ? "Yes" : "No" }} </span>
+							<span class="col-xs-2"> {{ r.cutoff_mf }} </span>
+							<span class="col-xs-2"> {{ r.cutoff_sat }} </span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</search-overlay>
+		<overlay-two 
+			loading="fx.postingComment" 
+			new-comment="fx.newComment(body)" 
+			show-new="fx.showNew" 
+			set-show-new="fx.setShowNew()" 
+			comments="fx.testComments"
+			show-on="fx.showDocOverlay"
+			>
+		</overlay-two>
+		<div id="sub-overlay-unique" class="hide"></div>
+	</div>
+	<unread-messages></unread-messages>
 </div>
-
 <script type="text/javascript" src="javascripts/jquery.min.js"></script>
 <script type="text/javascript" src="javascripts/angular.min.js"></script>
 <script type="text/javascript" src="javascripts/angular-sanitize.min.js"></script>
-<script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
-<script type="text/javascript" src="javascripts/user.js"></script>
 <script type="text/javascript" src="javascripts/navigation.js"></script>
+<script type="text/javascript" src="javascripts/gadget-helper.js"></script>
+<script type="text/javascript" src="javascripts/templates.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/ng/apps/MasterApp.js"></script>
+<script type="text/javascript" src="javascripts/ng/factories/suburbs.js"></script>
+<script type="text/javascript" src="javascripts/ng/factories/redeliveries.js"></script>
+<script type="text/javascript" src="javascripts/ng/controllers/messages/UnreadMessages.js"></script>
+<script type="text/javascript" src="javascripts/fairfax/ng-fairfax.js"></script>
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(function() {
 		navigation.init(gadgets.views.getParams(), function(){
-			gadgets.window.adjustHeight();
+			util.adjustHeight();
 		});
 	});
 </script>

@@ -192,8 +192,8 @@ app.controller("Champion", ['$scope', 'users', 'documents', 'maintainers', funct
 	}
 
 	// on page load
-	champ.init(champ.user, champ.getByParticipated());
-//	champ.init(champ.user, champ.getByTag('jmc-demo-tag'));
+//	champ.init(champ.user, champ.getByParticipated());
+	champ.init(champ.user, champ.getByTag('jmc-demo-tag'));
 
 }]);
 

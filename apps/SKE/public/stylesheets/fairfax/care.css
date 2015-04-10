@@ -1,0 +1,60 @@
+.tabContainer{
+	margin-left: 0px;
+}
+
+.row.launchers > div > button {
+	background-color: #444;
+	color: white;
+}
+.row.launchers > div > button:hover{
+	color: black;
+	background-color: #CCC;
+}
+.alt > .links > a{
+	color: black;
+}
+.red.results{
+	max-width: 650px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+}
+.red.results.long{
+	max-width: 1000px;
+}
+.red.results > li{
+	margin-right: 20px;
+	margin-left: 20px;
+	padding-left: 10px;
+}
+.red.results > li > span{
+	font-size: 1.3em;
+	font-weight: 200;
+}
+.reds span:hover, .reds:hover{
+	cursor: default !important;
+}
+.fa.back{
+	cursor: pointer;
+	color: #09f;
+	margin-right: 20px;
+}
+.tHeader{
+	font-size: 1.2em;
+	font-weight: 200;
+	padding: 0px;
+}
+.paper{
+	color: #09f;
+	font-size: 1.3em;
+	margin-left: 10px;
+	margin-right: 15px;
+}
+.reds span{
+	font-size: 1.1em !important;
+}
+#red-cutoff{
+	font-size: 1.5em;
+	font-weight: 200;
+	letter-spacing: 2px;
+}

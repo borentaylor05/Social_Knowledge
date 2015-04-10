@@ -49,6 +49,11 @@
           label="Send Message"  
           view="send-message"/>
 
+          <action id="gamification.central"  
+          path="jive/actions/navmenu"  
+          label="Gamification Central"  
+          view="gamification-central"/>
+
 			]]>  
 		</Param>  
 	</Require>  
@@ -131,5 +136,8 @@
   <Content type="html" view="send-message" href="general/send-message.html" />
   <Content type="html" view="request-article" href="general/request-article.html" />
   <Content type="html" view="view-messages" href="general/view-messages.html" />
+
+  <!--  GAMIFICATION  -->
+  <Content type="html" view="gamification-central" href="general/gamification-central.html" />
 
 </Module>

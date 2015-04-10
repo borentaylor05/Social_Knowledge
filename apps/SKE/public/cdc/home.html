@@ -15,7 +15,8 @@
 <div class="main" ng-app="App" ng-controller="cdcController as cdc">
 	<div class="row headerContainer">
 		<div class="col-xs-9">
-			<h2 class="header"><img src="images/cdc.jpg">Knowledge Base</h2>
+			<ul class="breadcrumb blue text-left"></ul>
+			<h2 class="header"><img src="images/cdc.png">Knowledge Base</h2>
 		</div>
 		<div class="col-xs-3 gameContainer">
 			<div class="row text-center">
@@ -37,12 +38,12 @@
 	<div class="container">
 		<div class="row" check-width>
 			<div class="col-xs-9">
-				<ul class="breadcrumb blue text-left"></ul>
 				<div class="row">
-					
-					<div class="col-xs-11 text-center ht">
-						<a opendoc="DOC-1611" get-comments="cdc.getComments(doc)">
-							<img src="images/flame.png">Click to View <span>HOT TOPICS</span>
+					<div class="col-xs-12">
+						<img id="swirl" src="images/cdc/cdc_swirl.png">
+						<a class="pull-right ht" open-overlay="cdc.showDocOverlay" open-overlay="cdc.showDocOverlay" opendoc="DOC-1611" get-comments="cdc.getComments(doc)">
+							<img id="flame" src="images/flame.png">
+							<span>HOT TOPICS</span>
 						</a>
 					</div>
 				</div>
@@ -103,7 +104,7 @@
 									<li class="pr" ng-repeat="pr in cdc.prs"> 
 										<p>
 											<span> {{ pr.subject }} </span>
-											<a class="btn btn-xs btn-info" target="_blank" opendoc="{{cdc.getDocNum(pr.resources.html.ref)}}" get-comments="cdc.getComments(doc)">Open</a>
+											<a class="btn btn-xs btn-info" target="_blank" open-overlay="cdc.showDocOverlay" opendoc="{{cdc.getDocNum(pr.resources.html.ref)}}" get-comments="cdc.getComments(doc)">Open</a>
 										</p>
 									</li>
 								</ul>
@@ -164,7 +165,7 @@
 											<span class="pull-left"> {{ country.name }} </span>
 											<a 	class="pull-right" 
 												target="_blank" 
-												opendoc="{{cdc.getDocNum('http://localhost:8080/docs/DOC-1061')}}" get-comments="cdc.getComments(doc)">
+												open-overlay="cdc.showDocOverlay" opendoc="{{cdc.getDocNum('http://localhost:8080/docs/DOC-1061')}}" get-comments="cdc.getComments(doc)">
 												Open
 											</a>
 										</p>
@@ -215,7 +216,15 @@
 	</div>
 	<!-- END Page Content -->
 	
-	<overlay-two loading="cdc.postingComment" new-comment="cdc.newComment(body)" show-new="cdc.showNew" set-show-new="cdc.setShowNew()" comments="cdc.testComments" ></overlay-two>
+	<overlay-two 
+		loading="cdc.postingComment" 
+		new-comment="cdc.newComment(body)" 
+		show-new="cdc.showNew" 
+		set-show-new="cdc.setShowNew()" 
+		comments="cdc.testComments" 
+		show-on="cdc.showDocOverlay"
+	>
+	</overlay-two>
 </div>
 <script type="text/javascript" src="javascripts/jquery.min.js"></script>
 <script type="text/javascript" src="javascripts/angular.min.js"></script>
@@ -229,6 +238,7 @@
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(function() {
 		navigation.init(gadgets.views.getParams(), function(){
+			util.fullView();
 			util.adjustHeight();
 		});
 	});
