@@ -1,3 +1,4 @@
+
 .blue-main{
 	background-color: rgba(71,151,200, 1);
 }
@@ -124,4 +125,9 @@ div.section.gray{
 	margin-left: 20px;
 	border-left: 1px solid #3498db;
 	font-weight: 200;
+}
+.extLink{
+	max-height: 50px;
+	max-width: 100px;
+	border-radius: 3px;
 }

@@ -16,7 +16,27 @@ app.filter('parseUrlFilter', function () {
     };
 });
 
+app.directive("showTitle", function(){
+	return function(scope, el, attrs){
+		el.next().bind("mouseover", function(){
+			el.next().removeClass("hide");
+			el.next().next().addClass("gAlter");
+		});
+		el.bind("mouseover", function(){
+			el.next().removeClass("hide");
+			el.next().next().addClass("gAlter");
+		});
+		el.bind("mouseleave", function(){
+			el.next().addClass("hide");
+			el.next().next().removeClass("gAlter");
+		});
+	}
+});
+
 app.directive("leaderboard", function(){
+	var view = "gamication-central".toString();
+	var cur = "https://knowledge.jiveon.com";
+	var api = cur+"/api/core/v3";
 	return {
 		restrict: "E",
 		scope: {
@@ -24,13 +44,16 @@ app.directive("leaderboard", function(){
 		},
 		template: '<div class="widget text-center">'+
 					'<h5>Leaderboard</h5>'+
+					'<load size="4em" text="Generating Leaderboard..." hide-on="people"></load>'+
 					'<ul class="leaderboard text-left">'+
 						'<li class="person" ng-repeat="person in people">'+
-							'<a target="_blank" ng-href="{{ person.resources.html.ref }}">'+
-								'<img class="avatar pull-left" ng-src="{{ person.resources.avatar.ref }}"></img>'+
+							'<a target="_blank" ng-href="'+cur+'/people/{{person.employee_id}}">'+
+								'<img class="avatar pull-left" ng-src='+api+'/people/{{person.jive_id}}/avatar></img>'+
 								'<div >'+
-									'<span class="name"> {{ person.displayName }} </span>'+
-									'<span class="name"> {{ (1000 / ($index+1)) | number:0 }} points </span>'+
+									'<span class="name"> {{ person.first_name }} {{ person.last_name }} </span>'+
+									'<span class="metric"> Stack Rank: {{ person.rank }} </span> | '+
+									'<span class="metric"> Tier: {{ person.tier }} </span> | '+
+									'<span class="metric"> Comp Score: {{ person.comp_score }} </span>'+
 								'</div>'+
 							'</a>'+
 						'</li>'+
@@ -79,17 +102,6 @@ app.directive("opendoc", function(){
 	} 
 });
 
-app.directive("checkWidth", function(){
-	return function(scope, el, attrs){
-		if(window.parent.location.href.indexOf("localhost") < 0){
-			el.css({
-				"margin-left": "-80px",
-				"width": "116%"
-			});
-		}
-	}
-});
-
 app.directive("loader", function(){
 	return {
 		restrict: "E",
@@ -99,7 +111,6 @@ app.directive("loader", function(){
 		},
 		template: '<i ng-show="loading" class="fa fa-circle-o-notch fa-spin"></i>',
 		link: function(scope, el, attrs){
-			console.log("Loading", scope.loading);
 			el.css("font-size", scope.size);
 		}
 	}
@@ -156,7 +167,8 @@ app.directive("unreadMessages", function(){
 					'{{ m.sender.name ? "Sender Name: " : "Sender ID: " }}'+
 					'<a target="_blank" ng-href="/people/{{m.sender.employee_id}}"> {{ m.sender.name ? m.sender.name : m.sender.employee_id }} </a>'+
 				'</h4>'+
-				'<div class="msg-body"> '+
+				'<div class="msg-body" ng-class="{urgent: m.urgent}"> '+
+					'<h2 style="margin-top: 0px;" ng-if="m.urgent">Urgent Announcement!</h2>'+
 					'<p ng-bind-html="m.text | unsafe"></p>'+
 					'<button class="btn btn-xs btn-success" ng-click="msgs.acknowledge(m)">Acknowledge</button>'+
 				'</div>'+
@@ -173,7 +185,6 @@ app.directive("myImage", function($compile){
 	}
 	var linker = function(scope, el, attrs){
 		el.html(makeTemplate(scope.route)).show();
-		console.log(makeTemplate(scope.route));
 		$compile(el.contents())(scope);
 	}
 	return {
@@ -194,7 +205,11 @@ app.directive("searchOverlay", function(){
 		transclude: true,
 		template: '<div ng-show="showOn"><div class="sub-overlay"></div><div class="overlay" ng-transclude></div></div>',
 		link: function(scope,el,attrs){
-			$(".sub-overlay").on("click touch", function(e){
+			$(".sub-overlay").on("click touch", function(){
+				scope.showOn = false;
+				scope.$apply(scope.showOn);
+			});
+			el.find("i").on("click touch", function(){
 				scope.showOn = false;
 				scope.$apply(scope.showOn);
 			});
@@ -278,5 +293,18 @@ app.factory("messages", ['$http', function($http){
 	return messages;
 }]);
 
+app.factory("gamification", function($http){
+	var game = {};
+
+	game.top_three = function(){
+		return $http.get(util.rails_env.current+"/api/gamification/"+window._jive_current_user.id+"/top-three");
+	}
+
+	game.leaderboard = function(){
+		return $http.get(util.rails_env.current+"/api/gamification/leaderboard?user="+window._jive_current_user.id);
+	}
+
+	return game;
+});
 
 

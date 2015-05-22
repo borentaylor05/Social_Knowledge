@@ -24,6 +24,9 @@ div.personRow{
 	border-bottom: 1px solid #CCC;
 	font-size: 1em;
 }
+div.personRow > div{
+	overflow-x: hidden;
+}
 
 div.personRow > div > button{
 	min-width: 100px;
@@ -76,3 +79,9 @@ div#specContainer{
 	margin-top: 20px;
 }
 
+.client h2{
+	color: black;
+}
+.client a{
+	color: #09f;
+}

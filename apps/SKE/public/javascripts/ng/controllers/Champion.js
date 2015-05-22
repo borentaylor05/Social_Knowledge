@@ -11,11 +11,7 @@ app.controller("Champion", ['$scope', 'users', 'documents', 'maintainers', funct
 		champ.currentDoc = {},
 		champ.currentCom = {},
 		champ.replying = champ.inited = false,
-		champ.user = {
-			jive_id: window.parent._jive_current_user.ID,
-			username: window.parent._jive_current_user.username,
-			name: window.parent._jive_current_user.displayName
-		};
+		champ.user = {};
 	champ.loading = {
 		reply: false,
 		review: false,
@@ -113,9 +109,9 @@ app.controller("Champion", ['$scope', 'users', 'documents', 'maintainers', funct
 		});
 	}
 	champ.checkForNewComments = function(docs){
-		console.log("DOCS",docs);
 		documents.checkForNewComments(docs).success(function(resp){
 			champ.relevantDocs = resp.newComments;
+			console.log("DOCS",champ.relevantDocs);
 			champ.loading.main = false;
 			util.adjustHeight();
 		});
@@ -181,7 +177,7 @@ app.controller("Champion", ['$scope', 'users', 'documents', 'maintainers', funct
 		console.log("REPLIED", champ.repliedTo.indexOf(com.id));
 	}
 	champ.checkAuthor = function(c){
-		if(c.author == window.parent._jive_current_user.displayName)
+		if(c.author == window._jive_current_user.displayName)
 			return c.resolved ? "You" : "You (resolve to clear)";
 		else
 			return c.author;
@@ -192,8 +188,19 @@ app.controller("Champion", ['$scope', 'users', 'documents', 'maintainers', funct
 	}
 
 	// on page load
-//	champ.init(champ.user, champ.getByParticipated());
-	champ.init(champ.user, champ.getByTag('jmc-demo-tag'));
+	gadgets.util.registerOnLoadHandler(function() {
+		navigation.init(gadgets.views.getParams(), function(){
+			gadgets.window.adjustHeight();
+			champ.user = {
+				jive_id: window._jive_current_user.id,
+				username: window._jive_current_user.username,
+				name: window._jive_current_user.name
+			};
+			console.log("Champ", champ.user);
+			champ.init(champ.user, champ.getByParticipated());
+		//	champ.init(champ.user, champ.getByTag('jmc-demo-tag'));
+		});
+	});
 
 }]);
 

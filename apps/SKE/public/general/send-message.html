@@ -35,7 +35,7 @@
 			<div class="searchResults" ng-repeat="group in msgs.groups | filter:data.search track by $index">
 				<div ng-hide="msgs.alreadyAdded(secGroup)" class="result">
 					<input type="checkbox" ng-model="g.selected" ng-click="msgs.pushSelected(group)">
-					<span> {{ group.name }}</span>
+					<span> {{ group.name }} ({{group.type}})</span>
 				</div>
 			</div>
 		</div>
@@ -53,8 +53,13 @@
 		<div class="msgContainer" ng-show="msgs.doneSelecting">
 			<h3>Type Your Message Below: <button ng-click="msgs.setDoneSelecting(false)" class="btn btn-xs btn-info">Change Selection</button></h3>
 			<textarea class="form-control" rows="8" placeholder="type your message..." ng-model="data.message"></textarea>
+			<p id="urgent">Is this message urgent? 
+				<input type="checkbox" ng-model="data.urgent"> 
+				<span> {{ data.urgent ? "Yes" : "No" }} </span> 
+			</p>
+			<div class="alert alert-warning">Urgent messages will be sent to agents immediately. Please do not abuse this feature!</div>
 			<div class="text-center">
-				<button ng-click="msgs.send(data.message)" class="btn btn-md btn-success">Send Message</button>
+				<button ng-click="msgs.send(data.message, data.urgent)" class="btn btn-md btn-success">Send Message</button>
 			</div>
 		</div>
 	</div>
@@ -74,8 +79,5 @@
 <script type="text/javascript" src="javascripts/ng/apps/MasterApp.js"></script>
 <script type="text/javascript" src="javascripts/ng/controllers/messages/MessageController.js"></script>
 <script type="text/javascript">
-	gadgets.util.registerOnLoadHandler(function() {
-		gadgets.window.adjustHeight();
-		gadgets.window.adjustWidth();
-	});
+	// onload in MessageController.js
 </script>

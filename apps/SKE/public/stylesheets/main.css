@@ -68,7 +68,6 @@ div.main{
 	padding-right: 0px; 
 	padding-left: 10px;
 	overflow: auto;
-	margin-top: -50px;
 }
 .loader-xs{
 	font-size: .8em;
@@ -131,15 +130,53 @@ div.main{
 .gameContainer{
 	padding: 10px;
 	text-align: center;
-	border-bottom: 1px solid #EEE;
-	border-left: 1px solid #EEE;
 	border-radius: 3px;
 }
-div.gBadge{
-	padding-left: 50px;
-	padding-right: 50px;
+.gamificationColumn{
+	padding-right: 0px;
 }
-
+div.gBadge{
+	padding-left: 20px;
+	padding-right: 20px;
+	width: 105px;
+}
+.gBadge img{
+	max-width: 48px;
+	max-height: 48px;
+}
+.gDesc{
+	display: block;
+	font-size: .7em;
+}
+.gDescContainer{
+	margin-top: 10px;
+}
+.gAlter{
+	background-color: black;
+	color: white;
+	padding: 3px;
+	border-radius: 3px;
+	z-index: 100;
+	position: relative;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+.gTitle{
+	background-color: black;
+	color: white;
+	padding: 3px;
+	font-size: .6em;
+	margin-top: -40px;
+	z-index: 100;
+	position: relative;
+	border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
 #managerHome{
 	margin-right: auto;
 	margin-left: auto;
@@ -202,6 +239,10 @@ div.container > .navbar-header{
 	background-color: #fcf8e3;
 	color: #8a6d3b;
 	border-color: #faebcc;
+}
+
+.bold{
+	font-weight: bold;
 }
 
 div.alert{
@@ -333,33 +374,31 @@ div.msg-overlay {
 	text-align: right;
 	margin-top: 15px;
 }
+.modal-dialog{
+	width: 100%;
+}
+.metric{
+	font-size: .7em;
+}
 
 /* END MESSAGE OVERLAY */
 
 
-/* START FIXED FOOTER */
-
-html,
-body {
-	margin:0;
-	padding:0;
-	height:100%;
+.ctr-container{
+float:right;
+position:relative;
+left:-50%;
+text-align:left;
 }
-.wrapper {
-	min-height:100%;
-	position:relative;
+.ctr-container ul, .ctr-container div{
+list-style:none; 
+position:relative;
+left:50%;
 }
-.content {
-	padding:10px;
-	padding-bottom:80px;   /* Height of the footer element */
+.ctr-container li{float:left;position:relative;}/* ie needs position:relative here*/
+.ctr-container .ctr-item{
+	float: left;
 }
-.footer {
-	width:100%;
-	height:80px;
-	position:fixed;
-	bottom:0;
-	left:0;
-	background:#ee5;
+.fa.fa-close{
+	color: red;
 }
-
-/* END FIXED FOOTER */

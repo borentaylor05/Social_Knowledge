@@ -2,46 +2,30 @@ var navigation = {
 	user: {},
 	history: [],
 	init: function(params, callback){
-		var hash = this.getHash();
+		window._jive_current_user = params.my;
+		util.currentUser = {
+			jive_id: window._jive_current_user.id,
+       		employee_id: window._jive_current_user.username,
+       		name: window._jive_current_user.name
+		}
+	//	var hash = this.getHash();
 		this.user = params.my;
 		if(typeof params.history !== 'undefined')
 			this.history = params.history;
-		$(window.parent).bind("hashchange", function(e){
+	/*	$(window.parent).bind("hashchange", function(e){
 			var newHash = navigation.getHash();
 			if(navigation.views.valid(newHash))
 				navigation.go(newHash);
 			else{
 				navigation.setHash(navigation.currentView());
 			}
-		});
-		if(!hash || hash.length < 1)
-			hash = this.home();
-		if(this.views.valid(hash) && this.userAuthorized(hash,this.user)){
-			this.go(hash);
-		}
-		else if(!this.userAuthorized(hash,this.user)){
+		}); 
+	*/
+		if(!this.userAuthorized(this.currentView(),this.user)){
 			this.go(this.home());
-		}
-		else{
-			this.setHash(this.currentView());
 		}
 		this.loadNavigation(this.user);
 		callback();
-	},
-	getHash: function(){
-		if(window.parent.location.hash.length > 0)
-			return window.parent.location.hash.slice(1);
-		else 
-			return false;
-	},
-	setHash: function(hash){
-		window.parent.location.hash = hash;
-	},
-	followHash: function(user){
-		var hash = this.getHash();
-		if(hash && hash.length > 0 && this.isAuthorized(this.user)){
-			this.go(hash);
-		}
 	},
 	makeLinks: function(){
 		$(".link").each(function(){
@@ -56,7 +40,7 @@ var navigation = {
 	},
 	loadNavigation: function(user){
 		$(".navList").append(this.navListItem("Home", this.home()));
-		if(user.extendedProperties.siteManager){
+		if(user.extendedProperties.client == 'all'){
 			$(".navList").append(this.navListItem("Create Post", "new-post"));
 			$(".navList").append(this.navListItem("Manage Docs", "manage-docs"));
 			$(".navList").append(this.navListItem("Manage Users", "manage-users"));
@@ -99,7 +83,6 @@ var navigation = {
 		}
 	},
 	go: function(view){
-		this.setHash("");
 		if($.inArray(view, this.history) < 0)
 			this.history.push(view);
 		else{
@@ -109,7 +92,7 @@ var navigation = {
 		gadgets.views.requestNavigateTo(view, {my: this.user, history: this.history});
 	},
 	userAuthorized: function(view,user){
-		if(this.views[view].auth.indexOf(user.extendedProperties.client) > -1)
+		if(this.views[view].auth.indexOf(window._jive_current_user.extendedProperties.client) > -1)
 			return true;
 		else
 			return false;
@@ -150,6 +133,9 @@ var navigation = {
 		},
 		"test":{
 			auth: ['all']
+		},
+		"gamification-central":{
+			auth: ["all", "fairfax", "ww", "arc", "hyundai", "hrsa", "cdc"]
 		}
 	}
 }

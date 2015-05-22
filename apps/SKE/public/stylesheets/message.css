@@ -5,6 +5,7 @@ div.container.main{
 	width: 900px;
 	height: 600px;
 	overflow: scroll;
+	font-family: Tahoma, sans-serif;
 }
 .tiny{
 	font-size: .6em;
@@ -92,4 +93,19 @@ label{
 	margin-left: auto;
 	margin-right: auto;
 	border-radius: 2px;
+}
+#urgent{
+	margin-top: 10px;
+	font-size: 1.3em;
+	font-weight: 100;
+}
+.urgent{
+	background-color: red !important;
+	font-size: 1.2em;
+	color: white;
+}
+.urgent .btn{
+	background-color: white;
+	color: black;
+	border-color: black;
 }

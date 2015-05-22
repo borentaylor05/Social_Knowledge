@@ -24,6 +24,15 @@ app.controller("Gamification", ['bunchball', function(bunchball){
 	}
 
 	// on page load
-	game.init();
+	gadgets.util.registerOnLoadHandler(function() {
+		osapi.jive.corev3.people.getViewer({"fields":"displayName,jive.username,-resources"}).execute(function(user){
+			console.log("GAME", user);
+			window._jive_current_user = user.content;
+			window._jive_current_user.username = user.content.jive.username;
+			game.init();	
+			gadgets.window.adjustHeight();
+			gadgets.window.adjustWidth();
+		});
+	});
 
 }]);

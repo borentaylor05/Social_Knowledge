@@ -22,21 +22,12 @@ var gadget_helper = {
 }
 
 var util = {
-	fullView: function(){
-		var label = window.parent.document.getElementsByClassName('j-canvas-preference-container')[0];
-		var holder =  window.parent.document.getElementsByClassName('j-app-canvas')[0];
-		$(label).css("display", "none");
-		$(holder).css({
-			"width": "104%",
-			"margin-left": "-20px",
-			"margin-top": "-23px"
-		});
-	},
 	fixResp: function(resp){
 		 if(typeof resp == "string")
 			resp = JSON.parse(resp);
 		return resp;
 	},
+	currentUser: {},
 	isEmpty: function(obj) {
 	    for(var prop in obj) {
 	        if(obj.hasOwnProperty(prop))
@@ -59,7 +50,7 @@ var util = {
 	},
 	adjustHeight: function(){
 		setTimeout(function(){
-			gadgets.window.adjustHeight()
+			gadgets.window.adjustHeight();
 		}, 1000);
 	},
 	responseCheck: function(data){
@@ -163,7 +154,7 @@ var util = {
 			if(data.hasOwnProperty('list') && data.list.length > 0){
 				var thisDoc = data.list[0];
 				$(".doc-container").html(thisDoc.content.text);
-				$(".doc-container").prepend('<h1 class="header">'+thisDoc.subject+'<span class="original tiny"><a target="_blank" href="/docs/'+thisDoc.id+'">Click here to see original document.</a></span></h1>');
+				$(".doc-container").prepend('<h1 class="header">'+thisDoc.subject+'<span class="original tiny"><a target="_blank" href="https://social.teletech.com/docs/'+thisDoc.id+'">Click here to see original document.</a></span></h1>');
 				$(".doc-container").append("</br>");
 				util.nav_fix();
 			//	wwc.link_fix();
@@ -174,7 +165,7 @@ var util = {
 		});
 	},
 	getUrlParams: function(sParam){
-		var sPageURL = window.parent.location.search.substring(1);
+		var sPageURL = window.location.search.substring(1);
 	    var sURLVariables = sPageURL.split('&');
 	    for (var i = 0; i < sURLVariables.length; i++) 
 	    {
@@ -185,16 +176,11 @@ var util = {
 	        }
 	    }
 	},
-	currentUser: {
-		jive_id: window.parent._jive_current_user.ID,
-		employee_id: window.parent._jive_current_user.username,
-		name: window.parent._jive_current_user.displayName
-	},
 	createUser: function(callback){
 		var user = {
-				jive_id: window.parent._jive_current_user.ID,
-				employee_id: window.parent._jive_current_user.username,
-				name: window.parent._jive_current_user.displayName
+				jive_id: window._jive_current_user.id, 				// removed parent, lowercase id
+				employee_id: window._jive_current_user.username,	// removed parent
+				name: window._jive_current_user.displayName 		// removed parent
 			}
 		gadget_helper.post(this.rails_env.current+"/user", user, function(resp){
 			callback();

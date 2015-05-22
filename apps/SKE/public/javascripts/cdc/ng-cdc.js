@@ -28,7 +28,7 @@ app.factory('addressBook', function($http){
 	return addressBook;
 });
 
-app.factory('people', function(){
+app.factory('people', function($http){
 	var people = {};
 
 	people.get = function(limit){
@@ -56,7 +56,7 @@ app.directive("elWidth", function(){
 });
 
 
-app.controller("cdcController", ['$http', '$scope', 'atoz', 'addressBook', 'people', 'countries', function($http, $scope, atoz, addressBook, people, countries){
+app.controller("cdcController", ['$http', '$scope', 'atoz', 'addressBook', 'people', 'countries', 'gamification', function($http, $scope, atoz, addressBook, people, countries, gamification){
 	var cdc = this;
 	cdc.dualSearch = true;
 	cdc.showOverlay = cdc.showNew = cdc.postingComment = false;
@@ -67,12 +67,19 @@ app.controller("cdcController", ['$http', '$scope', 'atoz', 'addressBook', 'peop
 	cdc.currentTopic = {};
 	cdc.currentEntry = {};
 	cdc.countries = countries.all;
+	cdc.loading = {
+		prs: false,
+		topics: false,
+		ab: false
+	}
 
 	cdc.getAllTopics = function(start, end){
 		// call function from factory
+		cdc.loading.topics = true;
 		atoz.getRange(start, end).success(function(resp){
-			console.log(resp);
+			resp = util.fixResp(resp);
 			cdc.topics = resp.topics;
+			cdc.loading.topics = false;
 		});
 	}
 	cdc.getComments = function(docID){
@@ -80,6 +87,7 @@ app.controller("cdcController", ['$http', '$scope', 'atoz', 'addressBook', 'peop
 	        "href": "/contents/"+docID+"/comments",
 	        "v": "v3"
 	    }).execute(function(resp){
+	    	resp = util.fixResp(resp);
 	    	cdc.testComments = resp.list.reverse();
 	    	$scope.$apply(cdc.testComments);
 	    	cdc.setCurrentDoc(docID)
@@ -102,6 +110,7 @@ app.controller("cdcController", ['$http', '$scope', 'atoz', 'addressBook', 'peop
 			"v": "v3",
 			"body": data
 		}).execute(function(resp){
+			resp = util.fixResp(resp);
 			$("#clear").val("");
 			cdc.showNew = false;
 			cdc.postingComment = false;
@@ -109,8 +118,11 @@ app.controller("cdcController", ['$http', '$scope', 'atoz', 'addressBook', 'peop
 		});
 	}	
 	cdc.searchTopics = function(term){
+		cdc.loading.topics = true;
 		atoz.topicSearch(term).success(function(resp){
+			resp = util.fixResp(resp);
 			cdc.topics = resp.topics;
+			cdc.loading.topics = false;
 		});
 		if(cdc.dualSearch){
 			cdc.prSearch(term);
@@ -122,6 +134,7 @@ app.controller("cdcController", ['$http', '$scope', 'atoz', 'addressBook', 'peop
 		else{
 			cdc.currentTopic = topic;
 			atoz.getTopic(topic).success(function(resp){
+				resp = util.fixResp(resp);
 				cdc.topicInfo = resp.topic;
 			});
 		}
@@ -129,8 +142,11 @@ app.controller("cdcController", ['$http', '$scope', 'atoz', 'addressBook', 'peop
 			cdc.prSearch(topic.topic);
 	}
 	cdc.getEntries = function(){
+		cdc.loading.ab = true;
 		addressBook.getEntries().success(function(resp){
+			resp = util.fixResp(resp);
 			cdc.entries = resp.entries;
+			cdc.loading.ab = false;
 		});
 	}
 	cdc.getEntry = function(entry){
@@ -139,17 +155,20 @@ app.controller("cdcController", ['$http', '$scope', 'atoz', 'addressBook', 'peop
 		else{
 			cdc.currentEntry = entry;
 			addressBook.getEntry(entry).success(function(resp){
+				resp = util.fixResp(resp);
 				cdc.entryInfo = resp.entry;
 			});
 		}
 	}
 	cdc.prSearch = function(pr){
+		cdc.loading.prs = true;
 		osapi.jive.core.get({
 	        	"href": "/search/contents?filter=search("+pr+")",
 	        	"v": "v3"
 	    	}).execute(function(resp){
-		    	resp = util.responseCheck(resp);
+		    	resp = util.fixResp(resp);
 		    	cdc.prs = resp.list;
+		    	cdc.loading.prs = false;
 		    	$scope.$apply(cdc.prs);
 	    });
 	}
@@ -165,12 +184,20 @@ app.controller("cdcController", ['$http', '$scope', 'atoz', 'addressBook', 'peop
 		else
 			return false;
 	}
-	cdc.getPeople = function(){
-		people.get(10).execute(function(resp){
+	cdc.getLeaders = function(){
+		gamification.leaderboard().success(function(resp){
 	    	resp = util.responseCheck(resp);
-	    	cdc.people = resp.list;
-	    	$scope.$apply(cdc.people);
+	    	cdc.leaders = resp.leaders;
 	    });
+	}
+	cdc.getTopThree = function(){
+		gamification.top_three().success(function(resp){
+			resp = util.fixResp(resp);
+			if(resp.status == 0){
+				cdc.top_three = resp.missions;
+				console.log("TOP3",resp);
+			}
+		});
 	}
 	cdc.getDocNum = function(url){
 		return util.lastPart(url);
@@ -191,10 +218,18 @@ app.controller("cdcController", ['$http', '$scope', 'atoz', 'addressBook', 'peop
 			break;
 		}
 	}
+	cdc.gameInit = function(){
+		cdc.getLeaders();
+		cdc.getTopThree();
+	}
+	cdc.getAvatarUrl = function(user){
+		var cur = "https://knowledge.jiveon.com/api/core/v3/people/";
+		return cur+user.jive_id+"/avatar";
+	}
 	
 	// on page load
 	cdc.getEntries();
-	cdc.getPeople();
+	cdc.gameInit();
 
 }]);
 

@@ -3,10 +3,8 @@
 app.controller("ViewMessages", ['messages', function(messages){
 	var view = this;
 	var jsTime;
-	view.allMessages = [];
-	view.user = {
-		jive_id: window.parent._jive_current_user.ID
-	}
+	view.allMessages = [],
+		view.user = {};
 	
 	view.all = function(u){
 		messages.getAll(u).success(function(resp){
@@ -32,6 +30,18 @@ app.controller("ViewMessages", ['messages', function(messages){
 	}
 
 	// on page load
-	view.all(view.user);
+	gadgets.util.registerOnLoadHandler(function() {
+		osapi.jive.corev3.people.getViewer({"fields":"displayName,jive.username,-resources"}).execute(function(user){
+			window._jive_current_user = user.content;
+			window._jive_current_user.username = user.content.jive.username;
+			view.user = {
+				jive_id: window._jive_current_user.id
+			}
+			console.log("USER", window._jive_current_user);
+			gadgets.window.adjustHeight();
+			gadgets.window.adjustWidth();
+			view.all(view.user);	
+		});
+	});
 
 }]);

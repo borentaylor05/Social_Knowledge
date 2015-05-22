@@ -18,7 +18,8 @@ app.directive("searchPlusDropdown", function(){
 		scope: {
 			model: "=",
 			data: "=",
-			clickAction: "&"
+			clickAction: "&",
+			isCare: "@"
 		},
 		template: 	'<div class="input-group">'+
 						'<span class="input-group-btn btn btn-xs btn-success">'+
@@ -26,7 +27,7 @@ app.directive("searchPlusDropdown", function(){
 						'</span>'+
 						'<input type="text" class="form-control" ng-model="model" placeholder="publication name">'+
 						'<ul class="dropdown results" ng-show="model.length > 0">'+
-							'<li ng-click="clickAction({param: d})" ng-repeat="d in data | filter:model">'+
+							'<li ng-click="clickAction({param: d, care: isCare})" ng-repeat="d in data | filter:model">'+
 								'<p> {{ d.name }} </p>'+
 							'</li>'+
 						'</ul>'+
@@ -117,7 +118,7 @@ app.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
 
 app.controller("Fairfax", ['$http', '$scope', '$sce', 'classifications', 'suburbs', 'redeliveries', function($http, $scope, $sce, classifications, suburbs, redeliveries){
 	var fx = this;
-	fx.pubSelected = fx.deadlines = fx.showClass = fx.showNew = fx.postingComment= fx.showSearchOverlay = fx.showDocOverlay = false;
+	fx.pubSelected = fx.deadlines = fx.showClass = fx.showNew = fx.postingComment = fx.showDocOverlay = fx.inited = false;
 	fx.loading = {
 		otherPubs: false,
 		subs: false,
@@ -134,6 +135,7 @@ app.controller("Fairfax", ['$http', '$scope', '$sce', 'classifications', 'suburb
 		fx.sameSub = [],
 		fx.comments = [],		
 		fx.marketing = [],
+		fx.tagPrefix = "",
 		fx.allDeadlines = [],
 		fx.currentSuburb = {},
 		fx.selectedRedPub = {},
@@ -149,6 +151,17 @@ app.controller("Fairfax", ['$http', '$scope', '$sce', 'classifications', 'suburb
 	    	fx.currentDoc = docID;
 	    	$scope.$apply(fx.testComments);
 	    });
+	}
+	fx.getPublication = function(id){
+		$http.get(util.rails_env.current+"/fx/api/publication/"+id).success(function(resp){
+			resp = util.fixResp(resp);
+			fx.selected = resp.publication;
+			fx.pricing = resp.pricing;
+			if(resp.ses)
+				fx.ses = resp.ses;
+			else
+				fx.ses = null;
+		});
 	}
 	fx.setShowNew = function(){
 		fx.showNew = true;
@@ -193,12 +206,11 @@ app.controller("Fairfax", ['$http', '$scope', '$sce', 'classifications', 'suburb
 	fx.getByCat = function(cat){
 		classifications.getByCat(cat.id).success(function(resp){
 			resp = JSON.parse(resp);
-			console.log(resp);
 			if(status == 0)
 				fx.classifications = resp.c;
 		}).error(function(err){
 			alert("Error getting class titles from factory.");
-			console.log(err);
+		//	console.log(err);
 		});
 	}
 	fx.getCats = function(){
@@ -208,22 +220,21 @@ app.controller("Fairfax", ['$http', '$scope', '$sce', 'classifications', 'suburb
 			if(resp.status == 0)
 				fx.cats = resp.cats;
 		}).error(function(err){
-			alert("ERror getting cats from factory");
-			console.log(err);
+			alert("Error getting categories from factory");
+		//	console.log(err);
 		});
 	}
 	fx.searchClass = function(term){
 		fx.error = false;
 		classifications.search(term).success(function(resp){
 			resp = JSON.parse(resp);
-			console.log(resp);
 			if(status == 0)
 				fx.classifications = resp.c;
 			if(fx.classifications.length == 0)
 				fx.error = "No results found"
 		}).error(function(err){
 			alert("ERror getting cats from factory");
-			console.log(err);
+			//console.log(err);
 		});
 	}
 	fx.clearDeadlines = function(){
@@ -239,25 +250,74 @@ app.controller("Fairfax", ['$http', '$scope', '$sce', 'classifications', 'suburb
 			if(typeof resp == "string")
 				resp = JSON.parse(resp);
 			fx.sameSub = resp.publications;
-			console.log(fx.sameSub);
 		});
 	}
-	fx.select = function(pub){
+	fx.select = function(pub, care){
 		fx.otherPubs = [];
 		fx.sameSub = [];
+		fx.inited = true;
+		fx.selected = pub;
 		fx.showSubName = null;
-		fx.loading.cpts = fx.loading.subs = true
-		fx.getSuburbs(pub.id);
-		fx.getCPTs(pub.id)
+		fx.loading.cpts = fx.loading.subs = true;
+		fx.tagPrefix = pub.name.split(" ").join("-").toLowerCase();
+		if(!care){
+			fx.getSuburbs(pub.id);
+			fx.getCPTs(pub.id);
+		}
+		else
+			fx.getPublication(pub.id);
 		fx.reset(pub);
+		fx.getCategories();
+	}
+	fx.getCategories = function(){
+		var cats = ['system', 'process', 'billing', 'geos', 'marketing', 'rates'];
+		for(var i = 0; i < cats.length ; i++){
+			fx.getDocs(cats[i]);
+			fx.getGeneral(cats[i]);
+		}
+	}
+	fx.getDocs = function(category){
 		osapi.jive.core.get({
-	        "href": "/contents?filter=tag("+pub+")",
+	        "href": "/contents?filter=tag("+fx.tagPrefix+"-"+category+")",
 	        "v": "v3"
 	    }).execute(function(resp){
 	    	resp = util.responseCheck(resp);
-	    	divvyUp(resp.list)
+	    	// you don't know which will finish first, so merge the arrays if length > 0
+	    	if(fx[category].length == 0)
+	    		fx[category] = resp.list;
+	    	else
+	    		fx[category].merge(resp.list)
+	    	console.log("For "+category, fx[category])
 	    	util.adjustHeight();
 	    });
+	}
+	fx.getGeneral = function(category){
+		osapi.jive.core.get({
+	        "href": "/contents?filter=tag(nz-care-all-"+category+")",
+	        "v": "v3"
+	    }).execute(function(resp){
+	    	resp = util.responseCheck(resp);
+	    	// you don't know which will finish first, so merge the arrays if length > 0
+	    	if(fx[category].length == 0)
+	    		fx[category] = resp.list;
+	    	else
+	    		fx[category].merge(resp.list)
+	    	console.log("For "+category, fx[category])
+	    	util.adjustHeight();
+	    });
+	}
+	fx.getLeaders = function(lob){
+		$http.get(util.rails_env.current+"/api/gamification/leaderboard?user="+window._jive_current_user.id).success(function(resp){
+			resp = util.fixResp(resp);
+			fx.leaders = resp.leaders;
+		});
+	}
+	fx.getTopThree = function(){
+		$http.get(util.rails_env.current+"/api/gamification/"+window._jive_current_user.id+"/top-three").success(function(resp){
+			if(resp.status == 0){
+				fx.top_three = resp.missions;
+			}
+		});
 	}
 	fx.getPeople = function(){
 		osapi.jive.core.get({
@@ -290,6 +350,7 @@ app.controller("Fairfax", ['$http', '$scope', '$sce', 'classifications', 'suburb
 	fx.getSuburbs = function(pub_id){
 		suburbs.get(pub_id).success(function(resp){
 			resp = util.fixResp(resp);
+			fx.selected = resp.publication;
 			fx.suburbs = resp.suburbs;
 			fx.loading.subs = false;
 		});
@@ -325,13 +386,13 @@ app.controller("Fairfax", ['$http', '$scope', '$sce', 'classifications', 'suburb
 	fx.reset = function(pub){
 		fx.pubNameSearch = "";
 		$(".sub-overlay").addClass("hide");
-		fx.selected = getPubTitle(pub);
-		if(!fx.selected)
-			fx.selected = pub;
-		fx.pubSelected = true;
-		fx.rates = [];
-		fx.geos = [];
-		fx.marketing = [];
+		// fx.selected = pub;
+		// if(!fx.selected)
+		// 	fx.selected = pub;
+		// fx.pubSelected = true;
+		// fx.rates = [];
+		// fx.geos = [];
+		// fx.marketing = [];
 	}
 	fx.checkDeadlines = function(){
 		if(fx.deadlines)
@@ -352,7 +413,7 @@ app.controller("Fairfax", ['$http', '$scope', '$sce', 'classifications', 'suburb
 	}
 	fx.getRedelivery = function(red){
 		redeliveries.getRedelivery(red.id).success(function(resp){
-			console.log(resp);
+		//	console.log(resp);
 		});
 	}
 	fx.setRedWindow = function(view){
@@ -385,7 +446,6 @@ app.controller("Fairfax", ['$http', '$scope', '$sce', 'classifications', 'suburb
 				else if(tags.indexOf("fx-marketing") >= 0)
 					fx.marketing.push(docs[i]);
 			};
-			console.log(fx.geos);
 			$scope.$apply(fx.geos);
 			$scope.$apply(fx.rates);
 			$scope.$apply(fx.marketing);
@@ -425,9 +485,16 @@ app.controller("Fairfax", ['$http', '$scope', '$sce', 'classifications', 'suburb
 			break;
 		}
 	}
+	// url = doc.resources.html
+	var getDocNum = function(doc){
+		var parts = doc.resources.html.split("/");
+		return parts[parts.length-1];
+	}
 	
 	// on page load
-	fx.getPeople();
+	fx.getTopThree();
+	// fx.getPeople();
+//	setTimeout(function(){ fx.getLeaders() }, 2000);
 }]);
 
 

@@ -1,7 +1,7 @@
 h2.header{
 	font-size: 3.8em;
 	font-weight: 200;
-	color: rgba(245,165,80, 1);
+	color: #006699;
 	margin: 0px;
 	position: relative;
   	z-index: 100;
@@ -15,7 +15,7 @@ h2.header{
 	font-weight: 200;
 }
 .btn, .form-control{
-	border-radius: 2px;
+	border-radius: 4px;
 }
 button.btn-orange:hover{
 	background-color: #FF6600;
@@ -25,7 +25,8 @@ button.btn-orange:hover{
 	color: white;
 	padding-left: 10px;
 	padding-right: 10px;
-	border-radius: 2px;
+	border-radius: 4px;
+	height: 35px;
 }
 .ht > a{
 	color: black;
@@ -49,7 +50,7 @@ button.btn-orange:hover{
 	margin-bottom: 15px;
 	margin-left: 20px;
 	padding-left: 0px;
-	border-radius: 2px;
+	border-radius: 4px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-left: 20px;
@@ -73,10 +74,10 @@ button.btn-orange:hover{
 	text-decoration: none;
 }
 .blue{
-	background-color: #075290;
+	background-color: #006699;
 }
 .orange{
-	background-color: rgba(245,165,80, 1);
+	background-color: #f1a552;
 }
 button.btn-orange{
 	background-color: rgba(245,165,80, 1);
@@ -117,11 +118,11 @@ div,p,h1,h2,h3,h4,h5,h6,label,li{
 	background-color: red;
 	color: white;
 	padding: 3px;
-	border-radius: 2px;
-	-o-border-radius: 2px;
-	-ms-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
+	border-radius: 4px;
+	-o-border-radius: 4px;
+	-ms-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
 }
 .info{
 	margin-left: 40px;
@@ -143,7 +144,7 @@ div,p,h1,h2,h3,h4,h5,h6,label,li{
 	width: 100%;
 }
 .breadcrumb{
-	border-radius: 2px;
+	border-radius: 4px;
 	margin-bottom: 0px;
 	margin-left: 0px;
 }
@@ -152,6 +153,7 @@ div,p,h1,h2,h3,h4,h5,h6,label,li{
   	margin-left: -20;
   	margin-top: -40;
   	z-index: 0;
+  	width: 100%;
 }
 .breadcrumb a{
 	color: white !important;
@@ -159,25 +161,43 @@ div,p,h1,h2,h3,h4,h5,h6,label,li{
 .link-group > h1{
 	font-size: 2.2em;
 	font-weight: 200;
-	color: #075290;
+	background-color: #006699;
+	color: white;
+	padding: 5px;
+	margin-bottom: 0;
+	-o-border-top-left-radius: 4px;
+	-ms-border-top-left-radius: 4px;
+	-webkit-border-top-left-radius: 4px;
+	-moz-border-top-left-radius: 4px;
+	-o-border-top-right-radius: 4px;
+	-ms-border-top-right-radius: 4px;
+	-webkit-border-top-right-radius: 4px;
+	-moz-border-top-right-radius: 4px;
 }
 .links{
 	text-align: left;
 	padding: 30px;
-	border: 2px solid rgb(245,165,80);
-	border-radius: 2px;
-	-o-border-radius: 2px;
-	-ms-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
+	border: 2px solid #006699;
+	border-bottom-left-radius: 4px;
+	-o-border-bottom-left-radius: 4px;
+	-ms-border-bottom-left-radius: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	-moz-border-bottom-left-radius: 4px;
+	-o-border-bottom-right-radius: 4px;
+	-ms-border-bottom-right-radius: 4px;
+	-webkit-border-bottom-right-radius: 4px;
+	-moz-border-bottom-right-radius: 4px;
 }
 .links > li{
 	padding: 5px;
 	border-bottom: 1px solid #EEE;
 	font-size: 1.2em;
+	list-style: none;
+	color: #075290;
 }
 .links > li > a{
-	color: #075290;
+	padding-left: 10px;
+	color: black;
 }
 .place{
 	font-style: italic;
@@ -185,4 +205,26 @@ div,p,h1,h2,h3,h4,h5,h6,label,li{
 }
 .widgetContainer{
 	margin-top: -10px;
+}
+.gamificationColumn{
+	margin-top: 10px;
+}
+.contentColumn{
+	height: 110%;
+	box-shadow: 1px -10px 10px 1px #006699;
+}
+#urgent{
+	margin-top: 10px;
+	font-size: 1.3em;
+	font-weight: 100;
+}
+.urgent{
+	background-color: red !important;
+	font-size: 1.2em;
+	color: white;
+}
+.urgent .btn{
+	background-color: white;
+	color: black;
+	border-color: black;
 }

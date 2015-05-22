@@ -31,7 +31,7 @@
 			gadget_helper.get(util.rails_env.current+"/users/"+viewerData.id, {}, function(resp){
 				resp = JSON.parse(resp.text);
 				// make sure any users added through db have client loaded into EP
-				user.setEPWithCallback(viewerData.id, { client: resp.user.client }, function(){
+				user.setEPWithCallback(viewerData.id, { client: resp.user.client, lob: resp.user.lob }, function(){
 					user.get(viewerData.id, function(userData){
 						var to_rails = {
 							client: userData.extendedProperties.client,

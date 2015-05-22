@@ -8,10 +8,11 @@ app.controller("MessageController", ['$scope', '$sce', '$http', function($scope,
 	msgs.recipients = [];
 	msgs.doneSelecting = msgs.messageSent = false;
 	
-	msgs.send = function(msg){
+	msgs.send = function(msg, urgent){
 		var params = {
-			sender: window.parent._jive_current_user.ID,
+			sender: window._jive_current_user.id,
 			groups: msgs.selectedGroups,
+			urgent: urgent,
 			body: msg
 		}
 		$http.post(util.rails_env.current+"/message", params).success(function(resp){
@@ -33,7 +34,7 @@ app.controller("MessageController", ['$scope', '$sce', '$http', function($scope,
 		});
 	}
 	msgs.checkInit = function(callback){
-		$http.get(util.rails_env.current+"/user/check?user="+window.parent._jive_current_user.ID).success(function(resp){
+		$http.get(util.rails_env.current+"/user/check?user="+window._jive_current_user.id).success(function(resp){
 			resp = JSON.parse(resp);
 			if(resp.status == 0){
 				msgs.userInitiated = true;
@@ -115,18 +116,25 @@ app.controller("MessageController", ['$scope', '$sce', '$http', function($scope,
 	}
 
 	// on page load
-	msgs.checkInit(function(resp){
-		if(resp.status == 0){
-			if(resp.client.name == 'all'){
-				msgs.showAllClients = true;
-				msgs.userClient = 'all'
-			}
-			else{
-				msgs.client = msgs.userClient = resp.client.name
-				msgs.getLobTitles(msgs.client);
-			}
-		//	msgs.getUnreadMessages();
-		//	msgs.getSpaces();
-		}
-	}); 
+	gadgets.util.registerOnLoadHandler(function() {
+		osapi.jive.corev3.people.getViewer({"fields":"displayName,jive.username,-resources"}).execute(function(user){
+			window._jive_current_user = user.content;
+			window._jive_current_user.username = user.content.jive.username;
+			console.log("USER", window._jive_current_user);
+			gadgets.window.adjustHeight();
+			gadgets.window.adjustWidth();
+			msgs.checkInit(function(resp){
+				if(resp.status == 0){
+					if(resp.client.name == 'all'){
+						msgs.showAllClients = true;
+						msgs.userClient = 'all'
+					}
+					else{
+						msgs.client = msgs.userClient = resp.client.name
+						msgs.getLobTitles(msgs.client);
+					}
+				}
+			}); 	
+		});
+	});
 }]);

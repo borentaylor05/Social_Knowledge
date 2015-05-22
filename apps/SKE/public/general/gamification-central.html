@@ -12,8 +12,10 @@
 <link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="stylesheets/gamification.css" type="text/css" media="screen" />
 
-<div ng-app="App" ng-controller="Gamification as game">
+<div id="all" ng-app="App" ng-controller="Gamification as game">
 	<div class="gameContainer">
+		<h1>Gamification Central</h1>
+		<ul class="breadcrumb text-left"></ul>
 	<div class="row">
 		<div id="leaderboard" class="col-xs-4 section">
 			<h2 class="gameHeader">Your Metrics</h2>
@@ -89,7 +91,7 @@
 
 </div>
 
-
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
 <script type="text/javascript" src="javascripts/angular.min.js"></script>
 <script type="text/javascript" src="javascripts/angular-sanitize.min.js"></script>
 <script type="text/javascript" src="javascripts/util.js"></script>
@@ -99,7 +101,10 @@
 <script type="text/javascript" src="javascripts/ng/controllers/GamificationController.js"></script>
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(function() {
-		gadgets.window.adjustHeight();
-		gadgets.window.adjustWidth();
+		navigation.init(gadgets.views.getParams(), function(){
+			gadgets.window.adjustHeight();
+			gadgets.window.adjustWidth();
+			console.log("HIST", navigation.hisory);
+		});
 	});
 </script>

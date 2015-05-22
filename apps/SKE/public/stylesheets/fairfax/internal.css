@@ -1,3 +1,8 @@
+.contentColumn{
+	box-shadow: 1px -10px 10px 1px #0078c6;
+	min-height: 600px;
+	padding-bottom: 100px;
+}
 .headerContainer > div > h2{
 	height: 60px;
 	padding-top: 12;
@@ -7,11 +12,15 @@
 	font-weight: 200;
 }
 .header.main-header{
-	margin-top: 22px;
-	padding-left: 20px;
+	margin-top: 12px;
+  border-left: 1px solid #3498db;
+  padding-left: 20px;
+  margin-left: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 .header{
-	margin-top: 0px;
+	margin-top: 10px;
 	font-weight: 200;
 }
 .main-logo{
@@ -123,7 +132,70 @@
 	padding-left: 15px;
 	margin-top: 10px; 
 	margin-bottom: 15px;
+	padding-right: 50px;
 }
 .row.launchers > div > button{
 	width: 100%;
+}
+.mag{
+	margin-left: 40px;
+	font-weight: bolder;
+}
+.pricing{
+	margin-top: 10px;
+	margin-bottom: 20px;
+	padding: 10px;
+	box-shadow: 1px 1px 5px #999;
+	border-radius: 3px;
+	height: 370px;
+	overflow: auto;
+	width: 350px;
+	margin-left: 40px;
+}
+.pricing table{
+	width: 100%;
+}
+.pricing p{
+	font-weight: 200;
+	padding: 5px;
+}
+.pricing tr, .pricing p{
+	border-bottom: 1px solid #DDD;
+}
+.pricing tr:hover{
+	background-color: rgba(71,151,200, 1);
+	color: white;
+}
+.pricing td{
+	padding: 10px;
+}
+.pricing h5{
+	text-decoration: underline;
+}
+.ctr-row{
+	margin: auto; max-width: 1200px;
+}
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.extLink{
+	max-height: 50px;
+	max-width: 120px;
+	border-radius: 3px;
+}
+.category .alert-warning {
+	margin: 5px;
+	background-color: white;
+	color: red;
+	font-size: .6em;
+}
+.category .alert-warning span{
+	display: block;
+}
+.main-alert{
+	text-align: center;
+	font-size: 2em;
+	margin-left: 20px;
 }
