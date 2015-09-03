@@ -1,0 +1,48 @@
+.category{
+	width: auto;
+}
+.contentColumn{
+	padding-right: 0px;
+	padding-left: 30px;
+}
+.mag{
+	margin-left: 0px;
+}
+.magz{
+	margin-top: 10px;
+}
+.magz > .mag img{
+	max-width: 120px;
+	border-radius: 3px;
+	box-shadow: 0 0 5px 1px #AAA;
+}
+.magz > .mag img:hover{
+	border: 2px solid green;
+}
+.pricing.wide{
+	width: 490px;
+	font-size: .8em;
+	font-weight: 200;
+}
+.se:hover{
+	background-color: rgba(71,151,200, 1);
+	color: white;
+	cursor: pointer;
+}
+th{
+	font-weight: 200;
+}
+.pricing td{
+	font-size: .8em;
+	border-right: 1px solid #DDD;
+}
+.sePricing{
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+  	height: auto;
+}
+.sePricing th, .sePricing td{
+	padding: 5px;
+	text-align: center;
+}

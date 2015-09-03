@@ -1,0 +1,56 @@
+div.row > div > h1{
+	margin-top: 0px;
+}
+
+div.row > div > button.btn-md{
+	margin-top: 5px;
+	min-width: 150px;
+}
+
+div.postContainer{
+	padding-left: 0px;
+}
+
+div.post{
+	padding: 15px;
+	border-radius: 3px;
+	box-shadow: 0 0 15px #ccc;
+	margin-bottom: 15px;
+}
+
+div.post > h4 > i{
+	color: #3399FF;
+	font-weight: bold;
+}
+
+div.post > h4 > span.tiny{
+	font-size: .7em;
+	margin-left: 20px;
+}
+
+div.post > p {
+	margin-left: 35px;
+}
+
+.modal-body{
+	display: block;
+}
+
+button#clients{
+	width: 250px;
+}
+
+div.modal-body label{
+	display: block;
+	text-align: left;
+	font-weight: 100;
+	margin-top: 30px;
+}
+
+div#issueOnly{
+	display: inline;
+}
+
+button#resolve{
+	margin-left: 30px;
+}

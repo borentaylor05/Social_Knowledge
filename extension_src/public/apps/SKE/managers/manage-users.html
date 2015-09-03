@@ -1,0 +1,136 @@
+<!--<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css" media="screen" /> -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/simple-sidebar.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/managers/main.css" type="text/css" media="screen" />
+
+<div ng-app="App" ng-controller="Users as u">
+<div class="container clearfix navContainer" >
+	<div class="navbar-header ">
+	  <a class="navbar-brand" href="#">SKE Management</a>
+	</div>
+</div>
+
+<div class="container main" id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    Actions
+                </a>
+            </li>
+            <ul class="navList">
+			</ul>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+	<div id="page-content-wrapper" class="container main text-center">
+		<ul class="breadcrumb text-left">
+		</ul> 
+		<div class="row view-header">
+			<div class="col-xs-2">
+				<h3>All Users</h3>
+			</div>
+			<div class="col-xs-6" >
+				<form id="searchForm" ng-submit="u.search(u.searchTerm)">
+					<div class="input-group">
+						<span class="input-group-btn">
+							<button class="btn btn-md btn-success searchBtn" >Search</button>
+						</span>
+						<input type="text" class="form-control" ng-model="u.searchTerm" placeholder="search or filter">
+					</div>
+				</form>
+			</div>
+		</div>
+		<div id="peopleList" class="container listContainer text-left">
+			<div class="row headerRow">
+				<div class="col-xs-1"><strong>Jive ID</strong></div>
+				<div class="col-xs-2"><strong>Oracle ID</strong></div>
+				<div class="col-xs-2"><strong>Name</strong></div>
+				<div class="col-xs-3"><strong>Client</strong></div>
+			</div>
+			<div ng-class="person.client ? 'row personRow' : 'row personRow label-danger' " ng-init="u.onload = true" ng-repeat="person in u.people | filter:u.searchTerm" ng-show="u.meetsCriteria(person)">
+				<div class="col-xs-1"><span>{{ person.jive_id }}</span></div>
+				<div class="col-xs-2"><span>{{ person.employee_id }}</span></div>
+				<div class="col-xs-2"><span>{{ person.name ? person.name : "-"}}</span></div>
+				<div class="col-xs-2"><span>{{ person.client ? person.client : "-" }}</span></div>
+				<div class="col-xs-2">
+					<button ng-click="u.getEPs(person)" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+						<i class="fa fa-plus"></i>&nbsp Edit EPs
+					</button>
+				</div>
+			</div>
+			<!-- Dynamically populated -->
+		</div>	
+	</div>
+	    <!-- /#page-content-wrapper -->
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Extended Properties </h4>
+      </div>
+      <div class="modal-body text-left">
+      	<div >
+	        <h5 class="alert alert-danger">
+	        	<strong>Do not change these unless you know what you are doing!</strong>
+	        </h5>
+	        <div ng-show="u.epsSaved" class='alert alert-success'>Properties Saved! Sometimes it can take ~1 minute for the changes to take effect.</div> 
+	        <form ng-hide="u.epsSaved" id="extpropsForm">
+				<div class="row">
+	        		<div class="col-xs-5"><strong>Key</strong></div>
+	        		<div class="col-xs-5"><strong>Value</strong></div>
+        		</div>
+        		<div id="epList">
+        			<div class="row" ng-repeat="(key,value) in u.extProps">
+		        		<div class="col-xs-5"><input type="text" class="form-control ep" ng-model="key"></div>
+		        		<div class="col-xs-5"><input type="text" class="form-control ep" ng-model="value"></div>
+		        	</div>
+	        	</div>
+	        	<div class="row">
+	        		<div class="col-xs-3 pull-left">
+	        			<button append-ep ng-click="u.appendEP()" id="addEP" class="btn btn-sm btn-info">
+	        				<i class="fa fa-plus"></i>&nbspAdd EP
+	        			</button>
+	        		</div>
+	        		<div class="col-xs-7">
+	        			<remover person="u.current" callback="u.getEPs(user)">
+	        		</div>
+	        	</div>
+	        </form>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="u.clear()">Close</button>
+        <button status="u.epsSaved" callback="u.getEPs(user)" save-eps person="u.current" input-class=".ep" id="saveEdit" type="button" class="btn btn-primary" ng-hide="u.epsSaved">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/angular.min.js"></script>
+<script type="text/javascript" src="javascripts/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="javascripts/gadget-helper.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/navigation.js"></script>
+<script type="text/javascript" src="javascripts/ng/apps/MasterApp.js"></script>
+<script type="text/javascript" src="javascripts/ng/factories/users.js"></script>
+<script type="text/javascript" src="javascripts/ng/controllers/Users.js"></script>
+<script type="text/javascript">
+	gadgets.util.registerOnLoadHandler(function() {
+		gadgets.window.adjustHeight();
+		navigation.init(gadgets.views.getParams(), function(){
+			navigation.makeLinks();
+			util.adjustHeight();
+		});
+	});
+</script>

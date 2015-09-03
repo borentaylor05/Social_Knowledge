@@ -1,0 +1,528 @@
+<!--[if IE 9]>
+    <script src="//cdn.rawgit.com/jpillora/xdomain/0.7.3/dist/xdomain.min.js" slave="https://lit-inlet-2632.herokuapp.com/web/IE9/proxy.html"></script>
+<![endif]-->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/fairfax/internal.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/fairfax/au-care.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/message.css" type="text/css" media="screen" />
+
+<div class="allContainer" ng-app="App" ng-controller="Fairfax as fx">
+	<!--  Master Row  -->
+	<div class="row">
+		<div class="col-xs-9 row contentColumn fixMargin" ng-controller="AuCare as au">			
+			<div class="col-xs-12">
+				<img class="pull-left main-logo" src="images/fx.jpg">
+				<h2 class="header main-header pull-left">AU Care Knowledge Base</h2>
+				<div style="clear:both;"></div>
+				<ul class="breadcrumb text-left"></ul>
+			</div>			
+			<!-- Global Categories Row -->
+			<div class="row cats">
+				<div class="col-xs-2"></div>
+				<div class="col-xs-8 auCat">
+					<div class="auCatContainer" id="ciContainer">
+						<h3 class="auCatHeader">Cultural Immersion</h3>
+						<a id="ci" target="_blank" href="https://social.teletech.com/community/clients/fairfaxmedia/fairfax-media-training-center/fairfax-media-cultural-immersion/overview">
+							<img src="images/fairfax/cultural_immersion.png">
+						</a>
+					</div>
+				</div>
+				<div class="col-xs-2"></div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6 auCat" ng-repeat="gcat in au.globalCatsRow1">
+					<div class="auCatContainer">
+						<h3 class="auCatHeader">{{ gcat.title }}</h3>
+						<div class="row">
+							<div class="catDocs long" ng-repeat="doc in gcat.docs">
+								<p class="doc"><i class="fa fa-file-text-o"></i>{{ doc.title }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Global Categories Row -->
+			<!-- Global Categories Row 2 -->
+			<div class="row cats">
+				<div class="col-xs-6 auCat" ng-repeat="gcat in au.globalCatsRow2">
+					<div class="auCatContainer">
+						<h3 class="auCatHeader">{{ gcat.title }}</h3>
+						<div class="catDocs" ng-repeat="doc in gcat.docs">
+							<p class="doc"><i class="fa fa-file-text-o"></i>{{ doc.title }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Global Categories Row 2 -->
+			<!-- Care or Sales Selection -->
+			<div class="row">
+				<div class="careSales col-xs-6 text-center">
+					<a ng-click="au.setCurrentView('careView')">
+						<img src="images/fairfax/care.png">
+						<h3 class="auCatHeader">Care</h3>
+					</a>			
+				</div>
+				<div class="careSales col-xs-6 text-center">
+					<a ng-click="au.setCurrentView('salesView')">
+						<img src="images/fairfax/sales.png">
+						<h3 class="auCatHeader">Sales</h3>	
+					</a>
+				</div>
+			</div>
+			<!-- End Care or Sales Selection -->
+			<!-- Publications Image Container -->
+			<div ng-show="au.shouldShowView('careView')">
+				<!-- Begin External Links for Care -->
+				<div class="row launchers text-center">
+					<div class="col-xs-4">
+						<a href="http://auspost.com.au/apps/postcode.html">
+							<img src="images/fairfax/au/au_post.png">
+						</a>
+					</div>
+					<div class="col-xs-4">
+						<a href="#"><button class="btn btn-lg btn-primary" ng-click="fx.openOverlay('metro-rates')">
+							Credit Calculator
+						</button></a>
+					</div>
+					<div class="col-xs-4">
+						<a href="www.street-directory.com.au">
+							<img src="images/fairfax/au/street_directory.png">
+						</a>
+					</div>
+				</div>
+				<!-- End External Links for Care -->				
+				<div class="pubImageContainer container">
+					<h3 class="text-center">Select a Publication</h3>	
+					<div class="row pubImages text-center">
+						<div class="col-xs-4">
+							<a ng-click="au.setGenDocs('age')">
+								<img src="images/fairfax/age.jpg">
+							</a>
+						</div>
+						<div class="col-xs-4">
+							<a ng-click="au.go('afr-care')">
+								<img src="images/fairfax/afr.jpg">
+							</a>
+						</div>
+						<div class="col-xs-4">
+							<a ng-click="au.setGenDocs('smh')">
+								<img src="images/fairfax/smh.jpg">
+							</a>
+						</div>
+					</div>
+					<div class="row pubImages text-center">
+						<div class="col-xs-3">
+							<a ng-click="au.go('sf-care')">
+								<img src="images/fairfax/au/ct.png">
+							</a>
+						</div>
+						<div class="col-xs-3">
+							<a ng-click="au.go('sf-care')">
+								<img src="images/fairfax/au/examiner.png">
+							</a>
+						</div>
+						<div class="col-xs-3">
+							<a ng-click="au.go('sf-care')">
+								<img src="images/fairfax/au/advocate.png">
+							</a>
+						</div>
+						<div class="col-xs-3">
+							<a ng-click="au.go('sf-care')">
+								<img src="images/fairfax/nh.jpg">
+							</a>
+						</div>
+					</div>
+				</div>
+				<!-- End Publications Image Container -->		
+				<!-- Begin BPPs -->
+				<div class="bppContainer" ng-if="au.showBPP">
+					<div class="careSales col-xs-4 text-center bpp" ng-click="fx.openOverlay('bppCare')">
+						<img src="images/fairfax/au/person_switch.png">
+						<h3 class="auCatHeader">Care BPP</h3>			
+					</div>
+					<div class="careSales col-xs-4 text-center bpp" ng-click="fx.openOverlay('bppEmail')" style="padding-top: 35px;">
+						<img src="images/email.png">
+						<h3 class="auCatHeader">Email BPP</h3>			
+					</div>
+					<div class="careSales col-xs-4 text-center bpp" ng-click="fx.openOverlay('bppRes')">
+						<img src="images/fairfax/au/success_key.png">
+						<h3 class="auCatHeader">Resolutions BPP</h3>	
+					</div>
+				</div>
+				<!-- End BPPs -->		
+				<!-- Begin System Docs -->
+				<h1 class="text-center au">AU Care Systems</h1>
+				<div class="row cats">
+					<div class="col-xs-4 auCat">
+						<div class="auCatContainer">
+							<h3 class="auCatHeader img row">
+								<a target="_blank" href="https://www.zuora.com/apps/home.do">
+									<img class="col-xs-7" src="images/fairfax/au/zuora.jpg">
+								</a>
+								<span class="col-xs-5">Zuora</span>
+							</h3>
+							<div class="catDocs" >
+								<p class="doc"><i class="fa fa-file-text-o"></i>Document Link</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4 auCat">
+						<div class="auCatContainer">
+							<h3 class="auCatHeader img row">
+								<a target="_blank" href="https://fairfaxmedia.zendesk.com/access/normal">
+									<img class="col-xs-6" src="images/fairfax/au/zen.jpg">
+								</a>
+								<span class="col-xs-6">Zendesk</span>
+							</h3>
+							<div class="catDocs" >
+								<p class="doc"><i class="fa fa-file-text-o"></i>Document Link</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4 auCat">
+						<div class="auCatContainer ">
+							<h3 class="auCatHeader img row">
+								<a target="_blank" href="https://int.myfairfax.com.au/crm/customer/profile">
+									<img class="col-xs-6" src="images/fairfax/au/hag.jpg">
+								</a>
+								<span class="col-xs-6">Hagrid</span>
+							</h3>
+							<div class="catDocs" >
+								<p class="doc"><i class="fa fa-file-text-o"></i>Document Link</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row cats">
+					<div class="col-xs-4 auCat">
+						<div class="auCatContainer">
+							<h3 class="auCatHeader row">Mediaplus</h3>
+							<div class="catDocs" >
+								<p class="doc"><i class="fa fa-file-text-o"></i>Document Link</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4 auCat">
+						<div class="auCatContainer">
+							<h3 class="auCatHeader row">Membership Admin</h3>
+							<div class="catDocs" >
+								<p class="doc"><i class="fa fa-file-text-o"></i>Document Link</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4 auCat">
+						<div class="auCatContainer ">
+							<h3 class="auCatHeader row">Benefits Management</h3>
+							<div class="catDocs" >
+								<p class="doc" ng-repeat="doc in au.marketing">
+									<i class="fa fa-file-text-o"></i>
+									<a target="_blank" ng-href="{{doc.resources.html.ref}}">
+										{{doc.subject}}
+									</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>				
+				<!-- End System Docs -->
+				<!-- Begin General Docs -->
+				<div ng-if="au.shouldShowView('genDocs')">
+					<h1 class="text-center au">AU Care General Documents</h1>
+					<div class="row">
+						<div class="col-xs-4 auCat" ng-repeat="gcat in au.generalDocsRow1">
+							<div class="auCatContainer">
+								<h3 class="auCatHeader">{{ gcat.title }}</h3>
+								<div class="catDocs" ng-repeat="doc in gcat.docs">
+									<p class="doc"><i class="fa fa-file-text-o"></i>{{ doc.title }}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-6 auCat" ng-repeat="gcat in au.generalDocsRow2">
+							<div class="auCatContainer">
+								<h3 class="auCatHeader">{{ gcat.title }}</h3>
+								<div class="catDocs" ng-repeat="doc in gcat.docs">
+									<p class="doc"><i class="fa fa-file-text-o"></i>{{ doc.title }}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-6 auCat" ng-repeat="gcat in au.generalDocsRow3">
+							<div class="auCatContainer">
+								<h3 class="auCatHeader">{{ gcat.title }}</h3>
+								<div class="catDocs" ng-repeat="doc in gcat.docs">
+									<p class="doc"><i class="fa fa-file-text-o"></i>{{ doc.title }}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>	
+				<!-- End General Docs -->					
+			</div>
+		</div>
+		<div class="col-xs-3 gamificationColumn">
+			<div class=" widgetContainer">
+				<div class=" gameContainer">
+					<div class="row text-center">
+						<h4 class="gHeader">Top Missions</h4>
+						<div class="gInfo">Hover over a badge to see its description.</div>
+						<div class="col-xs-1 text-center gBadge" ng-repeat="m in fx.top_three">
+							<img show-title game="m" ng-src="{{m.badge_url}}" ng-alt="{{ m.bunchball_name }}" >
+							<div class="gTitle hide"> {{ m.bunchball_name }} </div>
+							<div class="gDescContainer" ng-if="m.game_type == 'EmpowerMission'">
+								<span class="gDesc"> {{ m.game.metric_name }} </span>
+								<span class="gDesc">Target: {{ m.game.target }} </span>
+							</div>
+							<div class="gDescContainer" ng-if="m.game_type == 'JiveMission'">
+								<span class="gDesc"> {{ m.bunchball_name }} </span>
+							</div>
+						</div>
+					</div>
+				</div>				
+				<leaderboard people="fx.leaders" user="fx.currentUser"></leaderboard>
+			</div>
+		</div>
+	</div>
+	<!-- End Master Row  -->
+	<div id="utilOverlay" class="container overlay text-left" ng-if="fx.showOverlay">
+		<i class="fa fa-close fa-2x pointer" ng-click="fx.closeOverlay()"></i>
+		<div ng-switch="fx.currentView">
+			<div id="metroRates" class="row" ng-switch-when="metro-rates">
+				<div class="cc col-xs-5" id="suspensionCredit">
+					<h3>Suspension Credit Calculator</h3>
+					<form class="ccForm">
+						<label>$ Paid Last Month</label>
+						<label class="currencyinput">&nbsp $ <input ng-model="fx.suspensionCC.paymentAmount" step="any" min="0" id="lastAmount" type="number" ng-change="fx.setCCPaymentAmount(fx.suspensionCC.paymentAmount)"></label>						
+						
+						<label>First day of non-delivery</label>
+
+						<span class="dateLabel" >Day</span>
+						<select ng-change="fx.getDaysAgo(fx.suspensionCC.date,fx.suspensionCC.date2)" ng-model="fx.suspensionCC.date.day" id="day" ng-options="n for n in [] | range:1:32"></select>
+
+						<span class="dateLabel" >Month</span>
+						<select ng-change="fx.getDaysAgo(fx.suspensionCC.date,fx.suspensionCC.date2)" ng-model="fx.suspensionCC.date.month" ng-options="n for n in [] | range:1:13"></select>					
+						<span class="dateLabel">Year</span>
+						<select ng-change="fx.getDaysAgo(fx.suspensionCC.date,fx.suspensionCC.date2)" ng-model="fx.suspensionCC.date.year" id="year" ng-options="n for n in [] | range:2015:2013"></select><br/>						
+
+						<label>Date of recommencement</label>
+						<span class="dateLabel" >Day</span>
+						<select ng-change="fx.getDaysAgo(fx.suspensionCC.date,fx.suspensionCC.date2)" ng-model="fx.suspensionCC.date2.day" id="day2" ng-options="n for n in [] | range:1:32"></select>
+						
+						<span class="dateLabel" >Month</span>
+						<select ng-change="fx.getDaysAgo(fx.suspensionCC.date,fx.suspensionCC.date2)" ng-model="fx.suspensionCC.date2.month" ng-options="n for n in [] | range:1:13"></select>
+						
+						<span class="dateLabel">Year</span>
+						<select ng-change="fx.getDaysAgo(fx.suspensionCC.date,fx.suspensionCC.date2)" ng-model="fx.suspensionCC.date2.year" id="year2" ng-options="n for n in [] | range:2015:2013"></select><br/>
+						<div class="alert alert-info" ng-if="fx.ccDaysAgo">Total Days {{ fx.ccDaysAgo }} </div>
+						<div class="alert alert-success" ng-if="fx.ccSuspensionAmount"> CREDIT: {{ fx.ccSuspensionAmount.credit | currency }} --- Daily Rate: {{ fx.ccSuspensionAmount.daily | currency }} </div>
+					</form>
+				</div>
+				<div class="col-xs-2"></div>
+				<div class="cc col-xs-5" id="suspensionCredit">	
+					<h3>Missed Delivery Credit</h3>						
+					<form class="ccForm">
+						<label>$ Paid Last Month</label>
+						<label class="currencyinput">&nbsp $ <input ng-model="fx.delCredit.paymentAmount" step="any" min="0" id="lastAmount" type="number" ng-change="fx.getDelCredit()"></label>
+						
+						<label> Days Missed </label>
+						<input ng-model="fx.delCredit.daysMissed" step="any" min="0" type="number" ng-change="fx.getDelCredit()">
+						<div class="alert alert-success" ng-if="fx.delCreditAmount"> CREDIT: {{ fx.delCreditAmount.credit | currency }} --- Daily Rate: {{ fx.delCreditAmount.daily | currency }} </div>
+					</form>
+				</div>
+			</div>
+			<div ng-switch-when="bppCare" class="text-center">
+				<div class="careSales text-center">
+					<img src="images/fairfax/au/person_switch.png">
+					<h3 class="auCatHeader">Care BPP</h3>
+					<div class="row centerRow four">
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_1_Suspension_">
+								<img src="images/fairfax/au/bpp/suspension.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_2_Delivery_Issue">
+								<img src="images/fairfax/au/bpp/delivery_issue.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_3_Billing_Issues">
+								<img src="images/fairfax/au/bpp/billing.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_4_Renewals">
+								<img src="images/fairfax/au/bpp/renewal.png">
+							</a>
+						</div>
+					</div>
+					<div class="row centerRow four">
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_5_My_Benefits">
+								<img src="images/fairfax/au/bpp/my_benefits.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_6_Editorial_Feedback">
+								<img src="images/fairfax/au/bpp/editorial_feedback.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_11_Redemptionsoffers_attached_to_subscriptions">
+								<img src="images/fairfax/au/bpp/redemption_offer.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_8_Account_Maintenance">
+								<img src="images/fairfax/au/bpp/account_maintenance.png">
+							</a>
+						</div>
+					</div>	
+					<div class="row centerRow two">
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_9_Cancellations">
+								<img src="images/fairfax/au/bpp/cancellation.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_14_New_Subscriptions">
+								<img src="images/fairfax/au/bpp/new_subscription.png">
+							</a>
+						</div>						
+					</div>		
+				</div>
+			</div>
+			<div ng-switch-when="bppRes" class="text-center">
+				<div class="careSales text-center">
+					<img src="images/fairfax/au/success_key.png">
+					<h3 class="auCatHeader">Resolutions BPP</h3>
+					<div class="row centerRow four">
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_2Delivery_Issue">
+								<img src="images/fairfax/au/bpp/res/delivery_issue.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3" >
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_3_Billing_Issues_13087">
+								<img src="images/fairfax/au/bpp/res/billing.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_4_Renewals_829607">
+								<img src="images/fairfax/au/bpp/res/renewal.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_10_Technical_Issues_ 954762">
+								<img src="images/fairfax/au/bpp/res/technical_issues.png">
+							</a>
+						</div>
+					</div>
+					<div class="row centerRow three">
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_7_Change_of_Newsagent_Request_225918">
+								<img src="images/fairfax/au/bpp/res/change_newsagent.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_8_Account_Maintenance_137653">
+								<img src="images/fairfax/au/bpp/res/account_maintenance.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_9_Cancellations_45712">
+								<img src="images/fairfax/au/bpp/res/cancellation.png">
+							</a>
+						</div>
+					</div>	
+					<div class="row centerRow two">
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_12_Complaints_90211">
+								<img src="images/fairfax/au/bpp/res/complaint.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-412415#jive_content_id_13_Refund_Enquiries_867633">
+								<img src="images/fairfax/au/bpp/res/refunds.png">
+							</a>
+						</div>						
+					</div>		
+				</div>
+			</div>
+			<div ng-switch-when="bppEmail" class="text-center">
+				<div class="careSales text-center">
+					<img src="images/email.png">
+					<h3 class="auCatHeader">Email BPP</h3>
+					<div class="row centerRow four">
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-413422#jive_content_id_2Delivery_Issue">
+								<img src="images/fairfax/au/bpp/res/delivery_issue.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3" >
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-413422#jive_content_id_3_Billing_Issues_13087">
+								<img src="images/fairfax/au/bpp/res/billing.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-413422#jive_content_id_4_Renewals_829607">
+								<img src="images/fairfax/au/bpp/res/renewal.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-413422#jive_content_id_10_Technical_Issues_ 954762">
+								<img src="images/fairfax/au/bpp/res/technical_issues.png">
+							</a>
+						</div>
+					</div>
+					<div class="row centerRow three">
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-413422#jive_content_id_7_Change_of_Newsagent_Request_225918">
+								<img src="images/fairfax/au/bpp/res/change_newsagent.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-413422#jive_content_id_8_Account_Maintenance_137653">
+								<img src="images/fairfax/au/bpp/res/account_maintenance.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-413422#jive_content_id_9_Cancellations_45712">
+								<img src="images/fairfax/au/bpp/res/cancellation.png">
+							</a>
+						</div>
+					</div>	
+					<div class="row centerRow two">
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-413422#jive_content_id_12_Complaints_90211">
+								<img src="images/fairfax/au/bpp/res/complaint.png">
+							</a>
+						</div>
+						<div class="bppImg col-xs-3">
+							<a target="_blank" href="https://social.teletech.com/docs/DOC-413422#jive_content_id_13_Refund_Enquiries_867633">
+								<img src="images/fairfax/au/bpp/res/refunds.png">
+							</a>
+						</div>						
+					</div>		
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/angular.min.js"></script>
+<script type="text/javascript" src="javascripts/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="javascripts/navigation.js"></script>
+<script type="text/javascript" src="javascripts/templates.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/ng/apps/MasterApp.js"></script>
+<script type="text/javascript" src="javascripts/ng/factories/suburbs.js"></script>
+<script type="text/javascript" src="javascripts/ng/factories/redeliveries.js"></script>
+<script type="text/javascript" src="javascripts/ng/controllers/messages/UnreadMessages.js"></script>
+<script type="text/javascript" src="javascripts/fairfax/ng-fairfax.js"></script>
+<script type="text/javascript" src="javascripts/fairfax/au-care.js"></script>

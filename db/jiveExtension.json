@@ -1,6 +1,8 @@
 {
   "jiveExtension": {
     "id": "jiveExtension",
-    "uuid": "ac8d5efb-db29-4122-abce-ee4ecf0dae37"
+    "uuid": "ac8d5efb-db29-4122-abce-ee4ecf0dae37",
+    "name": "SKE App",
+    "description": "Custom client UIs"
   }
 }

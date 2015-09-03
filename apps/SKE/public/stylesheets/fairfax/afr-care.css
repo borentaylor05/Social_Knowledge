@@ -1,0 +1,14 @@
+.afrLinkContainer{
+	padding: 20px;
+	background-color: #1ba3f1;
+	border: 1px solid navy;
+	box-shadow: 0 0 25px 1px #AAA;
+	text-align: center;
+}
+img.square{
+	max-width: 150px;
+}
+img.long{
+	max-width: 270px;
+	margin: 10px;
+}

@@ -1,0 +1,134 @@
+<!--<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css" media="screen" /> -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/simple-sidebar.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/managers/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/managers/docs.css" type="text/css" media="screen" />
+
+<div class="container clearfix navContainer">
+	<div class="navbar-header ">
+	  <a class="navbar-brand" href="#">SKE Management</a>
+	</div>
+</div>
+
+<div class="container main" id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    Actions
+                </a>
+            </li>
+            <ul class="navList">
+			</ul>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+	<div id="page-content-wrapper" class="container main text-center">
+		<ul class="breadcrumb text-left">
+		</ul> 
+		<div class="row view-header">
+			<div class="col-xs-2">
+				<h3>All Docs</h3>
+			</div>
+			<div class="col-xs-2">
+				<div id="select-menu" class="btn-group btn-input clearfix">
+				  	<button id="clients" type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+				    <span data-bind="label">Filter By Client</span> <span class="caret"></span>
+				  	</button>
+				  	<ul class="dropdown-menu text-left" role="menu">
+				  		<li><a class="client" data-client="everyone" href="#">All</a></li>
+				    	<li><a class="client" data-client="all" href="#">Site Managers</a></li>
+				    	<li><a class="client" data-client="arc" href="#">ARC</a></li>
+				    	<li><a class="client" data-client="cdc" href="#">CDC</a></li>
+				    	<li><a class="client" data-client="fairfax" href="#">Fairfax</a></li>
+				    	<li><a class="client" data-client="hrsa" href="#">HRSA</a></li>
+				    	<li><a class="client" data-client="hyundai" href="#">Hyundai</a></li>
+				    	<li><a class="client" data-client="spark" href="#">Spark</a></li>
+				    	<li><a class="client" data-client="ww" href="#">WW</a></li>
+				    	<li><a class="client" data-client="test" href="#">Test</a></li>
+				  	</ul>
+				</div>
+			</div>
+			<div class="col-xs-6 text-left">
+				<form id="searchForm">
+					<input class="form-control " id="docSearch" type="text" placeholder="Search for document">
+					<input type="submit" class="btn btn-sm btn-success" value="Search">
+				</form>
+			</div>
+		</div>
+		<div id="docList" class="container listContainer">
+			<div class="row headerRow text-left">
+				<div class="col-xs-3"><strong>Subject</strong></div>
+				<div class="col-xs-1"><strong>Doc</strong></div>
+				<div class="col-xs-1"><strong>API</strong></div>
+			</div>
+			<div id="docRows">
+				<!-- Dynamically populated -->
+			</div>
+		</div>
+		<div class="overlay hide">
+			<button id="favorite" class="btn btn-md btn-info"><i class="fa fa-plus"></i>&nbsp Add to Favorites</button>
+			<div class="navigation">
+				
+			</div>
+			<div class="doc-container"></div>
+		</div>
+	</div>	
+</div>
+	    <!-- /#page-content-wrapper -->
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body text-left">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button data-id="" id="saveEdit" type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="javascripts/gadget-helper.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/doc.js"></script>
+<script type="text/javascript" src="javascripts/navigation.js"></script>
+<script type="text/javascript">
+	gadgets.util.registerOnLoadHandler(function() {
+		gadgets.window.adjustHeight();
+		navigation.init(gadgets.views.getParams(), function(){
+			navigation.makeLinks();
+			doc.list(0);
+			$(".client").each(function(){
+				$(this).on("click touch", function(e){
+					e.preventDefault();
+					$("#clients").children().first().text($(this).text());
+					doc.listByExtProp("client",$(this).attr("data-client"));
+				});	
+			});
+			$("#searchForm").submit(function(e){
+				e.preventDefault();
+				doc.search($("#docSearch").val());
+			});
+		});
+	//	users.getAll(0);
+	});
+</script>

@@ -1,11 +1,10 @@
 {
     "clientUrl": "http://localhost",
     "port":"8090",
-    "development" : true,
-    "oauth2-sfdc": {
-        "originServerAuthorizationUrl": "https://login.salesforce.com/services/oauth2/authorize",
-        "originServerTokenRequestUrl": "https://login.salesforce.com/services/oauth2/token",
-        "oauth2ConsumerKey": "3MVG9fMtCkV6eLhdlnWVivNbP2QVbi4DGSi5uRqhKPkNqvvF6JA0byA7t5aGgBk_UrnEEW5BlUNouE72BiYZv",
-        "oauth2ConsumerSecret": "8888707537465065172"
-    }
+    "development" : false,
+    "extensionInfo" : {
+	   	"name" : "SKE App",
+	   	"description" : "Custom client UIs",
+	   	"uuid" : "ac8d5efb-db29-4122-abce-ee4ecf0dae37"
+	}
 }

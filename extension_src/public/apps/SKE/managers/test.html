@@ -1,0 +1,73 @@
+<!--<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css" media="screen" /> -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/champ.css" type="text/css" media="screen" />
+
+<div class="container main wrapper" ng-app="App" ng-controller="Champion as champ">
+	<h1>SKE Champion: {{ champ.user.name }} for {{ champ.user.extendedProperties.client | capitalize }} </h1>
+	<ul class="breadcrumb text-left"></ul> 
+	<div class="text-center"><loader size="5em" loading="champ.loading.main"></loader></div>
+	<div class="container content docsContainer">
+		<div class="alert alert-success" ng-show="champ.relevantDocs.length == 0 && champ.inited">You have no pending comments</div>
+		<div class="docContainer" ng-repeat="doc in champ.relevantDocs">
+			<h4> 
+				<a ng-href="{{doc.link}}" target="_blank"> {{ doc.title }} </a>
+				<span class="newCount" >{{ doc.dif }}</span>
+				<button ng-hide="champ.currentDoc == doc" ng-click="champ.showComments(doc)" class="btn btn-xs btn-info">Show Comments</button>
+				<loader-current show-if="doc == champ.currentDoc" loading="champ.loading.comments" size="1em"></loader-current>
+				<button ng-show="champ.currentDoc == doc && !champ.loading.comments" ng-click="champ.unsetCurrentDoc()" class="btn btn-xs btn-default">Hide Comments</button>
+			</h4>
+			<div class="comContainer" ng-if="champ.currentDoc == doc">
+				<div class="com" ng-repeat="c in champ.comments" ng-if="c.content" ng-init="champ.initCom(c, doc)">
+					<p>Author: {{ champ.checkAuthor(c) }}
+						<a style="margin-left: 20px;" target="_blank" ng-href="{{ c.content.link }}#comment-{{c.api_id}}"> View In Context </a>
+					</p>
+					<span class="body" ng-bind-html="c.text | parseUrlFilter"></span>
+					<div ng-show="champ.hasReplied(c)" class="alert alert-success">Replied!</div>
+					<form ng-if="champ.replying && champ.isCurrent(c)" id="champResponse" ng-submit="champ.replyToComment(c, data.body)">
+						<textarea ng-model="data.body" rows="2" class="form-control"></textarea>
+						<div>
+							<input type="submit" class="btn btn-sm btn-success" value="Send Reply">
+							<a ng-click="champ.setReplying(false, c)"> Close </a>
+							<loader loading="champ.loading.reply" size="1em"></loader>
+						</div>
+					</form>
+					<div class="buttons">
+						<button ng-click="champ.setReplying(true, c)" ng-if="!c.resolved && !champ.replying" class="btn btn-xs btn-primary">
+							<i class="fa fa-mail-reply"></i> Reply 
+						</button>
+						<button ng-click="champ.toggleResolved(doc, c)" ng-show="c.resolved" class="btn btn-xs btn-success"><i class="fa fa-check-square"></i> Resolved </button>
+						<button ng-click="champ.toggleResolved(doc, c)" ng-hide="c.resolved" class="btn btn-xs btn-danger"><i class="fa fa-exclamation-circle"></i> Unresolved </button>
+						<button ng-click="champ.newMaintainer(c)" ng-class="c.being_reviewed ? 'btn-info' : 'btn-warning' " class="btn btn-xs" ng-hide="c.resolved">
+							<i ng-class="c.being_reviewed ? 'fa fa-user-md' : 'fa fa-send'"></i> 
+							{{ c.being_reviewed ? 'Being Reviewed' : 'Request Assistance' }}
+						</button>
+						<loader-current show-if="champ.currentCom == c" loading="champ.loading.review" size="1em"></loader-current>
+					</div>
+					<div class="date tiny">Posted at {{ c.posted_at }} </div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+<!--	<div class="footer">
+		<h1>Footer</h1>
+	</div> -->
+</div>
+
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/angular.min.js"></script>
+<script type="text/javascript" src="javascripts/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/user.js"></script>
+<script type="text/javascript" src="javascripts/navigation.js"></script>
+<script type="text/javascript" src="javascripts/ng/apps/MasterApp.js"></script>
+<script type="text/javascript" src="javascripts/ng/factories/users.js"></script>
+<script type="text/javascript" src="javascripts/ng/factories/maintainers.js"></script>
+<script type="text/javascript" src="javascripts/ng/factories/documents.js"></script>
+<script type="text/javascript" src="javascripts/ng/controllers/Champion.js"></script>
+<script type="text/javascript">
+	
+</script>

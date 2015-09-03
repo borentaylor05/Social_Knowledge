@@ -1,0 +1,110 @@
+<!--<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css" media="screen" /> -->
+<!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">-->
+<!--[if IE 9]>
+<script src="//cdn.rawgit.com/jpillora/xdomain/0.6.17/dist/xdomain.min.js"></script>
+<script>
+  xdomain.slaves({
+    'https://lit-inlet-2632.herokuapp.com': '/web/IE9/proxy.html'
+  });
+</script>
+<![endif]-->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/gamification.css" type="text/css" media="screen" />
+
+<div id="all" ng-app="App" ng-controller="Gamification as game">
+	<div class="gameContainer">
+		<h1>Gamification Central</h1>
+		<ul class="breadcrumb text-left"></ul>
+	<div class="row">
+		<div id="leaderboard" class="col-xs-4 section">
+			<h2 class="gameHeader">Your Metrics</h2>
+			<div class="metrics">
+				<div class="metricType">
+					<h4>Empower</h4>
+					<table>
+						<tr>
+							<td>Reliability:</td><td>80%</td>
+						</tr>
+						<tr>
+							<td>CSAT:</td><td>90%</td>
+						</tr>
+					</table>
+				</div>
+				<div class="metricType">
+					<h4>Salesforce</h4>
+					<table>
+						<tr>
+							<td>Emails:</td><td>130</td>
+						</tr>
+						<tr>
+							<td>CAPS:</td><td>4</td>
+						</tr>
+					</table>
+				</div>
+				<div class="metricType">
+					<h4>QA</h4>
+					<table>
+						<tr>
+							<td>Accuracy:</td><td>98%</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div id="missions" class="col-xs-4 section">
+			<h2 class="gameHeader">Missions</h2>
+			<div class="text-center"><load text="Getting Missions..." hide-on="game.missions" size="2em" ></load></div>
+			<a class="missionLink" ng-repeat="mission in game.missions">
+				<div class="mission">
+					<div class="header">
+						<span class="image pull-left"> <img ng-src="{{ mission.fullUrl }}" > </span>
+						<div class="inner">
+							<span class="name"> {{ mission.name }} </span>
+							<span class="completed"> You've completed this mission {{ mission.completionCount }} times. </span>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+					<div class="body">
+						<span class="desc"> {{ mission.description }} </span>
+						<div class="progress">
+							<my-progress complete="{{mission.rules.Rule.achieved}}" goal="{{mission.rules.Rule.goal}}" ></my-progress>
+						</div>
+						<div class="complete text-center">
+							Progress: {{mission.rules.Rule.achieved}} of {{mission.rules.Rule.goal}} 
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div id="leaderboard" class="col-xs-4 section">
+			<h2 class="gameHeader">Leaderboard</h2>
+			<div class="text-center"><load text="Generating Leaderboard..." hide-on="game.leaders" size="2em" ></load></div>
+			<a class="leaderLink" target="_blank" ng-href="{{person.jive.resources.html.ref}}" ng-repeat="person in game.leaders">
+				<div class="leader">
+					<span class="image"> <img ng-src="{{ person.jive.thumbnailUrl }}"> </span>
+					<span class="name">{{ person.jive.displayName }}</span>
+				</div>
+			</a>
+		</div>
+	</div>
+
+</div>
+
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/angular.min.js"></script>
+<script type="text/javascript" src="javascripts/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/navigation.js"></script>
+<script type="text/javascript" src="javascripts/ng/apps/MasterApp.js"></script>
+<script type="text/javascript" src="javascripts/ng/factories/bunchball.js"></script>
+<script type="text/javascript" src="javascripts/ng/controllers/GamificationController.js"></script>
+<script type="text/javascript">
+	gadgets.util.registerOnLoadHandler(function() {
+		navigation.init(gadgets.views.getParams(), function(){
+			gadgets.window.adjustHeight();
+			gadgets.window.adjustWidth();
+			console.log("HIST", navigation.hisory);
+		});
+	});
+</script>

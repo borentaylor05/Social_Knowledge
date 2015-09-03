@@ -1,0 +1,191 @@
+<!--[if IE 9]>
+    <script src="//cdn.rawgit.com/jpillora/xdomain/0.7.3/dist/xdomain.min.js" slave="https://lit-inlet-2632.herokuapp.com/web/IE9/proxy.html"></script>
+<![endif]-->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/fairfax/internal.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/fairfax/au-care.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/fairfax/afr-care.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/message.css" type="text/css" media="screen" />
+
+<div class="allContainer" ng-app="App" ng-controller="Fairfax as fx">
+	<!--  Master Row  -->
+	<div class="row">
+		<div class="col-xs-9 row contentColumn fixMargin" ng-controller="AuCare as au">			
+			<div class="col-xs-12">
+				<img class="pull-left main-logo" src="images/fx.jpg">
+				<h2 class="header main-header pull-left">AU Care Knowledge Base</h2>
+				<div style="clear:both;"></div>
+				<ul class="breadcrumb text-left"></ul>
+			</div>
+
+			<div class="afrLinkContainer">
+				<div class="row">
+					<div class="col-xs-4">
+						<a target="_blank" href="http://www.afr.com">
+							<img class="square" src="images/fairfax/my-fr.png">
+						</a>
+					</div>
+					<div class="col-xs-4">
+						<a target="_blank" href="https://membership.fairfax.com.au/Admin/Login.aspx">
+							<img class="long" src="images/fairfax/au/msg_manager.jpg">
+						</a>
+						<a target="_blank" href="http://fax.ffx.jfh.com.au">
+							<img class="long" src="images/fairfax/au/member_admin.jpg">
+						</a>
+					</div>
+					<div class="col-xs-4">
+						<a href="https://www.google.com/maps/d/viewer?mid=zmGPTADU86YE.kI-NWCYp05Yk" target="_blank">
+							<img class="square" src="images/fairfax/au/gmaps2.png">
+						</a>
+					</div>
+				</div>
+			</div>			
+			
+			<!-- Begin System Docs -->
+			<h1 class="text-center au">AU Care Systems</h1>
+			<div class="row cats">
+				<div class="col-xs-4 auCat">
+					<div class="auCatContainer">
+						<h3 class="auCatHeader img row">
+							<a target="_blank" href="https://www.zuora.com/apps/home.do">
+								<img class="col-xs-7" src="images/fairfax/au/zuora.jpg">
+							</a>
+							<span class="col-xs-5">Zuora</span>
+						</h3>
+						<div class="catDocs" >
+							<p class="doc"><i class="fa fa-file-text-o"></i>Document Link</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4 auCat">
+					<div class="auCatContainer">
+						<h3 class="auCatHeader img row">
+							<a target="_blank" href="https://fairfaxmedia.zendesk.com/access/normal">
+								<img class="col-xs-6" src="images/fairfax/au/zen.jpg">
+							</a>
+							<span class="col-xs-6">Zendesk</span>
+						</h3>
+						<div class="catDocs" >
+							<p class="doc"><i class="fa fa-file-text-o"></i>Document Link</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4 auCat">
+					<div class="auCatContainer ">
+						<h3 class="auCatHeader img row">
+							<a target="_blank" href="https://int.myfairfax.com.au/crm/customer/profile">
+								<img class="col-xs-6" src="images/fairfax/au/hag.jpg">
+							</a>
+							<span class="col-xs-6">Hagrid</span>
+						</h3>
+						<div class="catDocs" >
+							<p class="doc"><i class="fa fa-file-text-o"></i>Document Link</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row cats">
+				<div class="col-xs-4 auCat">
+					<div class="auCatContainer">
+						<h3 class="auCatHeader row">Mediaplus</h3>
+						<div class="catDocs" >
+							<p class="doc"><i class="fa fa-file-text-o"></i>Document Link</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4 auCat">
+					<div class="auCatContainer">
+						<h3 class="auCatHeader row">Membership Admin</h3>
+						<div class="catDocs" >
+							<p class="doc"><i class="fa fa-file-text-o"></i>Document Link</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4 auCat">
+					<div class="auCatContainer ">
+						<h3 class="auCatHeader row">Benefits Management</h3>
+						<div class="catDocs" >
+							<p class="doc"><i class="fa fa-file-text-o"></i>Document Link</p>
+						</div>
+					</div>
+				</div>
+			</div>				
+			<!-- End System Docs -->
+			<!-- Begin General Docs -->
+			<h1 class="text-center au">AU Care General Documents</h1>
+			<div class="row">
+				<div class="col-xs-4 auCat" ng-repeat="gcat in au.generalDocsRow1">
+					<div class="auCatContainer">
+						<h3 class="auCatHeader">{{ gcat.title }}</h3>
+						<div class="catDocs" ng-repeat="doc in gcat.docs">
+							<p class="doc"><i class="fa fa-file-text-o"></i>{{ doc.title }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4 auCat" ng-repeat="gcat in au.generalDocsRow2">
+					<div class="auCatContainer">
+						<h3 class="auCatHeader">{{ gcat.title }}</h3>
+						<div class="catDocs" ng-repeat="doc in gcat.docs">
+							<p class="doc"><i class="fa fa-file-text-o"></i>{{ doc.title }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4 auCat" ng-repeat="gcat in au.generalDocsRow3">
+					<div class="auCatContainer">
+						<h3 class="auCatHeader">{{ gcat.title }}</h3>
+						<div class="catDocs" ng-repeat="doc in gcat.docs">
+							<p class="doc"><i class="fa fa-file-text-o"></i>{{ doc.title }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- End General Docs -->					
+		</div>
+		<div class="col-xs-3 gamificationColumn">
+			<div class=" widgetContainer">
+				<div class=" gameContainer">
+					<div class="row text-center">
+						<h4 class="gHeader">Top Missions</h4>
+						<div class="gInfo">Hover over a badge to see its description.</div>
+						<div class="col-xs-1 text-center gBadge" ng-repeat="m in fx.top_three">
+							<img show-title game="m" ng-src="{{m.badge_url}}" ng-alt="{{ m.bunchball_name }}" >
+							<div class="gTitle hide"> {{ m.bunchball_name }} </div>
+							<div class="gDescContainer" ng-if="m.game_type == 'EmpowerMission'">
+								<span class="gDesc"> {{ m.game.metric_name }} </span>
+								<span class="gDesc">Target: {{ m.game.target }} </span>
+							</div>
+							<div class="gDescContainer" ng-if="m.game_type == 'JiveMission'">
+								<span class="gDesc"> {{ m.bunchball_name }} </span>
+							</div>
+						</div>
+					</div>
+				</div>				
+				<leaderboard people="fx.leaders" user="fx.currentUser"></leaderboard>
+			</div>
+		</div>
+	</div>
+	<!-- End Master Row  -->
+	<div id="utilOverlay" class="container overlay text-left" ng-if="fx.showOverlay">
+		<i class="fa fa-close fa-2x pointer" ng-click="fx.closeOverlay()"></i>
+		
+	</div>
+</div>
+
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/angular.min.js"></script>
+<script type="text/javascript" src="javascripts/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="javascripts/navigation.js"></script>
+<script type="text/javascript" src="javascripts/templates.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/ng/apps/MasterApp.js"></script>
+<script type="text/javascript" src="javascripts/ng/factories/suburbs.js"></script>
+<script type="text/javascript" src="javascripts/ng/factories/redeliveries.js"></script>
+<script type="text/javascript" src="javascripts/ng/controllers/messages/UnreadMessages.js"></script>
+<script type="text/javascript" src="javascripts/fairfax/ng-fairfax.js"></script>
+<script type="text/javascript" src="javascripts/fairfax/au-care.js"></script>

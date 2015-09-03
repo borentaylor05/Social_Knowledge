@@ -1,0 +1,74 @@
+<!--<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css" media="screen" /> -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/simple-sidebar.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/managers/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/managers/request.css" type="text/css" media="screen" />
+
+<div ng-app="App">
+
+	<skeheader></skeheader>
+	
+	<div class="container main" id="wrapper">
+	    <!-- Sidebar -->
+	    <mngside></mngside>
+	    <!-- /#sidebar-wrapper -->
+
+	    <!-- Page Content -->
+		<div id="page-content-wrapper" class="container main text-center" ng-controller="RequestController as request">
+			<ul class="breadcrumb text-left"></ul>
+			<h1>Request Revision or New Content</h1>
+			<div class="formContainer text-left">
+				<form id="requestForm">
+					<div id="typeMenu" class="btn-group btn-input clearfix">
+					  	<button id="type" type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+					    <span data-bind="label">Choose Your Request Type</span> <span class="caret"></span>
+					  	</button>
+					  	<ul class="dropdown-menu text-left" role="menu">
+					  		<li><a class="client" ng-click="request.setType('revision')" style="cursor: pointer;">Article Revision</a></li>
+					  		<li><a class="client" ng-click="request.setType('new')" style="cursor: pointer;">Article Creation</a></li>
+					  	</ul>
+					</div>
+					<p class="alert alert-info" ng-show="request.revision || request.newContent">
+						Selected Request: <strong>{{ request.currentType }}</strong>
+					</p>
+					<div ng-show="request.revision">
+						<label>Doc Number to be Revised</label>
+						<input type="text" class="form-control" id="docNum" value="DOC-">
+					</div>
+					<div ng-show="request.newContent">
+						<label>New Document Title</label>
+						<input type="text" class="form-control" id="docTitle" placeholder="The desired title of new document...">
+					</div>
+					</br>
+					<div ng-show="request.revision || request.newContent">
+						<label>Summary of Content to be Created or Updated</label>
+						<textarea id="summary" class="form-control" placeholder="Include a detailed description here..."></textarea>
+						<div class="text-center">
+							<input id="requestSubmit" class="btn btn-success btn-md" value="Submit Request" type="submit" ng-click="request.submitRequest()">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- /#page-content-wrapper -->
+	</div>
+</div>
+
+
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/angular.min.js"></script>
+<script type="text/javascript" src="javascripts/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="javascripts/templates.js"></script>
+<script type="text/javascript" src="javascripts/gadget-helper.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/navigation.js"></script>
+<script type="text/javascript" src="javascripts/managers/test.js"></script>
+<script type="text/javascript">
+	gadgets.util.registerOnLoadHandler(function() {
+		gadgets.window.adjustHeight();
+
+	});
+</script>

@@ -1,0 +1,345 @@
+<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+<style type="text/css">
+  
+  html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+body {
+  font: 14px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #404040;
+  background-color: #777 !important;
+  padding: 20px;
+}
+
+.register-title {
+  width: 270px;
+  line-height: 43px;
+  margin: 50px auto 20px;
+  font-size: 19px;
+  font-weight: 500;
+  color: white;
+  color: rgba(255, 255, 255, 0.95);
+  text-align: center;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+  background: #d7604b;
+  border-radius: 3px;
+  background-image: -webkit-linear-gradient(top, #dc745e, #d45742);
+  background-image: -moz-linear-gradient(top, #dc745e, #d45742);
+  background-image: -o-linear-gradient(top, #dc745e, #d45742);
+  background-image: linear-gradient(to bottom, #dc745e, #d45742);
+  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.request {
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 700px;
+  padding: 20px;
+  background: #f4f4f4;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+input {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.register-input {
+  display: block;
+  width: 100%;
+  height: 38px;
+  margin-top: 2px;
+  font-weight: 500;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid #d8d8d8;
+  margin-bottom: 12px;
+}
+.register-input:focus {
+  border-color: #1e9ce6;
+  outline: 0;
+}
+
+.register-button {
+  display: block;
+  width: 50%;
+  height: 42px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25px;
+  font-size: 16px;
+  font-weight: normal;
+  color: #555;
+  text-align: center;
+  background: #fcfcfc;
+  border: 1px solid;
+  border-color: #d8d8d8 #d1d1d1 #c3c3c3;
+  border-radius: 4px;
+  cursor: pointer;
+  background-image: -webkit-linear-gradient(top, #A4D1FF, #5CADFF);
+  background-image: -moz-linear-gradient(top, #A4D1FF, #5CADFF);
+  background-image: -o-linear-gradient(top, #A4D1FF, #5CADFF);
+  background-image: linear-gradient(to bottom, #A4D1FF, #5CADFF);
+  -webkit-box-shadow: inset 0 -1px rgba(0, 0, 0, 0.03), 0 1px rgba(0, 0, 0, 0.04);
+  box-shadow: inset 0 -1px rgba(0, 0, 0, 0.03), 0 1px rgba(0, 0, 0, 0.04);
+}
+.register-button:active {
+  background: #eee;
+  border-color: #c3c3c3 #d1d1d1 #d8d8d8;
+  background-image: -webkit-linear-gradient(top, #eeeeee, #fcfcfc);
+  background-image: -moz-linear-gradient(top, #eeeeee, #fcfcfc);
+  background-image: -o-linear-gradient(top, #eeeeee, #fcfcfc);
+  background-image: linear-gradient(to bottom, #eeeeee, #fcfcfc);
+  -webkit-box-shadow: inset 0 1px rgba(0, 0, 0, 0.03);
+  box-shadow: inset 0 1px rgba(0, 0, 0, 0.03);
+}
+.register-button:focus {
+  outline: 0;
+}
+
+.register-switch {
+  height: 32px;
+  margin-bottom: 15px;
+  padding: 4px;
+  background: #0066FF;
+  border-radius: 2px;
+  background-image: -webkit-linear-gradient(top, #0066FF, #3385FF);
+  background-image: -moz-linear-gradient(top, #0066FF, #3385FF);
+  background-image: -o-linear-gradient(top, #0066FF, #3385FF);
+  background-image: linear-gradient(to bottom, #0066FF, #3385FF);
+  -webkit-box-shadow: inset 0 1px rgba(0, 0, 0, 0.05), inset 1px 0 rgba(0, 0, 0, 0.02), inset -1px 0 rgba(0, 0, 0, 0.02);
+  box-shadow: inset 0 1px rgba(0, 0, 0, 0.05), inset 1px 0 rgba(0, 0, 0, 0.02), inset -1px 0 rgba(0, 0, 0, 0.02);
+}
+
+.register-switch-input {
+  display: none;
+}
+
+.register-switch-label {
+  float: left;
+  width: 50%;
+  line-height: 32px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+.register-switch-input:checked + .register-switch-label {
+  font-weight: 500;
+  color: #434248;
+  text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+  background: white;
+  border-radius: 2px;
+  background-image: -webkit-linear-gradient(top, #fefefe, #eeeeee);
+  background-image: -moz-linear-gradient(top, #fefefe, #eeeeee);
+  background-image: -o-linear-gradient(top, #fefefe, #eeeeee);
+  background-image: linear-gradient(to bottom, #fefefe, #eeeeee);
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+:-moz-placeholder,  {
+  color: #777;
+  font-weight: 300;
+}
+
+::-moz-placeholder {
+  color: #777;
+  font-weight: 300;
+  opacity: 1;
+}
+
+::-webkit-input-placeholder, ::-webkit-textarea-placeholder {
+  color: #777;
+  font-weight: 300;
+}
+
+:-ms-input-placeholder {
+  color: #777;
+  font-weight: 300;
+}
+
+::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+textarea{
+  border: 1px solid rgb(220, 220, 220) !important;
+  background-color: rgb(252, 252, 252) !important;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  height: 100px !important;
+  font-size: .9em;
+  padding: 5px;
+}
+textarea:focus{
+  outline: none !important;
+   border:1px solid red;
+     box-shadow: 0 0 4px blue;
+}
+label.sum-label{
+  margin-top: 20px !important;
+  font-weight: 200 !important;
+  color: #777;
+}
+.request-title{
+  color: #EEE;
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.hide{
+  display: none;
+}
+.main{
+  margin-bottom: 100px;
+}
+.progress{
+  margin-top: 10px;
+  box-shadow: 0 0 10px #888;
+}
+.lob{
+  font-weight: 200;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-size: 1.2em;
+}
+.lob > h3{
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.lob > input{
+  margin-left: 10px;
+}
+*{
+  overflow-y: scroll;
+}
+</style>
+<div class="main" ng-app="ArticleRequest" ng-controller="AR as ar">
+  <h1 class="request-title">Create Your Request</h1> 
+  <div ng-show="ar.onSuccess.length > 0 " class="alert alert-success">{{ ar.onSuccess }}</div>
+  <form ng-hide="ar.onSuccess.length > 0" class="request" ng-submit="ar.createAR(ar.doc)">
+    <div class="fieldContainer">
+      <input ng-model="ar.doc.title" id="docTitle" type="text" class="register-input title" placeholder="Title of Desired Document">
+      <p class="tLabel">Priority:</p>
+      <input class="rad" type="radio" ng-model="ar.doc.priority" value="1">&nbsp  High
+      <input class="rad" type="radio" ng-model="ar.doc.priority" value="2">&nbsp  Medium
+      <input class="rad" type="radio" ng-model="ar.doc.priority" value="3">&nbsp  Low
+      <p class="tLabel">Type:</p>
+      <input class="rad" type="radio" ng-model="ar.doc.type" value="Article">&nbsp  Article
+      <input class="rad" type="radio" ng-model="ar.doc.type" value="Announcement">&nbsp  Announcement
+      <div class="lob">
+        <h3 class="tLabel">Which LOB is this for? <em style="font-style: italic;">{{ ar.doc.lob | capitalize }}</em> </h3>
+        <input type="radio" ng-model="ar.doc.lob" value="AU AMM Care">&nbsp  AU AMM Care 
+        <input type="radio" ng-model="ar.doc.lob" value="AU ACM Sales">&nbsp  AU ACM Sales 
+        <input type="radio" ng-model="ar.doc.lob" value="AU Outbound">&nbsp  AU Outbound 
+        </br>
+        <input type="radio" ng-model="ar.doc.lob" value="NZ Care ">&nbsp  NZ Care 
+        <input type="radio" ng-model="ar.doc.lob" value="NZ Sales">&nbsp  NZ Sales
+        <input type="radio" ng-model="ar.doc.lob" value="NZ Magazines">&nbsp  NZ Magazines
+      </div>
+      <div class="row dateContainer">
+        <div class="col-xs-5">
+          <span class="tLabel">Publication Date: </span>
+          <input class="form-control" type="date" ng-model="ar.doc.pub_date">
+        </div>
+        <div class="col-xs-5">
+          <span class="tLabel">Expiration Date: </span>
+          <input class="form-control" type="date" ng-model="ar.doc.expire_date">
+        </div>
+      </div>
+      <label class="sum-label">Summary of Request</label></br>
+      <textarea ng-model="ar.doc.summary" class="register-input" id="summary" rows="10" placeholder="Type your detailed description here..."></textarea>
+      <input ng-model="ar.doc.file_label" id="docTitle" type="text" class="register-input title" placeholder="Attachment Label / Description">
+      <div s3-upload bucket="trb-kb" ng-model="ar.doc.file_url"
+            s3-upload-options="{getOptionsUri: '/s3-upload', folder: 'ArticleAttachments/'}">
+      </div>
+      <div ng-if="ar.attCount > 1">
+        <input ng-model="ar.doc.file_label2" id="docTitle2" type="text" class="register-input title" placeholder="Attachment 2 Label / Description">
+        <div s3-upload bucket="trb-kb" ng-model="ar.doc.file_url2"
+              s3-upload-options="{getOptionsUri: '/s3-upload', folder: 'ArticleAttachments/'}">
+        </div>
+      </div>
+      <div ng-if="ar.attCount > 2">
+        <input ng-model="ar.doc.file_label3" id="docTitle3" type="text" class="register-input title" placeholder="Attachment 3 Label / Description">
+        <div s3-upload bucket="trb-kb" ng-model="ar.doc.file_url3"
+              s3-upload-options="{getOptionsUri: '/s3-upload', folder: 'ArticleAttachments/'}">
+        </div>
+      </div>
+      <a ng-hide="ar.attCount > 2" ng-click="ar.incAtt()">Add Another Attachment</a>
+      <div class="text-center"><loader loading="ar.sending" size="2em"></loader></div>
+      <input type="submit" value="Submit Request" class="register-button" >
+      
+    </div>
+  </form>
+</div>
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/angular.min.js"></script>
+<script type="text/javascript" src="javascripts/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/ng-s3upload.min.js"></script>
+<script type="text/javascript" src="javascripts/ng/apps/ArticleRequest.js"></script>
+<script type="text/javascript">
+gadgets.util.registerOnLoadHandler(function() {
+      gadgets.window.adjustHeight();
+      gadgets.window.adjustWidth();
+
+
+});
+</script>

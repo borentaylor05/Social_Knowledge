@@ -1,0 +1,146 @@
+.row.pubs{
+	margin-left: 10px;
+}
+.row.tabContainer{
+	padding-left: 20px;
+	margin-bottom: 15px;
+}
+.extLink{
+	max-width: 140px;
+}
+.extLink.long{
+	max-width: 220px;
+}
+.extLink.ow{
+	width: 205px; height: 80px; max-height: none; max-width: none;
+}
+.pointer{
+	cursor: pointer;
+}
+.thin{
+	font-weight: 200;
+}
+
+#metroRates{
+	padding-left: 50px;
+	padding-right: 50px;
+}
+.selectRow{
+	display: inline;
+}
+.selectRow li{
+	float: left;
+	padding-right: 100px;
+}
+h3.overlayPub{
+	color: #3399FF;
+	background-color: white;
+	width: 270px;
+	padding: 10px;
+	text-align: center;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-ms-border-radius: 3px;
+	border: 1px solid #3399FF;
+	cursor: pointer;
+}
+.overlayPub.active{
+	background-color: #0066CC;
+	color: white;
+}
+.item.h{
+	font-size: 1em;
+	font-weight: bold;
+	padding: 0px;
+}
+.row.h{
+	border-bottom: 2px solid #CCC;
+}
+.row.i{
+	border-bottom: 1px solid #CCC;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+.filter{
+	max-width: 400px;
+}
+.resultsContainer .input-group{
+	border-bottom: 1px solid #0066CC;
+	margin-bottom: 15px;
+	width: 600px;
+}
+.ctr{
+	margin-left: auto;
+	margin-right: auto;
+}
+.resultsContainer .input-group .form-control.custom{
+	border-radius: 0px;
+	-o-border-radius: 0px;
+	-moz-border-radius: 0px;
+	-ms-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	box-shadow: none;
+	-o-box-shadow: none;
+	-moz-box-shadow: none;
+	-ms-box-shadow: none;
+	-webkit-box-shadow: none;
+	border: none;
+  	height: 40px;
+  	padding-top: 30px;
+  	margin-bottom: 0px;
+}
+.resultsContainer .input-group button.custom{
+  	width: 101%;
+  	height: 40px;
+  	padding-bottom: 8px;
+  	background-color: white;
+  	color: #0E538E;
+}
+.naResults{
+	width: 800px;
+}
+.naResults p{
+	font-size: 2.5em;
+}
+.naResults .res{
+	margin-top: 15px;
+}
+.naResults .row.h{
+	margin-top: 20px;
+}
+.big{
+	font-size: 1.3em;
+}
+.pubContainer{
+	padding: 30px;
+	background-color: #EEE;margin-bottom: 20px;
+}
+.btn.xl{
+	margin-top: 30px;
+	height: 200px;
+	cursor: pointer;
+}
+.btn.xl span{
+	display: block;
+	font-size: 2.4em;
+	text-transform: capitalize;
+	line-height: 1;
+}
+.ccForm label{
+	margin-top: 10px;
+  margin-bottom: 2px;
+  display: block;
+  font-size: 1.4em;
+  font-weight: 200;
+}
+.ccForm select{
+	font-size: 1.4em;
+}
+label.currencyinput{
+	font-size: 1em;
+}
+.cc{
+	padding: 20px;
+  	box-shadow: 0 0 10px #CCC;
+}

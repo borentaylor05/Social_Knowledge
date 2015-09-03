@@ -1,0 +1,157 @@
+<!--<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css" media="screen" /> -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
+<style>
+.container.main{
+	width: 950px;
+	height: 100%;
+	margin: 10px;
+}
+	#searchContainer{
+		font-family: Century Gothic, Arial, sans-serif;
+		height: 150px;
+		padding-left: 5px;		
+	}
+	#searchResults{
+		height: 100%;
+		min-height: 400px;
+		overflow: auto;
+		padding: 0px;
+	}
+	.hide{
+		display: none;
+	}
+	li{
+		padding: 8px;
+	}
+	input{
+		font-size: 1.2em;
+	}
+	button{
+		font-size: 1.3em;
+	}
+	h1{
+		margin-bottom: 10px;
+	}
+	.jiveResult{
+		 overflow: hidden;
+		padding: 8px 10px;
+		cursor: default;
+		border-left: 5px solid #FBFCFD;
+		  border-left-color: #ddd !important;
+		border-right-color: #ddd !important;
+		background: #F5F6F7;
+		border-radius: 0 3px 3px 0;
+		box-sizing: border-box;
+	}
+	.small{
+		display: block;
+		font-size: .9em;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		color: #b0b0b0;
+		display: block;
+	}
+	.match{
+		font-size: 16px;
+		text-decoration: none;
+		margin: 0 0 3px;
+		display: block;	
+		color: #3778c7;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+</style>
+<div ng-app="App" ng-controller="SF as sf">
+	<div class="container main" >
+		<div id="searchContainer">
+			<form id="searchForm">
+				<div class="radios">
+					<input id="contents" type="radio" name="one" checked> Content
+					<input id="people" type="radio" name="one"> People
+					<input id="places" type="radio" name="one"> Places
+				</div>
+				</br>
+				<input type="text" id="searchText">
+				<input type="submit" value="Search">
+				<p class="hide" id="searching">Searching...</p>
+			</form>
+			<ul id="searchResults"></ul>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+
+</div>
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript">
+	gadgets.util.registerOnLoadHandler(function() {
+		setTimeout(function(){gadgets.window.adjustHeight();}, 300);
+		setTimeout(function(){gadgets.window.adjustWidth();}, 300);
+		var url, searchText;
+		var type = 'contents';
+
+		$.ajaxSetup({
+			dataFilter: function(data, type) {
+				return type === 'json' ? jQuery.trim(data.replace(/^throw [^;]*;/, '')) : data;
+			}
+		});
+		
+		$("input[type='radio']").each(function(){
+			$(this).click(function(){
+				type = $(this).attr("id");			
+			});
+		});
+
+		var convertDate = function(timeStr){
+			var date = new Date(timeStr);
+			var day = date.getDate();
+			var year = date.getFullYear();
+			var month = date.getMonth()+1;
+			return month+"/"+day+"/"+year;		
+		}
+
+		var makeListLink = function(resource){
+			switch(type){
+				case "contents":
+					return "<li class='jiveResult'>"+
+								"<a class='match' href='"+resource.resources.html.ref+"' target='_blank'>"+resource.subject+"</a>"+
+								"<span class='small'>Created by "+resource.author.displayName+" by "+convertDate(resource.published)+"</span>"+
+								"<span class='small'>"+resource.highlightBody+"</span>"+
+							"</li>";
+				break;
+				case "people":
+					return "<li><a href='"+resource.resources.html.ref+"' target='_blank'>"+resource.displayName+"</a></li>"
+				break;
+				case "places":
+					return "<li><a href='"+resource.resources.html.ref+"' target='_blank'>"+resource.name+"</a></li>"
+				break;
+			}		
+		}
+		
+		$("#searchForm").submit(function(e){
+			searchText = $("#searchText").val();
+			if(type == 'contents')
+				url = "/search/"+type+"/?filter=search(" + encodeURI(searchText) + ")&count=25&filter=type(document)";
+			else			
+				url = "/search/"+type+"/?filter=search(" + encodeURI(searchText) + ")&count=25";
+			$("#searching").removeClass("hide");
+			$("#searchResults").empty();
+			e.preventDefault();
+			osapi.jive.core.get({
+		        "href": url,
+		        "v": "v3"
+		    }).execute(function(data){
+	    		console.log(data)
+				var docs = data.content.list;
+				for(var i = 0 ; i < docs.length ; i++){
+					$("#searchResults").append(makeListLink(docs[i]));
+				}
+				$("#searching").addClass("hide");
+				setTimeout(function(){gadgets.window.adjustHeight();}, 500);
+		    });
+			return false;
+		})
+	});
+</script>

@@ -1,0 +1,165 @@
+.allContainer{
+	overflow: auto;
+}
+.auCatContainer{
+	box-shadow: 3px 3px 3px #CCC;
+	padding-right: 0px;
+	margin-bottom: 10px;
+	height: 200px;
+}
+.auCatContainer > .catDocs{			
+	border-radius: 2px;
+}
+.auCat{
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.auCatHeader{
+	background-color: #34495D;
+	font-weight: 200;
+	text-transform: uppercase;
+	color: white;
+	font-size: 1.8rem;
+	padding: 15px;
+	text-align: center;
+	border-radius: 2px;
+	letter-spacing: 1px;
+	margin: 0px;
+}
+.auCatHeader.img{
+	text-align: left;
+	max-height: 75px;
+}
+.auCatHeader img{
+	max-height: 50px;
+	text-align: left;
+	padding-left: 0px;
+}
+.auCatHeader span{
+	margin-top: 6%;
+}
+.row.fixMargin{
+	margin-left: 15px;
+}
+.catDocs{
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.catDocs > .doc{
+	padding: 3px;
+	border-bottom: 1px solid #EEE;
+	margin-bottom: 0px;
+	font-size: 1.3rem;
+	font-weight: 200;
+}
+.catDocs > .doc:hover{
+	color: white;
+	cursor: pointer;
+	background-color: rgba(71,151,200, 1);
+}
+.catDocs > .doc:hover i{
+	color: white;
+}
+.doc > i{
+	font-size: .9em;
+	color: rgba(71,151,200, 1);
+	margin-right: 8px;	
+}
+.pubImages img{
+	width: 180px;
+	height: 80px;
+	padding: 10px;
+}
+.pubImages img:hover{
+	background-color: #EEE;
+	cursor: pointer;
+}
+.careSales .auCatHeader{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 220px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.pubImageContainer{
+	border: 1px solid #DDD;
+	padding: 15px;
+	box-shadow: 1px 1px 20px #EEE;
+}
+.launchers img{
+	width: 180px;
+	height: 80px;
+}
+.ccForm label{
+	margin-top: 10px;
+	margin-bottom: 2px;
+	display: block;
+	font-size: 1.4em;
+	font-weight: 200;
+}
+.ccForm select{
+	font-size: 1.4em;
+}
+label.currencyinput{
+	font-size: 1em;
+}
+.cc{
+	padding: 20px;
+  	box-shadow: 0 0 10px #CCC;
+  	height: 400px;
+  	margin-left: 30px;
+}
+.careSales > img{
+	max-height: 128px;
+	max-width: 128px;
+}
+.bpp:hover{
+	background-color: #DDD;
+	cursor: pointer;
+}
+h1.au{
+	font-weight: 200;
+}
+.centerRow{
+	margin: auto; 
+}
+.centerRow.four{	
+	max-width: 700px;	
+}
+.centerRow.three{	
+	max-width: 700px;	
+	margin-left: 300px;
+}
+.centerRow.two{ 
+	max-width: 750px;	
+	margin-left: 380px;
+}
+#kaola{
+	max-width: 80%;
+	padding-top: 15px;
+}
+#carabao{
+	max-width: 90%;
+}
+.catDocs.long{
+	padding-left: 20px;
+}
+#ci > img{
+	width: 654px;
+}
+#ciContainer{
+	height: 209px;
+}
+#ci, #ci .row{
+	margin-left: 0px;
+	margin-right: 0px;
+}
+#ci:hover div{
+	background-color: #99CCFF;
+}
+.row.sf img{
+	max-width: 200px;
+	padding: 4px;
+}

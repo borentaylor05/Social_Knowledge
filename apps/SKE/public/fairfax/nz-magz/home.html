@@ -1,0 +1,351 @@
+<!--[if IE 9]>
+    <script src="//cdn.rawgit.com/jpillora/xdomain/0.7.3/dist/xdomain.min.js" slave="https://lit-inlet-2632.herokuapp.com/web/IE9/proxy.html"></script>
+<![endif]-->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/fairfax/internal.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/fairfax/magz.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/message.css" type="text/css" media="screen" />
+
+<div class="main" ng-app="App">
+	<div ng-controller="Fairfax as fx" set-type="nz-magazines" >
+		<div class="row">
+			<div class="row col-xs-9 contentColumn">
+				<div class="col-xs-12">
+				<img class="pull-left main-logo" src="images/fx.jpg">
+				<h2 class="header main-header pull-left">New Zealand Care Knowledge Base</h2>
+				<div style="clear:both;"></div>
+				<ul class="breadcrumb text-left"></ul>			
+				<div class="row row-centered tabContainer">
+					<div class="magzContainer">
+						<div class="row magz" >
+							<div class="col-xs-1 mag"></div>
+							<div class="col-xs-2 mag">
+								<a ng-click="fx.select({ name: 'Autocar', id: 75 })">
+									<img src="images/fairfax/magz/autocar.jpg">
+								</a>
+							</div>
+							<div class="col-xs-2 mag">
+								<a ng-click="fx.select({ name: 'Boating NZ', id: 76 })"> <!-- dev = 185 -->
+									<img src="images/fairfax/magz/boating.jpg">
+								</a>
+							</div>
+							<div class="col-xs-2 mag">
+								<a ng-click="fx.select({ name: 'Cuisine', id: 71 })">
+									<!-- dev == 180 -->
+									<img src="images/fairfax/magz/cuisine.jpg">
+								</a>
+							</div>
+							<div class="col-xs-2 mag">
+								<a ng-click="fx.select({ name: 'The Cut', id: 78 })">
+									<img src="images/fairfax/magz/cut.jpg">
+								</a>
+							</div>
+							<div class="col-xs-2 mag">
+								<a ng-click="fx.select({ name: 'Dairyman', id: 127 })">
+									<img src="images/fairfax/magz/dairyman.jpg">
+								</a>
+							</div>
+							<div class="col-xs-1 mag"></div>							
+						</div>
+						<div class="row magz" >
+							<div class="col-xs-1 mag"></div>
+							<div class="col-xs-2 mag">
+								<a ng-click="fx.select({ name: 'Fish and Game', id: 79 })">
+									<img src="images/fairfax/magz/fish_game.jpg">
+								</a>
+							</div>
+							<div class="col-xs-2 mag">
+								<a ng-click="fx.select({ name: 'Horse and Pony', id: 82 })">
+									<img src="images/fairfax/magz/horse_pony.jpg">
+								</a>
+							</div>
+							<div class="col-xs-2 mag">
+								<a ng-click="fx.select({ name: 'House and Garden', id: 70 })">
+									<img src="images/fairfax/magz/house_garden.jpg">
+								</a>
+							</div>
+							<div class="col-xs-2 mag">
+								<a ng-click="fx.select({ name: 'Life and Leisure', id: 73 })">
+									<img src="images/fairfax/magz/life_leisure.jpg">
+								</a>
+							</div>
+							<div class="col-xs-2 mag">
+								<a ng-click="fx.select({ name: 'Lifestyle Block', id: 80 })">
+									<img src="images/fairfax/magz/lifestyle_block.jpg">
+								</a>
+							</div>
+							<div class="col-xs-1 mag"></div>							
+						</div>
+						<div class="row magz" >
+							<div class="col-xs-1 mag"></div>
+							<div class="col-xs-2 mag">
+								<a ng-click="fx.select({ name: 'NZ Gardener', id: 72 })">
+									<img src="images/fairfax/magz/nz_gardener.jpg">
+								</a>
+							</div>
+							<div class="col-xs-2 mag">
+								<a ng-click="fx.select({ name: 'Ponies', id: 83 })">
+									<img src="images/fairfax/magz/ponies.jpg">
+								</a>
+							</div>
+							<div class="col-xs-2 mag">
+								<a ng-click="fx.select({ name: 'Trucking', id: 81 })">
+									<img src="images/fairfax/magz/trucking.jpg">
+								</a>
+							</div>
+							<div class="col-xs-2 mag">
+								<a ng-click="fx.select({ name: 'TV Guide', id: 74 })">
+									<img src="images/fairfax/magz/tv_guide.jpg">
+								</a>
+							</div>
+							<div class="col-xs-2 mag">
+								<a ng-click="fx.select({ name: 'World', id: 85 })">
+									<img src="images/fairfax/magz/world.jpg">
+								</a>
+							</div>
+							<div class="col-xs-1 mag"></div>							
+						</div>
+						<div class="row magz" >
+							<div class="col-xs-1 mag"></div>
+							<div class="col-xs-2 mag">
+								<a ng-click="fx.select({ name: 'NZ Farmer', id: 126 })">
+									<img src="images/fairfax/magz/nz_farmer.jpg">
+								</a>
+							</div>
+							<div class="col-xs-2 mag">								
+							</div>
+							<div class="col-xs-2 mag">
+								<a ng-click="fx.select({ name: 'Fishing News', id: 77 })">
+									<img src="images/fairfax/magz/fishing_news.jpg">
+								</a>
+							</div>
+							<div class="col-xs-2 mag">								
+							</div>
+							<div class="col-xs-2 mag">
+								<a ng-click="fx.select({ name: 'AgTrader', id: 125 })">
+									<img src="images/fairfax/magz/agtrader.jpg">
+								</a>
+							</div>
+							<div class="col-xs-1 mag"></div>							
+						</div>
+					</div>
+					<h2>Documents for {{ fx.selected ? fx.selected.name : "All Magz" }} </h2>
+					<div class="input-group mc">
+						<span class="input-group-btn">
+							<button class="custom btn btn-sm"><i class="fa fa-search fa-2x"></i></button>
+						</span>
+						<input type="text" class="form-control master" ng-model="masterFilter" placeholder="begin typing to see filtered results">
+					</div>
+					<div ng-if="fx.pricing" class="mag text-left ctr-container">
+						<div class="pricing wide ctr-item">
+							<h5 class="text-center">Pricing Table for {{ fx.selected.name }}</h5>
+							<table >						
+								<tr><th>Type</th><th ng-repeat="header in fx.pricing"> {{ header.pay_type }} </th></tr>
+								<tr><td>Six Month:</td> 
+									<td ng-repeat="p in fx.pricing">{{ p.six_month | currency }}</td>
+								</tr>
+								<tr><td>One Year:</td> 
+									<td ng-repeat="p in fx.pricing">{{ p.one_year | currency }}</td>
+								</tr>	
+								<tr><td>1 Year AUS:</td> 
+									<td ng-repeat="p in fx.pricing">{{ p.one_year_aus | currency }}</td>
+								</tr>
+								<tr><td>1 Year ROW:</td> 
+									<td ng-repeat="p in fx.pricing">{{ p.one_year_row | currency }}</td>
+								</tr>
+								<tr><td>2 Years:</td> 
+									<td ng-repeat="p in fx.pricing">{{ p.two_years | currency }}</td>
+								</tr>
+								<tr><td>3 Years:</td> 
+									<td ng-repeat="p in fx.pricing">{{ p.three_years | currency }}</td>
+								</tr>	
+								<tr><td>Bank Acct:</td> 
+									<td ng-repeat="p in fx.pricing">{{ p.bank | currency }}</td>
+								</tr>
+								<tr><td>Credit Card:</td> 
+									<td ng-repeat="p in fx.pricing">{{ p.credit | currency }}</td>
+								</tr>			
+							</table>
+						</div>
+						<div ng-if="fx.ses" class=" ctr-item pricing">
+							<h5 class="text-center">Special Editions for {{ fx.selected.name }} </h5>
+							<h6 class="text-center">(Click title to see pricing)</h6>
+							<p class="se" ng-repeat="se in fx.ses" ng-click="fx.getSePricing(se)"> {{ se.name }} </p>
+							<p class="se alert alert-info" ng-if="fx.ses.length == 0" > 
+								{{fx.selected.name}} has no Special Editions 
+							</p>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+					<div class="row" ng-if="fx.currentSE">
+						<div class="col-xs-12 sePricing pricing">
+							<h5 class="text-center">Pricing Table for {{ fx.currentSE.name }}</h5>
+							<table >	
+								<tr>					
+									<th>NZ Delivery</th>
+									<th>AU Delivery</th>
+									<th>ROW Delivery</th>
+									<th>Subscribers</th>
+									<th>Standard</th>
+								</tr>
+								<tr>
+									<td>{{ fx.currentSE.pricing.nz_delivery | currency }}</td>
+									<td>{{ fx.currentSE.pricing.au_delivery | currency }}</td>
+									<td>{{ fx.currentSE.pricing.row_delivery | currency }}</td>
+									<td>{{ fx.currentSE.pricing.subscribers | currency }}</td>
+									<td>{{ fx.currentSE.pricing.standard | currency }}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-6">
+							<div class="peter-river-flat-button category">
+								Marketing Campaigns
+								<div ng-hide="fx.marketing && fx.marketing.length > 0" class="alert alert-warning">
+									No documents with tag <span>{{ fx.tagPrefix }}-marketing<span>
+								</div>
+								<div class="links text-left">
+									<a 	ng-href="{{doc.resources.html.ref}}" target="_blank"
+										ng-repeat="doc in fx.marketing | filter:masterFilter" >
+									<!-- <i class="fa fa-connectdevelop"></i> --> 
+									{{ fx.parseSubject(doc.subject) }}
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="peter-river-flat-button category">
+								Processes
+								<div ng-hide="fx.process && fx.process.length > 0" class="alert alert-warning">
+									No documents with tag <span>{{ fx.tagPrefix }}-process<span>
+								</div>
+								<div class="links text-left">
+									<a 	ng-href="{{doc.resources.html.ref}}" target="_blank"
+										ng-repeat="doc in fx.process | filter:masterFilter" >
+									<!-- <i class="fa fa-connectdevelop"></i> -->
+									{{ fx.parseSubject(doc.subject) }}
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="launchers row">
+					<div class="col-xs-2 text-center">
+						<a target="_blank" href="https://www.getmags.co.nz/">
+							<img class="extLink" src="images/fairfax/dd.jpg" alt="Direct Debit Request">
+						</a>
+					</div>
+					<div class="col-xs-2 text-center">
+						<a target="_blank" href="http://www.mags4gifts.co.nz/">
+							<img class="extLink" src="images/fairfax/m4g.jpg" alt="Mags 4 Gifts">
+						</a>
+					</div>
+					<div class="col-xs-2 text-center">
+						<a target="_blank" href="http://www.isubscribe.com/splash/index.html">
+							<img class="extLink" src="images/fairfax/isub.jpg" alt="iSubscribe">
+						</a>
+					</div>
+					<div class="col-xs-2 text-center">
+						<a target="_blank" href="https://www.nzpost.co.nz/tools/address-postcode-finder">
+							<img class="extLink" src="images/fairfax/nzp.jpg" alt="Post Code Finder">
+						</a>
+					</div>
+					<div class="col-xs-4 text-center">
+						<a target="_blank" href="https://docs.google.com/a/fairfaxmedia.co.nz/forms/d/1VfzZ_itWjI7yrwbvdhiKL8Azga lamfsZL_-hwxWMFg4/viewform">
+							<img style="max-width: 250px;" class="extLink" src="images/fairfax/digcom.jpg" alt="Digi Com">
+						</a>
+					</div>
+				</div>
+				<div class="row row-centered tabContainer">
+					<div class="col-xs-6">
+						<div class="peter-river-flat-button category">
+							Billing
+							<div ng-hide="fx.billing && fx.billing.length > 0" class="alert alert-warning">
+								No documents with tag <span>{{ fx.tagPrefix }}-billing<span>
+							</div>
+							<div class="links text-left">
+								<a 	ng-href="{{doc.resources.html.ref}}" target="_blank"
+									ng-repeat="doc in fx.billing | filter:masterFilter" >
+								<!-- <i class="fa fa-connectdevelop"></i> -->
+								{{ fx.parseSubject(doc.subject) }}
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="peter-river-flat-button category">
+							Systems
+							<div ng-hide="fx.system && fx.system.length > 0" class="alert alert-warning">
+								No documents with tag <span>{{ fx.tagPrefix }}-system<span>
+							</div>
+							<div class="links text-left">
+								<a 	ng-href="{{doc.resources.html.ref}}" target="_blank"
+									ng-repeat="doc in fx.system | filter:masterFilter" >
+								<!-- <i class="fa fa-connectdevelop"></i> -->
+								{{ fx.parseSubject(doc.subject) }}
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			<div class="col-xs-3 gamificationColumn">
+				<div class=" widgetContainer">
+					<div class=" gameContainer">
+						<div class="row text-center">
+							<h4 class="gHeader">Top Missions</h4>
+							<div class="gInfo">Hover over a badge to see its description.</div>
+							<div class="col-xs-1 text-center gBadge" ng-repeat="m in fx.top_three">
+								<img show-title game="m" ng-src="{{m.badge_url}}" ng-alt="{{ m.bunchball_name }}" >
+								<div class="gTitle hide"> {{ m.bunchball_name }} </div>
+								<div class="gDescContainer" ng-if="m.game_type == 'EmpowerMission'">
+									<span class="gDesc"> {{ m.game.metric_name }} </span>
+									<span class="gDesc">Target: {{ m.game.target }} </span>
+								</div>
+								<div class="gDescContainer" ng-if="m.game_type == 'JiveMission'">
+									<span class="gDesc"> Jive Mission </span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="text-center">
+						<a id="toGame" class="btn btn-sm btn-success" ng-click="cdc.go('gamification-central')">Gamification Home</a>
+					</div> -->
+					<leaderboard people="fx.leaders" user="fx.currentUser"></leaderboard>
+				</div>
+			</div>
+			
+		<overlay-two 
+			loading="fx.postingComment" 
+			new-comment="fx.newComment(body)" 
+			show-new="fx.showNew" 
+			set-show-new="fx.setShowNew()" 
+			comments="fx.testComments"
+			show-on="fx.showDocOverlay"
+			>
+		</overlay-two>
+		<div id="sub-overlay-unique" class="hide"></div>
+		</div>
+		<unread-messages></unread-messages>
+</div>
+	
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/angular.min.js"></script>
+<script type="text/javascript" src="javascripts/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="javascripts/navigation.js"></script>
+<script type="text/javascript" src="javascripts/gadget-helper.js"></script>
+<script type="text/javascript" src="javascripts/templates.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/ng/apps/MasterApp.js"></script>
+<script type="text/javascript" src="javascripts/ng/factories/suburbs.js"></script>
+<script type="text/javascript" src="javascripts/ng/factories/redeliveries.js"></script>
+<script type="text/javascript" src="javascripts/ng/controllers/messages/UnreadMessages.js"></script>
+<script type="text/javascript" src="javascripts/fairfax/ng-fairfax.js"></script>
+<script type="text/javascript">
+	
+</script>

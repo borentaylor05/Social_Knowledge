@@ -1,0 +1,451 @@
+<!--[if IE 9]>
+    <script src="//cdn.rawgit.com/jpillora/xdomain/0.7.3/dist/xdomain.min.js" slave="https://lit-inlet-2632.herokuapp.com/web/IE9/proxy.html"></script>
+<![endif]-->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/simple-sidebar.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/fairfax/internal.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/fairfax/care-metro.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/message.css" type="text/css" media="screen" />
+
+<div class="main" ng-app="App" >
+	<div ng-controller="Fairfax as fx" set-type="amm-care-metro">		
+		<div class="wrapper">
+			<div class="row"> 
+				<div class="col-xs-9 row contentColumn">
+					<div class="col-xs-12">
+						<img class="pull-left main-logo" src="images/fx.jpg">
+						<h2 class="header main-header pull-left">AU AMM Care Knowledge Base 
+							<!-- <button class="btn btn-md btn-primary" id="trades" ng-click="fx.go('nz-sales-trades')">Go to NZ IB Sales Trades Home</button> -->
+						</h2>
+						<div style="clear:both;"></div>
+						<ul class="breadcrumb text-left"></ul>
+					</div>
+					<div class="text-center ctr" ng-hide="fx.metro_inited">
+						<h1>Select Tier 1 or Tier 2</h1>
+						<button ng-click="fx.initMetro(1)" class="btn btn-info btn-xl round">
+							<span class="block">Tier</span>
+							<span class="block">1</span>
+						</button>
+						<button ng-click="fx.initMetro(2)" class="btn btn-success btn-xl round">
+							<span class="block">Tier</span>
+							<span class="block">2</span>
+						</button>
+					</div>
+					<div class="row" ng-show="fx.metro_inited">
+						<div class="col-xs-12">					
+							<div class="pubContainer">								
+								<div class="row row-centered pubs">
+									<div class="col-xs-3">
+										<a ng-click="fx.select({ name: 'The Age', id: 124 })">
+											<img class="extLink ow" src="images/fairfax/age.jpg" alt="The Age">
+										</a>
+									</div>
+									<div class="col-xs-3">
+										<a ng-click="fx.select({ name: 'Newcastle Herald', id: 130 })">
+											<img class="extLink ow" src="images/fairfax/nh.jpg" alt="NH">
+										</a>
+									</div>
+									<div class="col-xs-3">
+										<a ng-click="fx.select({ name: 'Australia Financial Review', id: 131 })">
+											<img class="extLink ow" src="images/fairfax/afr.jpg" alt="AFR">
+										</a>
+									</div>
+									<div class="col-xs-3">
+										<a ng-click="fx.select({ name: 'Sydney Morning Herald', id: 67 })">
+											<img class="extLink ow" src="images/fairfax/smh.jpg" alt="Sydney Morning Herald">
+										</a>
+									</div>
+								</div>
+							</div>													
+							<div class="row launchers">
+								<div class="col-xs-3">
+									<button class="btn btn-md btn-info" ng-click="fx.openOverlay('metro-rates')">Credit Calculator</button>
+								</div>
+								<div class="col-xs-2 text-center">
+									<a target="_blank" href="https://www.nzpost.co.nz/tools/address-postcode-finder">
+										<img class="extLink" src="images/fairfax/nzp.jpg" alt="Post Code Finder">
+									</a>
+								</div>	
+								<div class="col-xs-2 text-center">
+									<a target="_blank" href="http://bluecard.ffxnz.co.nz/">
+										<img class="extLink" src="images/fairfax/bc.jpg" alt="Blue Card">
+									</a>
+								</div>								
+								<div class="col-xs-2 text-center">
+									<a target="_blank" href="http://www.online-spellcheck.com/">
+										<img class="extLink" src="images/fairfax/sc.jpg" alt="SpellChecker">
+									</a>
+								</div>
+								<div class="col-xs-3">
+									<button class="btn btn-md btn-info" ng-click="fx.openOverlay('metro-newsagent')">News Agent</button>
+								</div>
+							</div>
+							<div ng-show="(fx.pubSelected || fx.suburbs.length > 0) && !fx.selected.mag" class="specContainer row slide-vert" >							
+							</div>
+							<!-- Ads Geos Deadlines --> 
+							<div class="row row-centered tabContainer">
+								<h1 class="header"> {{ fx.careOrSales | splitCap }} Documents 
+									<span class="block">For {{ fx.selected.name || "All Publications" }}</span>
+								</h1>
+								<div class="input-group mc">
+									<span class="input-group-btn">
+										<button class="custom btn btn-sm"><i class="fa fa-search fa-2x"></i></button>
+									</span>
+									<input type="text" class="form-control master" ng-model="masterFilter" placeholder="begin typing to see filtered results">
+								</div>
+								<div class="col-xs-4">
+									<div class="peter-river-flat-button category">
+										Marketing
+										<div ng-hide="fx.marketing && fx.marketing.length > 0" class="alert alert-warning">
+											No documents with tag <span>{{ fx.tagPrefix }}-marketing<span>
+										</div>
+										<div class="links text-left">
+											<a 	ng-href="{{doc.resources.html.ref}}" target="_blank"
+												ng-repeat="doc in fx.adclassification | filter:masterFilter" >
+											<!-- <i class="fa fa-connectdevelop"></i> -->
+											{{ fx.parseSubject(doc.subject) }}
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-4">
+									<div class="peter-river-flat-button category">
+										Geos & Mastheads
+										<div ng-hide="fx.geos && fx.geos.length > 0" class="alert alert-warning">
+											No documents with tag <span>{{ fx.tagPrefix }}-geos<span>
+										</div>
+										<div class="links text-left">
+											<a 	ng-href="{{doc.resources.html.ref}}" target="_blank"
+												ng-repeat="doc in fx.geos | filter:masterFilter" >	
+											{{ fx.parseSubject(doc.subject) }}
+											<!-- <a open-overlay="fx.showDocOverlay" 
+												opendoc="DOC-1601" 
+												get-comments="fx.getComments(doc)">
+												 <i class="fa fa-connectdevelop"></i> 
+												Billing
+											</a> -->
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-4">
+									<div class="peter-river-flat-button category">
+										Applications
+										<div ng-hide="fx.applications && fx.applications.length > 0" class="alert alert-warning">
+											No documents with tag <span>{{ fx.tagPrefix }}-applications<span>
+										</div>
+										<div class="links text-left">
+											<a 	ng-href="{{doc.resources.html.ref}}" target="_blank"
+												ng-repeat="doc in fx.applications | filter:masterFilter" >	
+											{{ fx.parseSubject(doc.subject) }}									
+										</div>
+									</div>									
+								</div>
+							</div>
+							<div class="pubContainer">
+								<div class="row row-centered pubs">
+									<div class="col-xs-3">
+										<a target="_blank" href="https://membership.fairfax.com.au/Admin/Login.aspx">
+											<img class="extLink ow" src="images/fairfax/au/member_admin.jpg" alt="Membership Admin">
+										</a>
+									</div>
+									<div class="col-xs-3">
+										<a target="_blank" href="https://www.zuora.com/apps/home.do">
+											<img class="extLink ow" src="images/fairfax/au/zuora.jpg" alt="Zuora">
+										</a>
+									</div>
+									<div class="col-xs-3">
+										<a target="_blank" href="https://fairfaxmedia.zendesk.com/access/normal">
+											<img class="extLink ow" src="images/fairfax/au/zen.jpg" alt="Zendesk">
+										</a>
+									</div>
+									<div class="col-xs-3">
+										<a target="_blank" href="http://fax.ffx.jfh.com.au/">
+											<img class="extLink ow" src="images/fairfax/au/msg_manager.jpg" alt="Message Manager">
+										</a>
+									</div>
+								</div>
+								<div class="row row-centered pubs" style="margin-top:20px;">
+									<div class="col-xs-3">
+										<a href="#" target="_blank">
+											<img class="extLink ow" src="images/fairfax/sf.jpg" alt="The Age">
+										</a>
+									</div>
+									<div class="col-xs-3">
+										<a target="_blank" href="https://int.myfairfax.com.au/crm/customer/profile">
+											<img class="extLink ow" src="images/fairfax/au/hag.jpg" alt="Hagrid">
+										</a>
+									</div>
+									<div class="col-xs-3">
+										<a target="_blank" href="https://www.google.com.au/maps">
+											<img class="extLink ow" src="images/fairfax/au/gmaps.jpg" alt="Google Maps">
+										</a>
+									</div>
+									<div class="col-xs-3">
+										<a href="#" target="_blank">
+											<img class="extLink ow" src="images/fairfax/sf.jpg" alt="Herald">
+										</a>
+									</div>
+								</div>
+							</div>
+							<!-- Subscription Maintenance - Customer Maintenance - Complaint Management --> 
+							<div class="row row-centered tabContainer">
+								<div class="col-xs-4">
+									<div class="peter-river-flat-button category">
+										Subscription Maintenance
+										<div ng-hide="fx.subscriptionmaintenance && fx.subscriptionmaintenance.length > 0" class="alert alert-warning">
+											No documents with tag <span>{{ fx.tagPrefix }}-subscriptionmaintenance<span>
+										</div>
+										<div class="links text-left">
+											<a 	ng-href="{{doc.resources.html.ref}}" target="_blank"
+												ng-repeat="doc in fx.subscriptionmaintenance | filter:masterFilter" >
+											<!-- <i class="fa fa-connectdevelop"></i> -->
+											{{ fx.parseSubject(doc.subject) }}
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-4">
+									<div class="peter-river-flat-button category">
+										Customer Maintenance
+										<div ng-hide="fx.customermaintenance && fx.customermaintenance.length > 0" class="alert alert-warning">
+											No documents with tag <span>{{ fx.tagPrefix }}-customermaintenance<span>
+										</div>
+										<div class="links text-left">
+											<a 	ng-href="{{doc.resources.html.ref}}" target="_blank"
+												ng-repeat="doc in fx.customermaintenance | filter:masterFilter" >	
+											{{ fx.parseSubject(doc.subject) }}
+											</a>									
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-4">
+									<div class="peter-river-flat-button category">
+										Complaint Management
+										<div ng-hide="fx.complaintmanagement && fx.complaintmanagement.length > 0" class="alert alert-warning">
+											No documents with tag <span>{{ fx.tagPrefix }}-complaintmanagement<span>
+										</div>
+										<div class="links text-left">
+											<a 	ng-href="{{doc.resources.html.ref}}" target="_blank"
+												ng-repeat="doc in fx.complaintmanagement | filter:masterFilter" >
+											<!-- <i class="fa fa-connectdevelop"></i> -->
+											{{ fx.parseSubject(doc.subject) }}
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row row-centered tabContainer">
+								<div class="col-xs-4">
+									<div class="peter-river-flat-button category">
+										Retentions
+										<div ng-hide="fx.retentions && fx.retentions.length > 0" class="alert alert-warning">
+											No documents with tag <span>{{ fx.tagPrefix }}-retentions<span>
+										</div>
+										<div class="links text-left">
+											<a 	ng-href="{{doc.resources.html.ref}}" target="_blank"
+												ng-repeat="doc in fx.retentions | filter:masterFilter" >
+											<!-- <i class="fa fa-connectdevelop"></i> -->
+											{{ fx.parseSubject(doc.subject) }}
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-4">
+									<div class="peter-river-flat-button category">
+										Email Templates
+										<div ng-hide="fx.emailtemplates && fx.emailtemplates.length > 0" class="alert alert-warning">
+											No documents with tag <span>{{ fx.tagPrefix }}-emailtemplates<span>
+										</div>
+										<div class="links text-left">
+											<a 	ng-href="{{doc.resources.html.ref}}" target="_blank"
+												ng-repeat="doc in fx.emailtemplates | filter:masterFilter" >	
+											{{ fx.parseSubject(doc.subject) }}
+											</a>									
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-4">
+									<div class="peter-river-flat-button category">
+										Trading Room
+										<div ng-hide="fx.tradingroom && fx.tradingroom.length > 0" class="alert alert-warning">
+											No documents with tag <span>{{ fx.tagPrefix }}-tradingroom<span>
+										</div>
+										<div class="links text-left">
+											<a 	ng-href="{{doc.resources.html.ref}}" target="_blank"
+												ng-repeat="doc in fx.tradingroom | filter:masterFilter" >
+											<!-- <i class="fa fa-connectdevelop"></i> -->
+											{{ fx.parseSubject(doc.subject) }}
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Top Call Drivers --> 
+							<div class="row row-centered tabContainer">
+								<div class="col-xs-4">
+									<div class="peter-river-flat-button category">
+										Top Call Drivers
+										<div ng-hide="fx.top && fx.top.length > 0" class="alert alert-warning">
+											No documents with tag <span>{{ fx.tagPrefix }}-top<span>
+										</div>
+										<div class="links text-left">
+											<a 	ng-href="{{doc.resources.html.ref}}" target="_blank"
+												ng-repeat="doc in fx.top | filter:masterFilter" >	
+											{{ fx.parseSubject(doc.subject) }}
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-8">
+									<div class="btn peter-river-flat-button xl" switch-wb frame="fx.whiteboard">
+										<i class="fa fa-retweet fa-4x"></i>
+										<span>Toggle Whiteboard</span> <span class="bold">Current: {{fx.whiteboard}}</span>
+									</div>
+								</div>
+							</div>
+							<iframe ng-if="fx.whiteboard == 'care'" src="https://docs.google.com/a/fairfaxmedia.co.nz/forms/d/1TtgUXuUZn_jbGDXwMMybgvbx8H-Wwi6h6_i77DRD1Cw/viewform" frameborder="0"></iframe>
+							<iframe ng-if="fx.whiteboard == 'retentions'" src="https://docs.google.com/a/fairfaxmedia.co.nz/forms/d/1TtgUXuUZn_jbGDXwMMybgvbx8H-Wwi6h6_i77DRD1Cw/viewform" frameborder="0"></iframe>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-3 gamificationColumn">
+					<div class=" widgetContainer">
+						<div class=" gameContainer">
+							<div class="row text-center">
+								<h4 class="gHeader">Top Missions</h4>
+								<div class="gInfo">Hover over a badge to see its description.</div>
+								<div class="col-xs-1 text-center gBadge" ng-repeat="m in fx.top_three">
+									<img show-title game="m" ng-src="{{m.badge_url}}" ng-alt="{{ m.bunchball_name }}" >
+									<div class="gTitle hide"> {{ m.bunchball_name }} </div>
+									<div class="gDescContainer" ng-if="m.game_type == 'EmpowerMission'">
+										<span class="gDesc"> {{ m.game.metric_name }} </span>
+										<span class="gDesc">Target: {{ m.game.target }} </span>
+									</div>
+									<div class="gDescContainer" ng-if="m.game_type == 'JiveMission'">
+										<span class="gDesc"> {{ m.bunchball_name }} </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- <div class="text-center">
+							<a id="toGame" class="btn btn-sm btn-success" ng-click="cdc.go('gamification-central')">Gamification Home</a>
+						</div> -->
+						<leaderboard people="fx.leaders" user="fx.currentUser"></leaderboard>
+					</div>
+				</div>
+			
+		<!--	<div id="whiteboard" class="text-center">	
+				<iframe seamless='seamless' frameBorder="0" style="width: 95%; height: 800px; margin-top:30px;" src="//172.31.1.54:88"></iframe>
+			</div> -->
+			<!-- Page Content -->
+			<div id="utilOverlay" class="container overlay text-left" ng-if="fx.showOverlay">
+				<i class="fa fa-close fa-2x pointer" ng-click="fx.closeOverlay()"></i>
+				<div ng-switch="fx.currentView">
+					<div id="metroRates" class="row" ng-switch-when="metro-rates">
+						<div class="cc col-xs-5" id="suspensionCredit">
+							<h3>Suspension Credit Calculator</h3>
+							<form class="ccForm">
+								<label>$ Paid Last Month</label>
+								<label class="currencyinput">&nbsp $ <input ng-model="fx.suspensionCC.paymentAmount" step="any" min="0" id="lastAmount" type="number" ng-change="fx.setCCPaymentAmount(fx.suspensionCC.paymentAmount)"></label>
+								
+								<label>First day of non-delivery</label>
+								<span class="dateLabel" >Month</span>
+								<select ng-change="fx.getDaysAgo(fx.suspensionCC.date,fx.suspensionCC.date2)" ng-model="fx.suspensionCC.date.month" ng-options="n for n in [] | range:1:13"></select>
+
+								<span class="dateLabel" >Day</span>
+								<select ng-change="fx.getDaysAgo(fx.suspensionCC.date,fx.suspensionCC.date2)" ng-model="fx.suspensionCC.date.day" id="day" ng-options="n for n in [] | range:1:32"></select>
+
+								<span class="dateLabel">Year</span>
+								<select ng-change="fx.getDaysAgo(fx.suspensionCC.date,fx.suspensionCC.date2)" ng-model="fx.suspensionCC.date.year" id="year" ng-options="n for n in [] | range:2015:2013"></select><br/>
+
+								<label>Date of recommencement</label>
+								<span class="dateLabel" >Month</span>
+								<select ng-change="fx.getDaysAgo(fx.suspensionCC.date,fx.suspensionCC.date2)" ng-model="fx.suspensionCC.date2.month" ng-options="n for n in [] | range:1:13"></select>
+
+								<span class="dateLabel" >Day</span>
+								<select ng-change="fx.getDaysAgo(fx.suspensionCC.date,fx.suspensionCC.date2)" ng-model="fx.suspensionCC.date2.day" id="day2" ng-options="n for n in [] | range:1:32"></select>
+
+								<span class="dateLabel">Year</span>
+								<select ng-change="fx.getDaysAgo(fx.suspensionCC.date,fx.suspensionCC.date2)" ng-model="fx.suspensionCC.date2.year" id="year2" ng-options="n for n in [] | range:2015:2013"></select><br/>
+								<div class="alert alert-info" ng-if="fx.ccDaysAgo">Total Days {{ fx.ccDaysAgo }} </div>
+								<div class="alert alert-success" ng-if="fx.ccSuspensionAmount"> CREDIT: {{ fx.ccSuspensionAmount.credit | currency }} --- Daily Rate: {{ fx.ccSuspensionAmount.daily | currency }} </div>
+							</form>
+						</div>
+						<div class="col-xs-2"></div>
+						<div class="cc col-xs-5" id="suspensionCredit">	
+							<h3>Missed Delivery Credit</h3>						
+							<form class="ccForm">
+								<label>$ Paid Last Month</label>
+								<label class="currencyinput">&nbsp $ <input ng-model="fx.delCredit.paymentAmount" step="any" min="0" id="lastAmount" type="number" ng-change="fx.getDelCredit()"></label>
+								
+								<label> Days Missed </label>
+								<input ng-model="fx.delCredit.daysMissed" step="any" min="0" type="number" ng-change="fx.getDelCredit()">
+								<div class="alert alert-success" ng-if="fx.delCreditAmount"> CREDIT: {{ fx.delCreditAmount.credit | currency }} --- Daily Rate: {{ fx.delCreditAmount.daily | currency }} </div>
+							</form>
+						</div>
+					</div>
+					<div id="metroNA" ng-switch-when="metro-newsagent">
+						<h3 class="thin text-center">Enter Your Code</h3>
+						<div class="resultsContainer text-center">
+							<form ng-submit="fx.getNewsAgent(na)">
+								<div class="input-group ctr">
+									<span class="input-group-btn">
+										<button class="custom btn btn-sm"><i class="fa fa-search fa-2x"></i></button>
+									</span>
+									<input type="text" class="form-control custom" ng-model="na" placeholder="Search for News Agent" ng-change="fx.clearNA()">
+								</div>
+							</form>
+							
+							<div class="naResults text-center ctr">	
+								<loader loading="fx.loading.na" size="3em"></loader>
+								<div class="alert alert-danger big" ng-show="fx.naError">{{ fx.naError }}</div>
+								<div ng-if="fx.showNA">
+									<p class="thin">Results for Code <span class="bold">{{ na }}</span> </p>
+									<div class="row h">
+										<div class="col-xs-7 item h">News Agent</div>
+										<div class="col-xs-1 item h"></div>
+										<div class="col-xs-4 item h">Fax Number / Email Address</div>
+									</div>
+									<div class="row res">
+										<div class="col-xs-7 big thin"> {{ fx.na.agent }} </div>
+										<div class="col-xs-1"></div>
+										<div class="col-xs-4 big thin"> {{ fx.na.fax_email }} </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<overlay-two 
+			loading="fx.postingComment" 
+			new-comment="fx.newComment(body)" 
+			show-new="fx.showNew" 
+			set-show-new="fx.setShowNew()" 
+			comments="fx.testComments"
+			show-on="fx.showDocOverlay"
+			>
+		</overlay-two>
+		<div id="sub-overlay-unique" class="hide"></div>
+	</div>
+	<unread-messages></unread-messages>
+</div>
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/angular.min.js"></script>
+<script type="text/javascript" src="javascripts/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="javascripts/navigation.js"></script>
+<script type="text/javascript" src="javascripts/gadget-helper.js"></script>
+<script type="text/javascript" src="javascripts/templates.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/ng/apps/MasterApp.js"></script>
+<script type="text/javascript" src="javascripts/ng/factories/suburbs.js"></script>
+<script type="text/javascript" src="javascripts/ng/factories/redeliveries.js"></script>
+<script type="text/javascript" src="javascripts/ng/controllers/messages/UnreadMessages.js"></script>
+<script type="text/javascript" src="javascripts/fairfax/ng-fairfax.js"></script>
+<script type="text/javascript">
+	
+</script>

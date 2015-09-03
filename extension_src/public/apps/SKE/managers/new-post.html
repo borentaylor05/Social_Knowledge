@@ -1,0 +1,163 @@
+<!--<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css" media="screen" /> -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/simple-sidebar.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/managers/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/managers/posts.css" type="text/css" media="screen" />
+
+
+<div class="container clearfix navContainer">
+	<div class="navbar-header ">
+	  <a class="navbar-brand" href="#">SKE Management</a>
+	</div>
+</div>
+
+<div class="container main" id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    Actions
+                </a>
+            </li>
+            <ul class="navList">
+			</ul>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+	<div id="page-content-wrapper" class="container main text-left">
+		<ul class="breadcrumb text-left">
+		</ul>
+		<div class="row">
+			<div class="col-xs-2"><h1>Posts</h1></div>
+			<div class="col-xs-2">
+				<button class="btn btn-info btn-md" id="newPost" data-toggle="modal" data-target="#myModal"><i class="fa fa-file-text"></i>&nbsp New Post</button>
+			</div>
+		</div>
+		<div class="container" id="postContainer">
+			<!-- Populated Dynamically by post.display() -->
+		</div>
+		<div class="overlay hide">
+			<button id="favorite" class="btn btn-md btn-info"><i class="fa fa-plus"></i>&nbsp Add to Favorites</button>
+			<div class="navigation">
+				
+			</div>
+			<div class="doc-container"></div>
+		</div>   
+	</div><!-- /#page-content-wrapper -->
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">New Post</h4>
+        <p>This post will be placed on the home page of the specified client</p>
+      </div>
+      <div class="modal-body text-center">
+        <div id="select-menu" class="btn-group btn-input clearfix">
+		  	<button id="clients" type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+		    <span data-bind="label">Select Client</span> <span class="caret"></span>
+		  	</button>
+		  	<ul class="dropdown-menu text-left" role="menu">
+		  		<li><a class="client" data-client="everyone" href="#">All</a></li>
+		    	<li><a class="client" data-client="all" href="#">Site Managers</a></li>
+		    	<li><a class="client" data-client="arc" href="#">ARC</a></li>
+		    	<li><a class="client" data-client="cdc" href="#">CDC</a></li>
+		    	<li><a class="client" data-client="fairfax" href="#">Fairfax</a></li>
+		    	<li><a class="client" data-client="hrsa" href="#">HRSA</a></li>
+		    	<li><a class="client" data-client="hyundai" href="#">Hyundai</a></li>
+		    	<li><a class="client" data-client="spark" href="#">Spark</a></li>
+		    	<li><a class="client" data-client="ww" href="#">WW</a></li>
+		  	</ul>
+		  </div>
+
+		  <label>Title:</label>
+		  <input type="text" class="form-control" id="postTitle" placeholder="Type a descriptive title here">
+		  <label>Body:</label>
+		  <textarea class="form-control" id="postBody" rows="3" placeholder="Type your post here"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button data-id="" id="savePost" type="button" class="btn btn-primary">Post</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="javascripts/gadget-helper.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/doc.js"></script>
+<script type="text/javascript" src="javascripts/post.js"></script>
+<script type="text/javascript" src="javascripts/navigation.js"></script>
+<script type="text/javascript">
+	gadgets.util.registerOnLoadHandler(function() {
+		gadgets.window.adjustHeight();
+		navigation.init(gadgets.views.getParams(), function(){
+			navigation.makeLinks();
+			var client = null;
+			post.display(null, function(){
+				$(".showDoc").each(function(){
+					$(this).on("click touch", function(e){
+						e.preventDefault();
+						util.get_doc_html($(this).attr("id"), function(api_id){
+							util.showFeatureBtn(gadgets.views.getParams().my.id.toString(), api_id);
+						});
+						$(".overlay").removeClass("hide");
+					});
+				});
+			});
+			$("#newPost").on("click touch", function(e){
+				e.preventDefault();
+				$("#postBody").val("");
+				client = null;
+				$("#clients").children().first().text("Select Client");
+			});
+			$(".client").each(function(){
+				$(this).on("click touch", function(e){
+					e.preventDefault();
+					$("#clients").children().first().text($(this).text());
+					client = $(this).attr("data-client");
+				});
+			});
+			$("#savePost").on("click touch", function(e){
+				e.preventDefault();
+				if(!client){
+					$(".modal-body").prepend("<div class='alert alert-danger'>You must select a client.</div>");
+				}
+				else{
+					if($("#postBody").val().length < 1 || $("#postTitle").val().length < 1){
+						$(".alert-danger").remove();
+						$(".modal-body").prepend("<div class='alert alert-danger'>You must enter the title and body.</div>");
+					}
+					else{
+						$("div.alert").addClass("hide");
+						var params = {
+							text: $("#postBody").val(),
+							client: client,
+							title: $("#postTitle").val(),
+							jive_id: gadgets.views.getParams().my.id
+						}
+						post.save(params, function(resp){
+							$("#savePost").addClass("hide");
+							if(JSON.parse(resp.text).status == 1)
+								util.clearAndAlert($(".modal-body"), "success", "Post successfully saved!");
+							else
+								util.clearAndAlert($(".modal-body"), "danger", "Something went wrong...");
+						});
+					}
+				}	
+			});
+		});
+	//	users.getAll(0);
+	});
+</script>
