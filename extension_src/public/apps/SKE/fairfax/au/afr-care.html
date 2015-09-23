@@ -12,7 +12,7 @@
 <div class="allContainer" ng-app="App" ng-controller="Fairfax as fx">
 	<!--  Master Row  -->
 	<div class="row">
-		<div class="col-xs-9 row contentColumn fixMargin" ng-controller="AuCare as au">			
+		<div class="col-xs-9 row contentColumn fixMargin" ng-controller="AuCare as au" set-care-type="au-care-afr">			
 			<div class="col-xs-12">
 				<img class="pull-left main-logo" src="images/fx.jpg">
 				<h2 class="header main-header pull-left">AU Care Knowledge Base</h2>
@@ -54,7 +54,7 @@
 							</a>
 							<span class="col-xs-5">Zuora</span>
 						</h3>
-						<div class="catDocs" >
+						<div class="catDocs2" >
 							<p class="doc"><i class="fa fa-file-text-o"></i>Document Link</p>
 						</div>
 					</div>
@@ -67,7 +67,7 @@
 							</a>
 							<span class="col-xs-6">Zendesk</span>
 						</h3>
-						<div class="catDocs" >
+						<div class="catDocs2" >
 							<p class="doc"><i class="fa fa-file-text-o"></i>Document Link</p>
 						</div>
 					</div>
@@ -80,7 +80,7 @@
 							</a>
 							<span class="col-xs-6">Hagrid</span>
 						</h3>
-						<div class="catDocs" >
+						<div class="catDocs2" >
 							<p class="doc"><i class="fa fa-file-text-o"></i>Document Link</p>
 						</div>
 					</div>
@@ -90,7 +90,7 @@
 				<div class="col-xs-4 auCat">
 					<div class="auCatContainer">
 						<h3 class="auCatHeader row">Mediaplus</h3>
-						<div class="catDocs" >
+						<div class="catDocs2" >
 							<p class="doc"><i class="fa fa-file-text-o"></i>Document Link</p>
 						</div>
 					</div>
@@ -98,7 +98,7 @@
 				<div class="col-xs-4 auCat">
 					<div class="auCatContainer">
 						<h3 class="auCatHeader row">Membership Admin</h3>
-						<div class="catDocs" >
+						<div class="catDocs2" >
 							<p class="doc"><i class="fa fa-file-text-o"></i>Document Link</p>
 						</div>
 					</div>
@@ -106,8 +106,13 @@
 				<div class="col-xs-4 auCat">
 					<div class="auCatContainer ">
 						<h3 class="auCatHeader row">Benefits Management</h3>
-						<div class="catDocs" >
-							<p class="doc"><i class="fa fa-file-text-o"></i>Document Link</p>
+						<div class="catDocs2" >
+							<p class="doc" ng-repeat="doc in au.marketing">
+								<i class="fa fa-file-text-o"></i>
+								<a target="_blank" ng-href="{{doc.resources.html.ref}}">
+									{{doc.subject}}
+								</a>
+							</p>
 						</div>
 					</div>
 				</div>
@@ -119,7 +124,7 @@
 				<div class="col-xs-4 auCat" ng-repeat="gcat in au.generalDocsRow1">
 					<div class="auCatContainer">
 						<h3 class="auCatHeader">{{ gcat.title }}</h3>
-						<div class="catDocs" ng-repeat="doc in gcat.docs">
+						<div class="catDocs2" ng-repeat="doc in gcat.docs">
 							<p class="doc"><i class="fa fa-file-text-o"></i>{{ doc.title }}</p>
 						</div>
 					</div>
@@ -129,7 +134,7 @@
 				<div class="col-xs-4 auCat" ng-repeat="gcat in au.generalDocsRow2">
 					<div class="auCatContainer">
 						<h3 class="auCatHeader">{{ gcat.title }}</h3>
-						<div class="catDocs" ng-repeat="doc in gcat.docs">
+						<div class="catDocs2" ng-repeat="doc in gcat.docs">
 							<p class="doc"><i class="fa fa-file-text-o"></i>{{ doc.title }}</p>
 						</div>
 					</div>
@@ -139,7 +144,7 @@
 				<div class="col-xs-4 auCat" ng-repeat="gcat in au.generalDocsRow3">
 					<div class="auCatContainer">
 						<h3 class="auCatHeader">{{ gcat.title }}</h3>
-						<div class="catDocs" ng-repeat="doc in gcat.docs">
+						<div class="catDocs2" ng-repeat="doc in gcat.docs">
 							<p class="doc"><i class="fa fa-file-text-o"></i>{{ doc.title }}</p>
 						</div>
 					</div>

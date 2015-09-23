@@ -5,14 +5,21 @@
 	box-shadow: 3px 3px 3px #CCC;
 	padding-right: 0px;
 	margin-bottom: 10px;
-	height: 200px;
+	height: 250px;
 }
 .auCatContainer > .catDocs{			
 	border-radius: 2px;
+	overflow: auto;
+}
+.auCatContainer > .catDocs2{			
+	border-radius: 2px;
+	overflow: auto;
+	height: 200px;
 }
 .auCat{
 	padding-left: 5px;
 	padding-right: 5px;
+	height: 200px;	
 }
 .auCatHeader{
 	background-color: #34495D;
@@ -41,25 +48,30 @@
 .row.fixMargin{
 	margin-left: 15px;
 }
-.catDocs{
+.catDocs, .catDocs2{
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 2px;
 	padding-bottom: 2px;
 }
-.catDocs > .doc{
+.catDocs > .doc, .catDocs2 > .doc{
 	padding: 3px;
 	border-bottom: 1px solid #EEE;
 	margin-bottom: 0px;
 	font-size: 1.3rem;
 	font-weight: 200;
 }
-.catDocs > .doc:hover{
+.catDocs > .doc:hover, .catDocs2 > .doc:hover{
 	color: white;
 	cursor: pointer;
 	background-color: rgba(71,151,200, 1);
 }
-.catDocs > .doc:hover i{
+.catDocs > .doc:hover a, .catDocs2 > .doc:hover a{
+	color: white;
+	cursor: pointer;
+	background-color: rgba(71,151,200, 1);
+}
+.catDocs > .doc:hover i, .catDocs2 > .doc:hover i{
 	color: white;
 }
 .doc > i{
@@ -143,7 +155,7 @@ h1.au{
 #carabao{
 	max-width: 90%;
 }
-.catDocs.long{
+.catDocs.long, .catDocs2.long{
 	padding-left: 20px;
 }
 #ci > img{
@@ -162,4 +174,7 @@ h1.au{
 .row.sf img{
 	max-width: 200px;
 	padding: 4px;
+}
+.row.cats{
+	height: 260px;
 }

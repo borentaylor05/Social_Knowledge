@@ -327,16 +327,19 @@ app.controller("Fairfax", ['$http', '$scope', '$sce', 'classifications', 'suburb
 	};
 	fx.getDeadlines = function(pub){
 		fx.dlSelected = pub;
+		fx.showDeadlinePublications = false;
 		$http.get(util.rails_env.current+"/fairfax/deadlines/publication?pub="+pub).success(function(resp){
 			fx.allDeadlines = JSON.parse(resp).deadlines;
-			fx.filter = null;
+			fx.filter = "";
 		});
 	};
 	fx.getByCat = function(cat){
 		classifications.getByCat(cat.id).success(function(resp){
 			resp = JSON.parse(resp);
-			if(status === 0)
+			if(resp.status === 0){				
 				fx.classifications = resp.c;
+				console.log(fx.classifications);
+			}
 		}).error(function(err){
 			alert("Error getting class titles from factory.");
 		//	console.log(err);
@@ -367,7 +370,7 @@ app.controller("Fairfax", ['$http', '$scope', '$sce', 'classifications', 'suburb
 		});
 	};
 	fx.clearDeadlines = function(){
-		fx.allDeadlines = [];
+		fx.showDeadlinePublications = true;
 	};
 	fx.clearClass = function(){
 		fx.classifications = [];
@@ -458,6 +461,7 @@ app.controller("Fairfax", ['$http', '$scope', '$sce', 'classifications', 'suburb
 	};
 	// gets publications for deadlines
 	fx.getPubs = function(dl){
+		fx.showDeadlinePublications = true;
 		fx.showDeadlines = dl;
 		$http.get(util.rails_env.current+"/fairfax/publications").success(function(resp){
 			if(typeof resp == "string")

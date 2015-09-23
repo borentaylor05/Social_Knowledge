@@ -335,8 +335,10 @@ app.controller("Fairfax", ['$http', '$scope', '$sce', 'classifications', 'suburb
 	fx.getByCat = function(cat){
 		classifications.getByCat(cat.id).success(function(resp){
 			resp = JSON.parse(resp);
-			if(status === 0)
+			if(resp.status === 0){				
 				fx.classifications = resp.c;
+				console.log(fx.classifications);
+			}
 		}).error(function(err){
 			alert("Error getting class titles from factory.");
 		//	console.log(err);

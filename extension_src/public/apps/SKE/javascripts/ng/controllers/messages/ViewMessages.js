@@ -34,7 +34,7 @@ app.controller("ViewMessages", ['messages', function(messages){
 			window._jive_current_user = user.content;
 			window._jive_current_user.username = user.content.jive.username;
 			view.user = {
-				jive_id: window._jive_current_user.id
+				jive_id: window._jive_current_user.id;
 			}
 			gadgets.window.adjustHeight();
 			gadgets.window.adjustWidth();

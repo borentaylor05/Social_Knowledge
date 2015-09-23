@@ -3,14 +3,19 @@ function toggle(v){
 	v = !v;
 }
 
+app.directive("setCareType", function(){
+	return function(scope, el, attrs){
+		scope.au.baseType = attrs.setCareType;
+	};
+});
+
 app.controller("AuCare", function($scope){
 	var au = this;
 	au.currentView = "";
-	au.genDocs = "";
-	au.tagPrefix = "au-care-all"; // initialize pub to all
+	au.baseType = "";
+	au.genDocs = "";	
 	au.categories = ['marketing'];
 	au.showBPP = false;
-
 	au.globalCatsRow1 = templates.auCare.globalCatsRow1;
 	au.globalCatsRow2 = templates.auCare.globalCatsRow2;
 	au.generalDocsRow1 = templates.auCare.generalDocsRow1;
@@ -43,7 +48,7 @@ app.controller("AuCare", function($scope){
 	};
 	au.select = function(pub){
 		au.resetDocs(function(){
-			au.tagPrefix = "au-care-"+pub;
+			au.tagPrefix = au.baseType+"-"+pub;
 			au.getCategories();
 		});		
 	};
@@ -76,7 +81,16 @@ app.controller("AuCare", function($scope){
 		}
 		cb();
 	};
-
-	au.getCategories();
+	gadgets.util.registerOnLoadHandler(function() {
+		navigation.init(gadgets.views.getParams(), function(){						
+			setTimeout(function(){
+				if(au.baseType == "au-care")
+					au.tagPrefix = au.baseType+"-all"; // initialize pub to all
+				else
+					au.tagPrefix = au.baseType; // afr does not have pubs so tag is just au-afr-care
+				au.getCategories();
+			}, 700);
+		});
+	});	
 
 });
