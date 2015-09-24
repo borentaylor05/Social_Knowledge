@@ -384,13 +384,13 @@
 							<input type="text" class="form-control" ng-model="fx.filter" placeholder="search or begin typing to filter results">
 						</div>
 					</form>
-					<div class="pubContainer" ng-show="fx.allDeadlines.length == 0">
+					<div class="pubContainer" ng-show="fx.showDeadlinePublications">
 						<p ng-repeat="pub in fx.pubs | filter:fx.filter">
 							<button class="btn btn-xs btn-info get" ng-click="fx.getDeadlines(pub)">Get Deadlines</button>
 							<span> {{ pub }} </span>
 						</p>
 					</div>
-					<div ng-if="fx.allDeadlines.length > 0">
+					<div ng-hide="fx.showDeadlinePublications">
 						<div class="text-center">
 							<h4>Showing deadlines for: {{ fx.dlSelected }}</h4>
 							<button class="btn btn-xs btn-warning" ng-click="fx.clearDeadlines()">Clear and Show Publications</button>

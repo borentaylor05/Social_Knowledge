@@ -327,9 +327,10 @@ app.controller("Fairfax", ['$http', '$scope', '$sce', 'classifications', 'suburb
 	};
 	fx.getDeadlines = function(pub){
 		fx.dlSelected = pub;
+		fx.showDeadlinePublications = false;
 		$http.get(util.rails_env.current+"/fairfax/deadlines/publication?pub="+pub).success(function(resp){
 			fx.allDeadlines = JSON.parse(resp).deadlines;
-			fx.filter = null;
+			fx.filter = "";
 		});
 	};
 	fx.getByCat = function(cat){
@@ -369,7 +370,7 @@ app.controller("Fairfax", ['$http', '$scope', '$sce', 'classifications', 'suburb
 		});
 	};
 	fx.clearDeadlines = function(){
-		fx.allDeadlines = [];
+		fx.showDeadlinePublications = true;
 	};
 	fx.clearClass = function(){
 		fx.classifications = [];
@@ -460,6 +461,7 @@ app.controller("Fairfax", ['$http', '$scope', '$sce', 'classifications', 'suburb
 	};
 	// gets publications for deadlines
 	fx.getPubs = function(dl){
+		fx.showDeadlinePublications = true;
 		fx.showDeadlines = dl;
 		$http.get(util.rails_env.current+"/fairfax/publications").success(function(resp){
 			if(typeof resp == "string")

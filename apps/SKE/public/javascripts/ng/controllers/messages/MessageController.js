@@ -15,7 +15,8 @@ app.controller("MessageController", ['$scope', '$sce', '$http', function($scope,
 			urgent: urgent,
 			body: msg
 		}
-		$http.post(util.rails_env.current+"/message", params).success(function(resp){
+		console.log(params);
+		$http.post(util.rails_env.current+"/message", {params: params}).success(function(resp){
 			resp = util.fixResp(resp);
 			msgs.messageSent = true;
 			msgs.status = resp.status;
